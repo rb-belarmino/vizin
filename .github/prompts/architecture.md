@@ -22,8 +22,9 @@ Estamos desenvolvendo um sistema de economia circular para condomínios usando N
 
 ## Stack Técnica:
 
-- Framework: Next.js (App Router)
-- Banco: NeonDB
-- Auth: NextAuth
-- Validação: Zod
-- Estilização: Tailwind CSS + Lucide React (Ícones)
+- **Framework:** Next.js (App Router).
+- **Banco de Dados:** NeonDB (PostgreSQL Serverless).
+- **ORM:** **Prisma ORM**.
+- **Autenticação:** **NextAuth.js (Auth.js v4)** + Prisma Adapter.
+- **Validação:** Zod.
+- **UI:** shadcn/ui + Tailwind CSS + Inter Font.
