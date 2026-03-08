@@ -1,63 +1,46 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
-import { getServerSession } from 'next-auth/next'
+import { prisma } from '@/infrastructure/db/client' // <-- ACERTO 1: adicionei chaves aqui
+import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 
 export async function createService(formData: FormData) {
   try {
-    // 1. Verify if the user is truly authenticated
     const session = await getServerSession(authOptions)
 
-    // Console log de debug! Veja o que imprime no terminal quando clica no botão:
-    console.log('SESSION NA ACTION:', session)
-
-    if (!session || !session.user) {
-      return { error: 'Não autorizado. Você precisa estar logado.' }
-    }
-
-    // 2. Extração segura com fallback
-    const userId = (session.user as any).id
+    // <-- ACERTO 2: forçamos o TypeScript a entender que temos o id
+    const userId = (session?.user as any)?.id
 
     if (!userId) {
-      console.log('ERRO: O Token ta vindo sem ID do DB!')
-      return { error: 'Erro de autenticação interno. Refaça o login.' }
+      return { success: false, error: 'Usuário não autenticado.' }
     }
 
-    // 3. Extract the form data submitted by the user
     const title = formData.get('title') as string
     const description = formData.get('description') as string
     const category = formData.get('category') as string
     const contact = formData.get('contact') as string
+    const websiteUrl = formData.get('websiteUrl') as string | null
+    const imageUrl = formData.get('imageUrl') as string | null
 
-    // 4. Basic Validation
-    if (!title || !description || !category) {
-      return { error: 'Título, descrição e categoria são campos obrigatórios.' }
+    if (!title || !description || !category || !contact) {
+      return { success: false, error: 'Preencha todos os campos obrigatórios.' }
     }
 
-    if (description.length < 10) {
-      return {
-        error:
-          'A descrição precisa ter pelo menos 10 caracteres para ajudar seus vizinhos a entenderem melhor.'
-      }
-    }
-
-    // 5. Create the Service in the Database, bound to the authenticated User
-    await prisma.service.create({
+    const newService = await prisma.service.create({
       data: {
-        title: title.trim(),
-        description: description.trim(),
-        category: category.trim(),
-        contact: contact ? contact.trim() : null,
-        providerId: userId // The foreign key associating the service to the resident
+        title,
+        description,
+        category,
+        contact,
+        websiteUrl: websiteUrl || null,
+        imageUrl: imageUrl || null,
+        providerId: userId
       }
     })
 
-    return { success: true }
+    return { success: true, service: newService }
   } catch (error) {
-    // --- ADICIONE ESTA LINHA PARA VERMOS O ERRO REAL ---
-    console.error('ERRO FATAL NO PRISMA AO CRIAR SERVICO:', error)
-
-    return { error: 'Ocorreu um erro interno ao salvar o serviço.' }
+    console.error('Erro ao criar serviço:', error)
+    return { success: false, error: 'Erro interno ao criar o serviço.' }
   }
 }

@@ -95,6 +95,7 @@ model Service {
   category    String // ex: "Alimentação", "Manutenção", "Aulas", etc
   contact     String? // Um número de WhatsApp público do serviço (se o usuário quiser)
   imageUrl    String? // Futura feature para o prestador subir a logo da marmita
+  websiteUrl  String? // Futura feature para o prestador colocar um link externo (ex: Instagram, WhatsApp, etc)
 
   // Controle de Estado
   isActive  Boolean  @default(true) // O vizinho tirou férias? Pode desligar.
