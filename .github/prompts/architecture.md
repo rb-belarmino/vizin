@@ -11,7 +11,7 @@ Estamos desenvolvendo um sistema de economia circular para condomínios usando N
 4. **Repositórios:** Use o padrão Repository para abstrair o acesso ao banco de dados.
 5. **Clean Code:** Nomes de variáveis semânticos em inglês, funções pequenas (SRT), e tratamento de erros consistente.
 6. **UI:** Use componentes funcionais, Tailwind para estilização e siga o padrão de Composition Pattern.
-7. **Códigos** Responder o codigo no chat em inglês.
+7. **Códigos** Responder o codigo no chat e em caso de comentários dentro do código, colocá-los em inglês.
 
 ## Regras de UI (shadcn/ui):
 
