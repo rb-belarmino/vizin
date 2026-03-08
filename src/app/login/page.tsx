@@ -13,35 +13,56 @@ import {
   CardHeader,
   CardTitle
 } from '@/presentation/components/ui/card'
-import { Label } from '@radix-ui/react-label' // Instale (@radix-ui/react-label) ou substitua por <label> nativo se preferir.
 import { Loader2 } from 'lucide-react'
 import Link from 'next/link'
+import { toast } from 'sonner' // Impotando o Sonner no Login
 
 export default function LoginPage() {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsLoading(true)
-    setError(null)
 
-    // Chama o provedor "credentials" que criamos no auth.ts
+    const trimmedEmail = email.trim()
+    const trimmedPassword = password.trim()
+
+    // --- Nova Validação de UX (Campos Vazios) ---
+    if (!trimmedEmail) {
+      toast.warning('Atenção', {
+        description: 'Por favor, preencha o seu endereço de e-mail.'
+      })
+      return
+    }
+
+    if (!trimmedPassword) {
+      toast.warning('Atenção', {
+        description: 'Por favor, preencha a sua senha.'
+      })
+      return
+    }
+
+    setIsLoading(true)
+
     const result = await signIn('credentials', {
-      email,
-      password,
-      redirect: false // Evita recarga padrão da página para tratarmos o erro no client
+      email: trimmedEmail,
+      password: trimmedPassword,
+      redirect: false
     })
 
     if (result?.error) {
-      setError('Credenciais inválidas. Verifique seu e-mail e senha.')
+      toast.error('Acesso negado', {
+        description:
+          'Credenciais inválidas. Verifique seu e-mail e senha e tente novamente.'
+      })
       setIsLoading(false)
     } else {
-      // Login com sucesso, redireciona o morador para o dashboard/home
-      router.push('/dashboard') // Altere a rota de sucesso conforme sua necessidade
+      toast.success('Login realizado com sucesso!', {
+        description: 'Redirecionando para o painel...'
+      })
+      router.push('/dashboard')
       router.refresh()
     }
   }
@@ -58,14 +79,8 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} noValidate>
           <CardContent className="space-y-4">
-            {error && (
-              <div className="p-3 text-sm text-red-500 bg-red-50 rounded-md border border-red-200 text-center">
-                {error}
-              </div>
-            )}
-
             <div className="space-y-2">
               <label
                 htmlFor="email"
@@ -79,7 +94,6 @@ export default function LoginPage() {
                 placeholder="nome@exemplo.com"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                required
                 disabled={isLoading}
               />
             </div>
@@ -92,8 +106,6 @@ export default function LoginPage() {
                 >
                   Senha
                 </label>
-                {/* Futuro Link para "Esqueci a senha" */}
-                {/* <Link href="/forgot-password" className="text-xs text-primary hover:underline">Esqueceu a senha?</Link> */}
               </div>
               <Input
                 id="password"
@@ -101,7 +113,6 @@ export default function LoginPage() {
                 placeholder="Sua senha"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
-                required
                 disabled={isLoading}
               />
             </div>

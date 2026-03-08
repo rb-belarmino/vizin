@@ -30,12 +30,14 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button
-            variant="outline"
-            className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
-          >
-            Login/Acesso
-          </Button>
+          <Link href="/login" passHref>
+            <Button
+              variant="outline"
+              className="border-indigo-600 text-indigo-600 hover:bg-indigo-50"
+            >
+              Login/Acesso
+            </Button>
+          </Link>
         </div>
       </div>
     </header>
