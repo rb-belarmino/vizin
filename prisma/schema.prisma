@@ -45,6 +45,7 @@ model User {
   // Relacionamentos NextAuth
   accounts Account[]
   sessions Session[]
+  services Service[]
 }
 
 // -----------------------------------------------------------------------------
@@ -85,4 +86,22 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Service {
+  id          String  @id @default(uuid())
+  title       String // ex: "Marmitas Congeladas da Maria"
+  description String  @db.Text // ex: "Opções fit e low-carb de segunda a sexta."
+  category    String // ex: "Alimentação", "Manutenção", "Aulas", etc
+  contact     String? // Um número de WhatsApp público do serviço (se o usuário quiser)
+  imageUrl    String? // Futura feature para o prestador subir a logo da marmita
+
+  // Controle de Estado
+  isActive  Boolean  @default(true) // O vizinho tirou férias? Pode desligar.
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Quem está oferecendo o serviço? (Chave Estrangeira)
+  providerId String
+  provider   User   @relation(fields: [providerId], references: [id], onDelete: Cascade)
 }
