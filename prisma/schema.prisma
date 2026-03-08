@@ -15,19 +15,21 @@ datasource db {
 // -----------------------------------------------------------------------------
 
 model Unit {
-  id         Int      @id @default(autoincrement())
-  block      String
-  number     String
-  accessCode String   @unique // Código entregue fisicamente para a unidade (Autenticação MVP)
-  createdAt  DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  block     String
+  number    String
+  createdAt DateTime @default(now())
 
   users User[]
+
+  @@unique([block, number])
 }
 
 model User {
   id        String   @id @default(uuid())
   fullName  String
   email     String   @unique
+  password  String?
   role      String   @default("resident")
   createdAt DateTime @default(now())
 
