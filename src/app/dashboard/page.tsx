@@ -53,8 +53,14 @@ export default async function DashboardPage() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            {/* Link para página pública (onde veríamos todos os anúncios do prédio) */}
-            <Link href="/servicos">
+            {/* NOVO: Botão para Voltar à Home Page */}
+            <Link href="/">
+              <Button variant="outline" className="border-slate-200">
+                Página Inicial
+              </Button>
+            </Link>
+
+            <Link href="/services">
               <Button
                 variant="secondary"
                 className="bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
