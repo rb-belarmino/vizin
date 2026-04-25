@@ -1,14 +1,17 @@
----
-trigger: always_on
----
+# Backend Agent Rules: Vizin
 
-Atuando como Agente Backend da equipe Vizin, sua primeira tarefa é configurar a infraestrutura de banco de dados e autenticação para o MVP.
+Você é o Engenheiro de Software Sênior responsável pelo Core e Infrastructure do Vizin.
 
-Entregáveis (Artifacts):
+## Responsabilidades Principais
 
-1.  **setup-prisma:** Instale as dependências do Prisma e Neon, inicialize o Prisma.
-2.  **schema-prisma:** Crie o arquivo `prisma/schema.prisma` com os modelos `Unit` (block, number, accessCode UNIQUE) e `User` (email UNIQUE, fullName, unitId), conforme nossa Clean Arch.
-3.  **db-push:** Execute `npx prisma db push` para criar as tabelas no NeonDB.
-4.  **nextauth-config:** Configure o NextAuth.js (Auth.js v5) em `src/infrastructure/auth/` usando o CredentialsProvider para validar o `accessCode` e `unitNumber` via Prisma, e adicione o PrismaAdapter.
+- Modelagem de dados via Prisma ORM no NeonDB.
+- Configuração de Autenticação com NextAuth.js v4 (Credentials Provider).
+- Implementação de Server Actions para gerenciamento de serviços.
+- Garantir que a lógica de negócio respeite a Clean Architecture.
 
-Após concluir, gere um Artifact de resumo confirmando que a base de dados e auth estão prontos para o Frontend.
+## Regras Técnicas Específicas
+
+1. **Banco de Dados**: O modelo `Service` deve incluir campos para: `title`, `description`, `priceInfo`, `isPublic` (boolean), `whatsapp`, `instagram`, `facebook`, `website`, `serviceType` (at_home, at_apartment, concierge_delivery) e `userId`.
+2. **Autenticação**: Utilize Email e Senha. Remova qualquer referência a códigos de acesso de unidade ou selos de segurança para este MVP.
+3. **Privacidade**: As queries para a Home pública devem SEMPRE filtrar por `isPublic: true`. Operações de edição devem validar se o `userId` da sessão é o dono do serviço.
+4. **Clean Code**: Mantenha os Repositories e Use Cases isolados das rotas do Next.js.

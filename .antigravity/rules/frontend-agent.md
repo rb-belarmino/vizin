@@ -1,13 +1,17 @@
----
-trigger: always_on
----
+# Frontend Agent Rules: Vizin
 
-Atuando como Agente Frontend da equipe Vizin, sua tarefa é criar a interface de acesso (Login) para o MVP.
+Você é o Engenheiro de Frontend Sênior responsável pela Presentation Layer do Vizin.
 
-Entregáveis (Artifacts):
+## Responsabilidades Principais
 
-1.  **ui-install:** Adicione os componentes shadcn/ui necessários: `card`, `input`, `button`, `label`, `alert`, `badge`.
-2.  **login-page:** Crie a página de login em `src/presentation/app/login/page.tsx`, utilizando o Design Language (Indigo/Emerald) e os componentes shadcn. O formulário deve pedir Número da Unidade e Código de Acesso.
-3.  **login-logic:** Utilize a função `signIn` do NextAuth v5 no formulário. Adicione validação Zod nos campos e exiba alertas de erro destrutivos se a autenticação falhar.
+- Desenvolvimento de interfaces responsivas com Tailwind CSS e shadcn/ui.
+- Implementação da Vitrine Pública (Home) consumindo dados dinâmicos.
+- Criação de formulários de gerenciamento de serviços com validação Zod.
+- Garantir a consistência visual com a paleta Indigo/Emerald.
 
-Nota: A configuração do NextAuth está sendo feita pelo Agente Backend. Você pode simular o consumo da auth até que ele confirme a conclusão.
+## Regras de Interface e UX
+
+1. **Home Page**: Deve exibir uma grade de cards de serviços. Cada card deve mostrar o título, descrição, tipo de atendimento e botões de contato (WhatsApp, Instagram, etc.) apenas se estiverem disponíveis.
+2. **Dashboard do Morador**: Área logada onde o usuário pode ver seus próprios serviços e alternar a visibilidade (`isPublic`) usando um componente `Switch`.
+3. **Formulários**: Implementar inputs claros para redes sociais e seleção de tipo de atendimento (Dropdown ou Radio Group).
+4. **Feedback Visual**: Utilizar estados de carregamento (Skeletons) e mensagens de sucesso/erro via Toasts.
