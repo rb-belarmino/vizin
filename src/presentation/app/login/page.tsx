@@ -4,6 +4,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter }
 import { Button } from "@/presentation/components/ui/button";
 import { Input } from "@/presentation/components/ui/input";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -66,6 +67,14 @@ export default function LoginPage() {
             </Button>
           </form>
         </CardContent>
+        <CardFooter className="flex justify-center border-t p-4">
+          <p className="text-sm text-slate-600">
+            Não tem conta?{" "}
+            <Link href="/signup" className="text-indigo-600 hover:text-indigo-800 font-semibold hover:underline">
+              Cadastre-se aqui
+            </Link>
+          </p>
+        </CardFooter>
       </Card>
     </div>
   );

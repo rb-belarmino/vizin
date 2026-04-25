@@ -35,7 +35,9 @@ export default async function DashboardPage() {
     <div className="container mx-auto py-10 px-4 md:px-6 max-w-5xl">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Meu Dashboard</h1>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">
+            Olá, Ap {session?.user?.unitNumber || "101"}!
+          </h1>
           <p className="text-muted-foreground mt-1">
             Gerencie seus serviços anunciados no Vizin.
           </p>

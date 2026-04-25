@@ -22,12 +22,16 @@ export const authConfig = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
+        // @ts-ignore
+        token.unitNumber = user.unitNumber;
       }
       return token;
     },
     async session({ session, token }) {
       if (token && session.user) {
         session.user.id = token.id as string;
+        // @ts-ignore
+        session.user.unitNumber = token.unitNumber as string;
       }
       return session;
     }
