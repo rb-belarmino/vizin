@@ -1,5 +1,18 @@
 {
-  "node": {},
+  "node": {
+    "40496a0e72d72080d2478e78bd113167365ce56477": {
+      "workers": {
+        "app/dashboard/new/page": {
+          "moduleId": "[project]/.next-internal/server/app/dashboard/new/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/infrastructure/actions/service-actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": true,
+          "exportedName": "createServiceAction",
+          "filename": "src/infrastructure/actions/service-actions.ts"
+        }
+      },
+      "filename": "src/infrastructure/actions/service-actions.ts",
+      "exportedName": "createServiceAction"
+    }
+  },
   "edge": {},
   "encryptionKey": "LK66yafO8kFyt6Q54P9OeZBngjzCldB0E+9FJOR2t9g="
 }

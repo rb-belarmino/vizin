@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { toast } from "sonner";
 import { ArrowLeft } from "lucide-react";
+import { createServiceAction } from "@/infrastructure/actions/service-actions";
 
 import { Button } from "@/presentation/components/ui/button";
 import { Input } from "@/presentation/components/ui/input";
@@ -73,25 +74,32 @@ export default function NewServicePage() {
     try {
       // Limpa a máscara do WhatsApp (deixa apenas números) antes de enviar para a Action
       const payload = {
-        ...data,
+        title: data.title,
+        description: data.description,
+        serviceType: data.serviceType,
+        isPublic: data.isPublic,
         whatsapp: data.whatsapp ? data.whatsapp.replace(/\D/g, "") : null,
+        website: data.socialLink || null, // Mapeia o link genérico para website
       };
 
-      console.log("Submitting service payload:", payload);
+      console.log("Payload enviado para a Action:", payload);
 
-      // TODO: Conectar com a Action real do Backend quando disponível
-      // const result = await createServiceAction(payload);
+      const result = await createServiceAction(payload);
       
-      // Simulação da Action
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      console.log("Resposta da Action:", result);
+
+      if (!result.success) {
+        toast.error(result.message);
+        return;
+      }
       
       toast.success("Serviço anunciado com sucesso!");
       router.push("/dashboard");
       router.refresh();
       
     } catch (error) {
-      console.error(error);
-      toast.error("Ocorreu um erro ao salvar o serviço.");
+      console.error("Erro capturado no onSubmit:", error);
+      toast.error("Ocorreu um erro inesperado ao salvar o serviço.");
     } finally {
       setIsLoading(false);
     }
