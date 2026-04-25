@@ -14,6 +14,7 @@ import { Button } from '@/presentation/components/ui/button'
 import { Input } from '@/presentation/components/ui/input'
 import { Textarea } from '@/presentation/components/ui/textarea'
 import { Switch } from '@/presentation/components/ui/switch'
+import ImageUpload from '@/presentation/components/services/image-upload'
 import {
   Form,
   FormControl,
@@ -57,6 +58,11 @@ const serviceSchema = z.object({
   }),
   socialLink: z.string().url('URL inválida').optional().or(z.literal('')),
   whatsapp: z.string().optional().or(z.literal('')),
+  imageUrl: z
+    .string()
+    .url('URL da imagem inválida')
+    .optional()
+    .or(z.literal('')),
   isPublic: z.boolean()
 })
 
@@ -75,6 +81,7 @@ export default function NewServicePage() {
       serviceType: undefined,
       socialLink: '',
       whatsapp: '',
+      imageUrl: '',
       isPublic: true
     }
   })
@@ -90,7 +97,8 @@ export default function NewServicePage() {
         serviceType: data.serviceType,
         isPublic: data.isPublic,
         whatsapp: data.whatsapp ? data.whatsapp.replace(/\D/g, '') : null,
-        website: data.socialLink || null // Mapeia o link genérico para website
+        website: data.socialLink || null, // Mapeia o link genérico para website
+        imageUrl: data.imageUrl || null
       }
 
       console.log('Payload enviado para a Action:', payload)
@@ -181,7 +189,9 @@ export default function NewServicePage() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Gastronomia">Gastronomia</SelectItem>
+                          <SelectItem value="Gastronomia">
+                            Gastronomia
+                          </SelectItem>
                           <SelectItem value="Reformas">Reformas</SelectItem>
                           <SelectItem value="Aulas">Aulas</SelectItem>
                           <SelectItem value="Beleza">Beleza</SelectItem>
@@ -244,6 +254,23 @@ export default function NewServicePage() {
                     <FormDescription>
                       Seja claro e atraente para convencer seus vizinhos.
                     </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="imageUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Foto do Serviço</FormLabel>
+                    <FormControl>
+                      <ImageUpload
+                        value={field.value || ''}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

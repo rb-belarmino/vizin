@@ -9,9 +9,10 @@ import {
 } from '@/presentation/components/ui/card'
 import { Badge } from '@/presentation/components/ui/badge'
 import { Button } from '@/presentation/components/ui/button'
-import { MessageCircle, Globe, UtensilsCrossed, Hammer, BookOpen, Sparkles, HeartPulse, Package, Share2 } from 'lucide-react'
+import { MessageCircle, Globe, UtensilsCrossed, Hammer, BookOpen, Sparkles, HeartPulse, Package, Share2, Camera } from 'lucide-react'
 import { FaInstagram, FaFacebook } from 'react-icons/fa'
 import { cn } from "@/presentation/lib/utils";
+import Image from "next/image";
 
 import { Suspense } from "react";
 import HomeFilters from "@/presentation/components/home-filters";
@@ -83,8 +84,31 @@ export default async function HomePage({
           {services.map(service => (
             <Card
               key={service.id}
-              className="flex flex-col h-full border-border/50 hover:shadow-lg transition-shadow duration-300"
+              className="flex flex-col h-full border-border/50 hover:shadow-lg transition-all duration-300 group overflow-hidden"
             >
+              {/* Service Image Section */}
+              <div className="relative h-48 w-full bg-slate-100 overflow-hidden border-b">
+                {service.imageUrl ? (
+                  <Image
+                    src={service.imageUrl}
+                    alt={service.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className={cn(
+                    "flex flex-col items-center justify-center h-full transition-colors duration-500",
+                    categoryColors[service.category] || categoryColors.Outros
+                  )}>
+                    {(() => {
+                      const Icon = categoryIcons[service.category] || categoryIcons.Outros;
+                      return <Icon className="h-12 w-12 opacity-40 animate-pulse" />;
+                    })()}
+                    <span className="mt-2 text-[10px] font-bold uppercase tracking-[0.2em] opacity-40">Vizin</span>
+                  </div>
+                )}
+              </div>
+
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex gap-2">

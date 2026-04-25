@@ -24,7 +24,14 @@ const createServiceSchema = z.object({
     {
       message: 'Selecione uma categoria válida'
     }
-  )
+  ),
+  imageUrl: z
+    .string()
+    .url('A URL da imagem deve ser válida')
+    .trim()
+    .optional()
+    .nullable()
+    .or(z.literal(''))
 })
 
 export async function createServiceAction(
