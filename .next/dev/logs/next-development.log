@@ -1,6 +1,22 @@
-{"timestamp":"00:00:00.980","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:06.985","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:07:17.210","source":"Server","level":"LOG","message":"✓ Compiled in 63ms"}
-{"timestamp":"00:07:37.282","source":"Server","level":"LOG","message":"✓ Compiled in 143ms"}
-{"timestamp":"00:10:20.214","source":"Server","level":"LOG","message":"✓ Compiled in 115ms"}
-{"timestamp":"00:10:30.900","source":"Server","level":"LOG","message":"✓ Compiled in 50ms"}
+{"timestamp":"00:00:00.893","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:01.452","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:05.282","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:12.320","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:00:15.140","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:36.862","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:01:03.820","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:01:05.215","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:01:05.397","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:01:05.581","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:01:05.748","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:01:05.932","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
+{"timestamp":"00:01:09.520","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"fdsfsfsdfsdfsdf\"}"}
+{"timestamp":"00:02:55.979","source":"Server","level":"LOG","message":"✓ Compiled in 575ms"}
+{"timestamp":"00:03:13.170","source":"Server","level":"LOG","message":"✓ Compiled in 226ms"}
+{"timestamp":"00:03:31.291","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:03:37.701","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
+{"timestamp":"00:03:37.701","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
+{"timestamp":"00:03:38.743","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoeniwpo0001at242dplmhld\""}
+{"timestamp":"00:03:38.744","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
+{"timestamp":"00:03:38.831","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
+{"timestamp":"00:03:38.831","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}

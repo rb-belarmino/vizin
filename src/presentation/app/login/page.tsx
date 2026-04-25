@@ -5,15 +5,39 @@ import { Button } from "@/presentation/components/ui/button";
 import { Input } from "@/presentation/components/ui/input";
 import { useState } from "react";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Integration with NextAuth credentials provider will happen here
-    console.log("Login attempt:", { email, password });
+    setIsLoading(true);
+    setErrorMsg(null);
+    
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result?.error) {
+        setErrorMsg("E-mail ou senha incorretos.");
+      } else {
+        router.push("/dashboard");
+        router.refresh();
+      }
+    } catch (error) {
+      setErrorMsg("Ocorreu um erro ao tentar fazer login.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -28,6 +52,11 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {errorMsg && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm font-medium text-center">
+              {errorMsg}
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <label htmlFor="email" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
@@ -41,6 +70,7 @@ export default function LoginPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 className="focus-visible:ring-indigo-600"
+                disabled={isLoading}
               />
             </div>
             <div className="space-y-2">
@@ -57,13 +87,15 @@ export default function LoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 className="focus-visible:ring-indigo-600"
+                disabled={isLoading}
               />
             </div>
             <Button 
               type="submit" 
               className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold transition-colors mt-6"
+              disabled={isLoading}
             >
-              Entrar
+              {isLoading ? "Entrando..." : "Entrar"}
             </Button>
           </form>
         </CardContent>

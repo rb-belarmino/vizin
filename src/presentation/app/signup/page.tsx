@@ -5,6 +5,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { registerUserAction } from "@/infrastructure/actions/auth-actions";
 
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/presentation/components/ui/card";
 import { Button } from "@/presentation/components/ui/button";
@@ -21,7 +24,7 @@ import {
 const signupSchema = z.object({
   fullName: z.string().min(1, "O nome completo é obrigatório"),
   email: z.string().email("E-mail inválido"),
-  unitNumber: z.string().min(1, "O número da unidade é obrigatório"),
+  unitNumber: z.string().min(1, "O número da unidade é obrigatório").regex(/^\d+$/, "Apenas números são permitidos"),
   password: z.string().min(6, "A senha deve ter no mínimo 6 caracteres"),
 });
 
@@ -29,6 +32,8 @@ type SignupFormValues = z.infer<typeof signupSchema>;
 
 export default function SignupPage() {
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const router = useRouter();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(signupSchema),
@@ -42,17 +47,32 @@ export default function SignupPage() {
 
   const onSubmit = async (data: SignupFormValues) => {
     setIsLoading(true);
+    setErrorMsg(null);
     try {
-      // Integration with backend registration will happen here
-      // Sending empty unitBlock to satisfy backend if needed, or backend can ignore it.
-      const payload = { ...data, unitBlock: "" };
-      console.log("Signup data:", payload);
+      // Chama a Server Action do backend
+      const result = await registerUserAction(data);
       
-      // Simulação de delay para loading state
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      if (!result.success) {
+        setErrorMsg(result.message);
+        return;
+      }
+
+      // Faz login automático após o cadastro
+      const signInResult = await signIn("credentials", {
+        redirect: false,
+        email: result.data?.email,
+        password: result.data?.password,
+      });
+
+      if (signInResult?.error) {
+        setErrorMsg("Conta criada, mas erro no login automático. Faça o login manualmente.");
+      } else {
+        router.push("/dashboard");
+      }
       
     } catch (error) {
       console.error(error);
+      setErrorMsg("Ocorreu um erro interno. Tente novamente mais tarde.");
     } finally {
       setIsLoading(false);
     }
@@ -70,6 +90,11 @@ export default function SignupPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
+          {errorMsg && (
+            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm font-medium text-center">
+              {errorMsg}
+            </div>
+          )}
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField
@@ -107,7 +132,7 @@ export default function SignupPage() {
                   <FormItem>
                     <FormLabel>Número da Unidade (Apartamento)</FormLabel>
                     <FormControl>
-                      <Input placeholder="Ex: 101, 204" {...field} />
+                      <Input type="number" placeholder="Ex: 106" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
