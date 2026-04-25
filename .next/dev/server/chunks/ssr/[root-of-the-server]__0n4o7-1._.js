@@ -54,17 +54,17 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$lib$2
 ;
 ;
 ;
-const badgeVariants = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$class$2d$variance$2d$authority$2f$dist$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cva"])("inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", {
+const badgeVariants = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$class$2d$variance$2d$authority$2f$dist$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["cva"])('inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2', {
     variants: {
         variant: {
-            default: "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
-            secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-            destructive: "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
-            outline: "text-foreground"
+            default: 'border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80',
+            secondary: 'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
+            destructive: 'border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80',
+            outline: 'text-foreground'
         }
     },
     defaultVariants: {
-        variant: "default"
+        variant: 'default'
     }
 });
 function Badge({ className, variant, ...props }) {
@@ -75,7 +75,7 @@ function Badge({ className, variant, ...props }) {
         ...props
     }, void 0, false, {
         fileName: "[project]/src/presentation/components/ui/badge.tsx",
-        lineNumber: 32,
+        lineNumber: 33,
         columnNumber: 5
     }, this);
 }
@@ -171,14 +171,15 @@ var __turbopack_async_dependencies__ = __turbopack_handle_async_dependencies__([
 ;
 ;
 ;
-const revalidate = 0; // Ensures it fetches dynamic data
+const revalidate = 0 // Ensures it fetches dynamic data
+;
 async function HomePage() {
     const services = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$infrastructure$2f$db$2f$client$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].service.findMany({
         where: {
             isPublic: true
         },
         orderBy: {
-            createdAt: "desc"
+            createdAt: 'desc'
         }
     });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -192,7 +193,7 @@ async function HomePage() {
                         children: "Vitrine Vizin"
                     }, void 0, false, {
                         fileName: "[project]/src/presentation/app/page.tsx",
-                        lineNumber: 19,
+                        lineNumber: 26,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -200,13 +201,13 @@ async function HomePage() {
                         children: "Descubra serviços incríveis oferecidos pelos seus vizinhos."
                     }, void 0, false, {
                         fileName: "[project]/src/presentation/app/page.tsx",
-                        lineNumber: 22,
+                        lineNumber: 29,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/presentation/app/page.tsx",
-                lineNumber: 18,
+                lineNumber: 25,
                 columnNumber: 7
             }, this),
             services.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -214,7 +215,7 @@ async function HomePage() {
                 children: "Nenhum serviço público disponível no momento."
             }, void 0, false, {
                 fileName: "[project]/src/presentation/app/page.tsx",
-                lineNumber: 28,
+                lineNumber: 35,
                 columnNumber: 9
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3",
@@ -231,7 +232,7 @@ async function HomePage() {
                                                 children: service.serviceType
                                             }, void 0, false, {
                                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                                lineNumber: 37,
+                                                lineNumber: 47,
                                                 columnNumber: 19
                                             }, this),
                                             service.priceInfo && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$badge$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Badge"], {
@@ -239,13 +240,13 @@ async function HomePage() {
                                                 children: service.priceInfo
                                             }, void 0, false, {
                                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                                lineNumber: 41,
+                                                lineNumber: 51,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 36,
+                                        lineNumber: 46,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardTitle"], {
@@ -253,7 +254,7 @@ async function HomePage() {
                                         children: service.title
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 46,
+                                        lineNumber: 56,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardDescription"], {
@@ -261,20 +262,20 @@ async function HomePage() {
                                         children: service.description
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 47,
+                                        lineNumber: 59,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                lineNumber: 35,
+                                lineNumber: 45,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardContent"], {
                                 className: "flex-grow"
                             }, void 0, false, {
                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                lineNumber: 52,
+                                lineNumber: 64,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["CardFooter"], {
@@ -294,17 +295,17 @@ async function HomePage() {
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                                lineNumber: 60,
+                                                lineNumber: 82,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/presentation/app/page.tsx",
-                                            lineNumber: 59,
+                                            lineNumber: 76,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 58,
+                                        lineNumber: 70,
                                         columnNumber: 19
                                     }, this),
                                     service.instagram && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
@@ -321,17 +322,17 @@ async function HomePage() {
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                                lineNumber: 67,
+                                                lineNumber: 99,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/presentation/app/page.tsx",
-                                            lineNumber: 66,
+                                            lineNumber: 93,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 65,
+                                        lineNumber: 87,
                                         columnNumber: 19
                                     }, this),
                                     service.facebook && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
@@ -348,17 +349,17 @@ async function HomePage() {
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                                lineNumber: 74,
+                                                lineNumber: 120,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/presentation/app/page.tsx",
-                                            lineNumber: 73,
+                                            lineNumber: 110,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 104,
                                         columnNumber: 19
                                     }, this),
                                     service.website && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$presentation$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Button"], {
@@ -375,17 +376,17 @@ async function HomePage() {
                                                 className: "h-4 w-4"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                                lineNumber: 81,
+                                                lineNumber: 141,
                                                 columnNumber: 23
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/presentation/app/page.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 131,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 125,
                                         columnNumber: 19
                                     }, this),
                                     !service.whatsapp && !service.instagram && !service.facebook && !service.website && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -393,30 +394,30 @@ async function HomePage() {
                                         children: "Nenhum contato disponível"
                                     }, void 0, false, {
                                         fileName: "[project]/src/presentation/app/page.tsx",
-                                        lineNumber: 86,
-                                        columnNumber: 19
+                                        lineNumber: 149,
+                                        columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/presentation/app/page.tsx",
-                                lineNumber: 56,
+                                lineNumber: 68,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, service.id, true, {
                         fileName: "[project]/src/presentation/app/page.tsx",
-                        lineNumber: 34,
+                        lineNumber: 41,
                         columnNumber: 13
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/src/presentation/app/page.tsx",
-                lineNumber: 32,
+                lineNumber: 39,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/presentation/app/page.tsx",
-        lineNumber: 17,
+        lineNumber: 24,
         columnNumber: 5
     }, this);
 }

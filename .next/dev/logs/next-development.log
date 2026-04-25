@@ -180,3 +180,13 @@
 {"timestamp":"00:05:22.041","source":"Server","level":"LOG","message":"✓ Compiled in 77ms"}
 {"timestamp":"00:05:58.122","source":"Server","level":"LOG","message":"✓ Compiled in 101ms"}
 {"timestamp":"00:06:00.075","source":"Server","level":"LOG","message":"✓ Compiled in 46ms"}
+{"timestamp":"00:06:51.410","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:00.962","source":"Server","level":"WARN","message":"[next-auth][warn][NEXTAUTH_URL] \"\\nhttps://next-auth.js.org/warnings#nextauth_url\""}
+{"timestamp":"00:07:00.962","source":"Server","level":"WARN","message":"[next-auth][warn][NO_SECRET] \"\\nhttps://next-auth.js.org/warnings#no_secret\""}
+{"timestamp":"00:07:01.046","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:01.358","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:59.263","source":"Server","level":"LOG","message":"✓ Compiled in 16ms"}
+{"timestamp":"00:08:09.285","source":"Server","level":"LOG","message":"✓ Compiled in 19ms"}
+{"timestamp":"00:10:51.806","source":"Server","level":"LOG","message":"✓ Compiled in 66ms"}
+{"timestamp":"00:10:53.701","source":"Server","level":"WARN","message":"⚠ The \"middleware\" file convention is deprecated. Please use \"proxy\" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy"}
+{"timestamp":"00:10:53.774","source":"Server","level":"LOG","message":"✓ Compiled in 45ms"}

@@ -1,5 +1,10 @@
-import { Skeleton } from "@/presentation/components/ui/skeleton";
-import { Card, CardHeader, CardContent, CardFooter } from "@/presentation/components/ui/card";
+import { Skeleton } from '@/presentation/components/ui/skeleton'
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter
+} from '@/presentation/components/ui/card'
 
 export default function Loading() {
   return (
@@ -34,5 +39,5 @@ export default function Loading() {
         ))}
       </div>
     </div>
-  );
+  )
 }
