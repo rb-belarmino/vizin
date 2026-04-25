@@ -1,6 +1,5 @@
 import prisma from "@/infrastructure/db/client";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/infrastructure/auth/auth.config";
+import { auth } from "@/infrastructure/auth/auth";
 import { redirect } from "next/navigation";
 import { LogoutButton } from "@/presentation/components/logout-button";
 import { Button } from "@/presentation/components/ui/button";
@@ -18,8 +17,7 @@ import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardPage() {
-  // O usuário pediu NextAuth v5 auth(), mas o projeto usa v4 com authOptions
-  const session = await getServerSession(authOptions);
+  const session = await auth();
   
   // @ts-ignore - a tipagem customizada do id está no session
   const userId = session?.user?.id;
