@@ -1,44 +1,24 @@
-import CredentialsProvider from "next-auth/providers/credentials";
-import type { NextAuthOptions } from "next-auth";
-import bcrypt from "bcryptjs";
-import prisma from "../db/client";
+import type { NextAuthConfig } from "next-auth";
 
-export const authOptions: NextAuthOptions = {
-  providers: [
-    CredentialsProvider({
-      name: "Credentials",
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
-      },
-      async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
-
-        const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
-        });
-
-        if (!user) {
-          return null;
-        }
-
-        const isPasswordValid = await bcrypt.compare(credentials.password, user.password);
-
-        if (!isPasswordValid) {
-          return null;
-        }
-
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.fullName,
-        };
-      }
-    })
-  ],
+// Esta configuração roda no Edge Runtime (Middleware/Proxy)
+// Aqui NÃO podemos importar bcryptjs ou Prisma
+export const authConfig = {
+  pages: {
+    signIn: "/login",
+  },
   callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+      
+      if (isOnDashboard) {
+        if (isLoggedIn) return true;
+        return false; // Redireciona para o login
+      } else if (isLoggedIn && nextUrl.pathname === '/login') {
+        return Response.redirect(new URL('/dashboard', nextUrl));
+      }
+      return true;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -47,16 +27,10 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token && session.user) {
-        // @ts-ignore - appending custom property to session user
         session.user.id = token.id as string;
       }
       return session;
     }
   },
-  session: {
-    strategy: "jwt"
-  },
-  pages: {
-    signIn: '/login',
-  }
-};
+  providers: [], // Os provedores reais ficam no auth.ts (Node Runtime)
+} satisfies NextAuthConfig;
