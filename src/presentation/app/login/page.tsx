@@ -7,6 +7,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -30,6 +31,7 @@ export default function LoginPage() {
       if (result?.error) {
         setErrorMsg("E-mail ou senha incorretos.");
       } else {
+        toast.success("Bem-vindo de volta!");
         router.push("/dashboard");
         router.refresh();
       }

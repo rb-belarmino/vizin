@@ -20,3 +20,27 @@
 {"timestamp":"00:03:38.744","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
 {"timestamp":"00:03:38.831","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
 {"timestamp":"00:03:38.831","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
+{"timestamp":"00:08:12.795","source":"Server","level":"LOG","message":"✓ Compiled in 55ms"}
+{"timestamp":"00:08:35.684","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
+{"timestamp":"00:08:36.107","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:09:07.527","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:09:14.035","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
+{"timestamp":"00:09:14.035","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
+{"timestamp":"00:09:14.178","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoeniwpo0001at242dplmhld\""}
+{"timestamp":"00:09:14.178","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
+{"timestamp":"00:09:14.254","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
+{"timestamp":"00:09:14.255","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
+{"timestamp":"00:11:41.341","source":"Server","level":"LOG","message":"✓ Compiled in 154ms"}
+{"timestamp":"00:12:13.527","source":"Server","level":"LOG","message":"✓ Compiled in 55ms"}
+{"timestamp":"00:12:45.830","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:13:42.728","source":"Browser","level":"LOG","message":"Submitting service payload: {\"description\":\"dasdasdlkal;d,kal;skd,a\",\"isPublic\":true,\"serviceType\":\"Portaria\",\"socialLink\":\"http://www.oi.com.br\",\"title\":\"Tech\",\"whatsapp\":\"21988212121\"}"}
+{"timestamp":"00:14:15.034","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:14:18.409","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:14:53.670","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
+{"timestamp":"00:14:53.671","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
+{"timestamp":"00:14:54.587","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoeniwpo0001at242dplmhld\""}
+{"timestamp":"00:14:54.587","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
+{"timestamp":"00:14:54.704","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
+{"timestamp":"00:14:54.704","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
+{"timestamp":"00:17:30.208","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:17:55.222","source":"Browser","level":"LOG","message":"Submitting service payload: {\"description\":\"mlsl;asmdl;samdf;lf\",\"isPublic\":true,\"serviceType\":\"Portaria\",\"socialLink\":\"http://www.dasda.com\",\"title\":\"Tech\",\"whatsapp\":\"4242424\"}"}
