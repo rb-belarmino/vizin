@@ -1,59 +1,33 @@
-{"timestamp":"00:00:00.893","source":"Server","level":"LOG","message":""}
-{"timestamp":"00:00:01.452","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:05.282","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:12.320","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:00:15.140","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:00:36.862","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:01:03.820","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:01:05.215","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:01:05.397","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:01:05.581","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:01:05.748","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:01:05.932","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"123456\"}"}
-{"timestamp":"00:01:09.520","source":"Browser","level":"LOG","message":"Login attempt: {\"email\":\"rb.belarmino@gmail.com\",\"password\":\"fdsfsfsdfsdfsdf\"}"}
-{"timestamp":"00:02:55.979","source":"Server","level":"LOG","message":"✓ Compiled in 575ms"}
-{"timestamp":"00:03:13.170","source":"Server","level":"LOG","message":"✓ Compiled in 226ms"}
-{"timestamp":"00:03:31.291","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:03:37.701","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
-{"timestamp":"00:03:37.701","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
-{"timestamp":"00:03:38.743","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoeniwpo0001at242dplmhld\""}
-{"timestamp":"00:03:38.744","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
-{"timestamp":"00:03:38.831","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
-{"timestamp":"00:03:38.831","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
-{"timestamp":"00:08:12.795","source":"Server","level":"LOG","message":"✓ Compiled in 55ms"}
-{"timestamp":"00:08:35.684","source":"Server","level":"LOG","message":"✓ Compiled in 9ms"}
-{"timestamp":"00:08:36.107","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:09:07.527","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:09:14.035","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
-{"timestamp":"00:09:14.035","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
-{"timestamp":"00:09:14.178","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoeniwpo0001at242dplmhld\""}
-{"timestamp":"00:09:14.178","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
-{"timestamp":"00:09:14.254","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
-{"timestamp":"00:09:14.255","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
-{"timestamp":"00:11:41.341","source":"Server","level":"LOG","message":"✓ Compiled in 154ms"}
-{"timestamp":"00:12:13.527","source":"Server","level":"LOG","message":"✓ Compiled in 55ms"}
-{"timestamp":"00:12:45.830","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:13:42.728","source":"Browser","level":"LOG","message":"Submitting service payload: {\"description\":\"dasdasdlkal;d,kal;skd,a\",\"isPublic\":true,\"serviceType\":\"Portaria\",\"socialLink\":\"http://www.oi.com.br\",\"title\":\"Tech\",\"whatsapp\":\"21988212121\"}"}
-{"timestamp":"00:14:15.034","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:14:18.409","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:14:53.670","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
-{"timestamp":"00:14:53.671","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
-{"timestamp":"00:14:54.587","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoeniwpo0001at242dplmhld\""}
-{"timestamp":"00:14:54.587","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
-{"timestamp":"00:14:54.704","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
-{"timestamp":"00:14:54.704","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
-{"timestamp":"00:17:30.208","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:17:55.222","source":"Browser","level":"LOG","message":"Submitting service payload: {\"description\":\"mlsl;asmdl;samdf;lf\",\"isPublic\":true,\"serviceType\":\"Portaria\",\"socialLink\":\"http://www.dasda.com\",\"title\":\"Tech\",\"whatsapp\":\"4242424\"}"}
-{"timestamp":"00:25:31.280","source":"Server","level":"LOG","message":"✓ Compiled in 95ms"}
-{"timestamp":"00:25:44.260","source":"Server","level":"LOG","message":"✓ Compiled in 538ms"}
-{"timestamp":"00:25:44.443","source":"Server","level":"LOG","message":"✓ Compiled in 0ms"}
-{"timestamp":"00:26:09.027","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
-{"timestamp":"00:26:32.045","source":"Browser","level":"LOG","message":"Payload enviado para a Action: {\"description\":\"dasdaddasdasdasdasd\",\"isPublic\":true,\"serviceType\":\"No meu apê\",\"title\":\"Tech\",\"website\":null,\"whatsapp\":null}"}
-{"timestamp":"00:26:32.081","source":"Server","level":"LOG","message":"[DEBUG createService] Dados recebidos na Action: {}"}
-{"timestamp":"00:26:32.088","source":"Server","level":"LOG","message":"[DEBUG createService] Objeto session retornado pelo auth(): {}"}
-{"timestamp":"00:26:33.173","source":"Browser","level":"LOG","message":"Resposta da Action: {\"message\":\"Serviço publicado com sucesso!\",\"success\":true}"}
-{"timestamp":"00:41:04.526","source":"Server","level":"LOG","message":"✓ Compiled in 102ms"}
-{"timestamp":"00:41:21.651","source":"Server","level":"LOG","message":"✓ Compiled in 96ms"}
-{"timestamp":"00:47:50.703","source":"Server","level":"LOG","message":"✓ Compiled in 166ms"}
-{"timestamp":"00:48:03.960","source":"Server","level":"LOG","message":"✓ Compiled in 68ms"}
-{"timestamp":"00:49:23.638","source":"Server","level":"LOG","message":"✓ Compiled in 69ms"}
+{"timestamp":"00:00:01.138","source":"Server","level":"LOG","message":""}
+{"timestamp":"00:00:07.324","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:14.276","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:00:35.454","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
+{"timestamp":"00:00:35.455","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
+{"timestamp":"00:00:36.444","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário não encontrado no banco de dados."}
+{"timestamp":"00:00:36.446","source":"Server","level":"ERROR","message":"[auth][error] CredentialsSignin: Nenhuma conta encontrada com este e-mail.. Read more at https://errors.authjs.dev#credentialssignin"}
+{"timestamp":"00:00:36.447","source":"Server","level":"ERROR","message":"    at Object.authorize (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/[root-of-the-server]__0kk~fic._.js:194:27)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async Module.callback (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/node_modules_@auth_core_09h2y9.._.js:4307:39)\n    at async AuthInternal (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/node_modules_@auth_core_09h2y9.._.js:5162:24)\n    at async Auth (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/node_modules_@auth_core_09h2y9.._.js:5384:34)\n    at async AppRouteRouteModule.do (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:40115)\n    at async AppRouteRouteModule.handle (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:5:47321)\n    at async responseGenerator (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/node_modules_next_0fkt7xl._.js:18303:38)\n    at async AppRouteRouteModule.handleResponse (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/compiled/next-server/app-route-turbo.runtime.dev.js:1:227216)\n    at async handleResponse (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/node_modules_next_0fkt7xl._.js:18366:32)\n    at async Module.handler (/Users/rodrigobelarmino/Documents/DEV/vizin/.next/dev/server/chunks/node_modules_next_0fkt7xl._.js:18420:13)\n    at async DevServer.renderToResponseWithComponentsImpl (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/base-server.js:1454:9)\n    at async DevServer.renderPageComponent (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/base-server.js:1506:24)\n    at async DevServer.renderToResponseImpl (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/base-server.js:1556:32)\n    at async DevServer.pipeImpl (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/base-server.js:1043:25)\n    at async NextNodeServer.handleCatchallRenderRequest (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/next-server.js:338:17)\n    at async DevServer.handleRequestImpl (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/base-server.js:934:17)\n    at async /Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/dev/next-dev-server.js:394:20\n    at async Span.traceAsyncFn (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/trace/trace.js:164:20)\n    at async DevServer.handleRequest (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/dev/next-dev-server.js:390:24)\n    at async invokeRender (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/lib/router-server.js:266:21)\n    at async handleRequest (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/lib/router-server.js:465:24)\n    at async requestHandlerImpl (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/lib/router-server.js:514:13)\n    at async Server.requestListener (/Users/rodrigobelarmino/Documents/DEV/vizin/node_modules/next/dist/server/lib/start-server.js:225:13)"}
+{"timestamp":"00:00:58.729","source":"Server","level":"LOG","message":"[AUTH DEBUG] Iniciando autorização para o e-mail: \"rb.belarmino@gmail.com\""}
+{"timestamp":"00:00:58.729","source":"Server","level":"LOG","message":"[AUTH DEBUG] Buscando usuário no banco..."}
+{"timestamp":"00:00:58.945","source":"Server","level":"LOG","message":"[AUTH DEBUG] Usuário encontrado. ID: \"cmoepp5wr0000ra2480v94ufa\""}
+{"timestamp":"00:00:58.945","source":"Server","level":"LOG","message":"[AUTH DEBUG] Comparando senhas..."}
+{"timestamp":"00:00:59.031","source":"Server","level":"LOG","message":"[AUTH DEBUG] bcrypt.compare retornou: true"}
+{"timestamp":"00:00:59.031","source":"Server","level":"LOG","message":"[AUTH DEBUG] Login bem-sucedido!"}
+{"timestamp":"00:01:04.202","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:02:49.191","source":"Server","level":"LOG","message":"✓ Compiled in 422ms"}
+{"timestamp":"00:02:59.108","source":"Server","level":"LOG","message":"✓ Compiled in 484ms"}
+{"timestamp":"00:05:54.204","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:07:18.933","source":"Server","level":"LOG","message":"✓ Compiled in 222ms"}
+{"timestamp":"00:07:30.009","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:08:24.338","source":"Browser","level":"LOG","message":"Payload enviado para a Action: {\"category\":\"Aulas\",\"description\":\"dadadadadadasda\",\"isPublic\":true,\"serviceType\":\"A domicílio\",\"title\":\"Tech\",\"website\":null,\"whatsapp\":null}"}
+{"timestamp":"00:08:24.366","source":"Server","level":"LOG","message":"[DEBUG createService] Dados recebidos na Action: {}"}
+{"timestamp":"00:08:24.371","source":"Server","level":"LOG","message":"[DEBUG createService] Objeto session retornado pelo auth(): {}"}
+{"timestamp":"00:08:25.601","source":"Browser","level":"LOG","message":"Resposta da Action: {\"message\":\"Serviço publicado com sucesso!\",\"success\":true}"}
+{"timestamp":"00:08:29.863","source":"Server","level":"ERROR","message":"⨯ ReferenceError: cn is not defined"}
+{"timestamp":"00:08:30.006","source":"Browser","level":"ERROR","message":"uncaughtError: ReferenceError: cn is not defined"}
+{"timestamp":"00:08:30.015","source":"Server","level":"ERROR","message":"[browser] \"\\u001b[31mUncaught ReferenceError: cn is not defined\\u001b[39m\\n\\u001b[31m    at <anonymous> (src/presentation/app/page.tsx:90:34)\\n    at Array.map (<anonymous>:1:18)\\n    at HomePage (src/presentation/app/page.tsx:81:21)\\u001b[39m\\n  \\u001b[90m88 |\\u001b[0m ...                <div className=\\u001b[32m\\\"flex gap-2\\\"\\u001b[0m>\\n  \\u001b[90m89 |\\u001b[0m ...                  <\\u001b[33mBadge\\u001b[0m \\n\\u001b[31m\\u001b[1m>\\u001b[0m \\u001b[90m90 |\\u001b[0m ...                    className={cn(\\n  \\u001b[90m   |\\u001b[0m                                   \\u001b[31m\\u001b[1m^\\u001b[0m\\n  \\u001b[90m91 |\\u001b[0m ...                      \\u001b[32m\\\"font-medium border shadow-none flex item...\\u001b[0m\\n  \\u001b[90m92 |\\u001b[0m ...                      categoryColors[service.category] || categ...\\n  \\u001b[90m93 |\\u001b[0m ...                    )}\""}
+{"timestamp":"00:08:30.015","source":"Browser","level":"ERROR","message":"\u001b[31mUncaught ReferenceError: cn is not defined\u001b[39m\n\u001b[31m    at <anonymous> (src/presentation/app/page.tsx:90:34)\n    at Array.map (<anonymous>:1:18)\n    at HomePage (src/presentation/app/page.tsx:81:21)\u001b[39m\n  \u001b[90m88 |\u001b[0m ...                <div className=\u001b[32m\"flex gap-2\"\u001b[0m>\n  \u001b[90m89 |\u001b[0m ...                  <\u001b[33mBadge\u001b[0m \n\u001b[31m\u001b[1m>\u001b[0m \u001b[90m90 |\u001b[0m ...                    className={cn(\n  \u001b[90m   |\u001b[0m                                   \u001b[31m\u001b[1m^\u001b[0m\n  \u001b[90m91 |\u001b[0m ...                      \u001b[32m\"font-medium border shadow-none flex item...\u001b[0m\n  \u001b[90m92 |\u001b[0m ...                      categoryColors[service.category] || categ...\n  \u001b[90m93 |\u001b[0m ...                    )}"}
+{"timestamp":"00:08:51.568","source":"Server","level":"LOG","message":"✓ Compiled in 56ms"}
+{"timestamp":"00:08:51.706","source":"Browser","level":"INFO","message":"%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"}
+{"timestamp":"00:11:32.041","source":"Server","level":"LOG","message":"✓ Compiled in 131ms"}
+{"timestamp":"00:11:40.687","source":"Server","level":"LOG","message":"✓ Compiled in 39ms"}
+{"timestamp":"00:11:42.874","source":"Server","level":"LOG","message":"✓ Compiled in 161ms"}

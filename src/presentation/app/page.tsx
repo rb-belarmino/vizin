@@ -9,10 +9,31 @@ import {
 } from '@/presentation/components/ui/card'
 import { Badge } from '@/presentation/components/ui/badge'
 import { Button } from '@/presentation/components/ui/button'
-import { MessageCircle, Globe } from 'lucide-react'
+import { MessageCircle, Globe, UtensilsCrossed, Hammer, BookOpen, Sparkles, HeartPulse, Package, Share2 } from 'lucide-react'
 import { FaInstagram, FaFacebook } from 'react-icons/fa'
+import { cn } from "@/presentation/lib/utils";
 
-export const revalidate = 0 // Ensures it fetches dynamic data
+import { Suspense } from "react";
+import HomeFilters from "@/presentation/components/home-filters";
+import ShareButton from "@/presentation/components/share-button";
+
+const categoryColors: Record<string, string> = {
+  Gastronomia: "bg-orange-100 text-orange-700 border-orange-200",
+  Reformas: "bg-blue-100 text-blue-700 border-blue-200",
+  Aulas: "bg-purple-100 text-purple-700 border-purple-200",
+  Beleza: "bg-pink-100 text-pink-700 border-pink-200",
+  Saúde: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  Outros: "bg-slate-100 text-slate-700 border-slate-200",
+};
+
+const categoryIcons: Record<string, any> = {
+  Gastronomia: UtensilsCrossed,
+  Reformas: Hammer,
+  Aulas: BookOpen,
+  Beleza: Sparkles,
+  Saúde: HeartPulse,
+  Outros: Package,
+};
 
 export default async function HomePage({
   searchParams
@@ -49,6 +70,10 @@ export default async function HomePage({
         </p>
       </div>
 
+      <Suspense fallback={<div className="h-24 bg-slate-100 animate-pulse rounded-lg mb-10" />}>
+        <HomeFilters />
+      </Suspense>
+
       {services.length === 0 ? (
         <div className="text-center text-muted-foreground mt-20">
           Nenhum serviço encontrado para sua busca.
@@ -63,10 +88,19 @@ export default async function HomePage({
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                   <div className="flex gap-2">
-                    <Badge className="bg-slate-200 text-slate-700 hover:bg-slate-200 font-medium">
+                    <Badge 
+                      className={cn(
+                        "font-medium border shadow-none flex items-center gap-1.5",
+                        categoryColors[service.category] || categoryColors.Outros
+                      )}
+                    >
+                      {(() => {
+                        const Icon = categoryIcons[service.category] || categoryIcons.Outros;
+                        return <Icon size={14} />;
+                      })()}
                       {service.category}
                     </Badge>
-                    <Badge className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                    <Badge className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium border-transparent">
                       {service.serviceType}
                     </Badge>
                   </div>
@@ -173,6 +207,8 @@ export default async function HomePage({
                       Nenhum contato disponível
                     </span>
                   )}
+                
+                <ShareButton title={service.title} serviceId={service.id} />
               </CardFooter>
             </Card>
           ))}

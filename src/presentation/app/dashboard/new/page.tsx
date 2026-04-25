@@ -181,20 +181,11 @@ export default function NewServicePage() {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="Gastronomia">
-                            Gastronomia
-                          </SelectItem>
-                          <SelectItem value="Beleza e Saúde">
-                            Beleza e Saúde
-                          </SelectItem>
-                          <SelectItem value="Serviços Domésticos">
-                            Serviços Domésticos
-                          </SelectItem>
-                          <SelectItem value="Aulas e Consultoria">
-                            Aulas e Consultoria
-                          </SelectItem>
-                          <SelectItem value="Tecnologia">Tecnologia</SelectItem>
-                          <SelectItem value="Manutenção">Manutenção</SelectItem>
+                          <SelectItem value="Gastronomia">Gastronomia</SelectItem>
+                          <SelectItem value="Reformas">Reformas</SelectItem>
+                          <SelectItem value="Aulas">Aulas</SelectItem>
+                          <SelectItem value="Beleza">Beleza</SelectItem>
+                          <SelectItem value="Saúde">Saúde</SelectItem>
                           <SelectItem value="Outros">Outros</SelectItem>
                         </SelectContent>
                       </Select>
