@@ -43,6 +43,7 @@ const formatWhatsApp = (value: string) => {
 const serviceSchema = z.object({
   title: z.string().min(3, "O título precisa ter pelo menos 3 caracteres."),
   description: z.string().min(10, "A descrição precisa ser mais detalhada (mínimo 10 caracteres)."),
+  category: z.string().min(1, "Selecione uma categoria"),
   serviceType: z.enum(["A domicílio", "No meu apê", "Portaria"], {
     required_error: "Selecione o tipo de atendimento",
   }),
@@ -62,6 +63,7 @@ export default function NewServicePage() {
     defaultValues: {
       title: "",
       description: "",
+      category: "",
       serviceType: undefined,
       socialLink: "",
       whatsapp: "",
@@ -76,6 +78,7 @@ export default function NewServicePage() {
       const payload = {
         title: data.title,
         description: data.description,
+        category: data.category,
         serviceType: data.serviceType,
         isPublic: data.isPublic,
         whatsapp: data.whatsapp ? data.whatsapp.replace(/\D/g, "") : null,
@@ -141,6 +144,58 @@ export default function NewServicePage() {
                 )}
               />
 
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="category"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Categoria <span className="text-red-500">*</span></FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione a categoria" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="Gastronomia">Gastronomia</SelectItem>
+                          <SelectItem value="Beleza e Saúde">Beleza e Saúde</SelectItem>
+                          <SelectItem value="Serviços Domésticos">Serviços Domésticos</SelectItem>
+                          <SelectItem value="Aulas e Consultoria">Aulas e Consultoria</SelectItem>
+                          <SelectItem value="Tecnologia">Tecnologia</SelectItem>
+                          <SelectItem value="Manutenção">Manutenção</SelectItem>
+                          <SelectItem value="Outros">Outros</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="serviceType"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Tipo de Atendimento <span className="text-red-500">*</span></FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione como você atende" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          <SelectItem value="A domicílio">A domicílio</SelectItem>
+                          <SelectItem value="No meu apê">No meu apê</SelectItem>
+                          <SelectItem value="Portaria">Portaria</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+
               <FormField
                 control={form.control}
                 name="description"
@@ -157,29 +212,6 @@ export default function NewServicePage() {
                     <FormDescription>
                       Seja claro e atraente para convencer seus vizinhos.
                     </FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="serviceType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tipo de Atendimento <span className="text-red-500">*</span></FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Selecione como você atende" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="A domicílio">A domicílio (no apê do cliente)</SelectItem>
-                        <SelectItem value="No meu apê">No meu apê</SelectItem>
-                        <SelectItem value="Portaria">Portaria (entrega/retirada)</SelectItem>
-                      </SelectContent>
-                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

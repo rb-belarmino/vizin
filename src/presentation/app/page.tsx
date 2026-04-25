@@ -14,9 +14,27 @@ import { FaInstagram, FaFacebook } from 'react-icons/fa'
 
 export const revalidate = 0 // Ensures it fetches dynamic data
 
-export default async function HomePage() {
+export default async function HomePage({
+  searchParams
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const params = await searchParams
+  const search = typeof params.search === 'string' ? params.search : undefined
+  const category =
+    typeof params.category === 'string' ? params.category : undefined
+
   const services = await prisma.service.findMany({
-    where: { isPublic: true },
+    where: {
+      isPublic: true,
+      category: category || undefined,
+      OR: search
+        ? [
+            { title: { contains: search, mode: 'insensitive' } },
+            { description: { contains: search, mode: 'insensitive' } }
+          ]
+        : undefined
+    },
     orderBy: { createdAt: 'desc' }
   })
 
@@ -33,7 +51,7 @@ export default async function HomePage() {
 
       {services.length === 0 ? (
         <div className="text-center text-muted-foreground mt-20">
-          Nenhum serviço público disponível no momento.
+          Nenhum serviço encontrado para sua busca.
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -44,9 +62,14 @@ export default async function HomePage() {
             >
               <CardHeader>
                 <div className="flex justify-between items-start mb-2">
-                  <Badge className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
-                    {service.serviceType}
-                  </Badge>
+                  <div className="flex gap-2">
+                    <Badge className="bg-slate-200 text-slate-700 hover:bg-slate-200 font-medium">
+                      {service.category}
+                    </Badge>
+                    <Badge className="bg-indigo-600 hover:bg-indigo-700 text-white font-medium">
+                      {service.serviceType}
+                    </Badge>
+                  </div>
                   {service.priceInfo && (
                     <Badge className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold">
                       {service.priceInfo}

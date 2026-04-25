@@ -52,3 +52,8 @@
 {"timestamp":"00:26:32.081","source":"Server","level":"LOG","message":"[DEBUG createService] Dados recebidos na Action: {}"}
 {"timestamp":"00:26:32.088","source":"Server","level":"LOG","message":"[DEBUG createService] Objeto session retornado pelo auth(): {}"}
 {"timestamp":"00:26:33.173","source":"Browser","level":"LOG","message":"Resposta da Action: {\"message\":\"Serviço publicado com sucesso!\",\"success\":true}"}
+{"timestamp":"00:41:04.526","source":"Server","level":"LOG","message":"✓ Compiled in 102ms"}
+{"timestamp":"00:41:21.651","source":"Server","level":"LOG","message":"✓ Compiled in 96ms"}
+{"timestamp":"00:47:50.703","source":"Server","level":"LOG","message":"✓ Compiled in 166ms"}
+{"timestamp":"00:48:03.960","source":"Server","level":"LOG","message":"✓ Compiled in 68ms"}
+{"timestamp":"00:49:23.638","source":"Server","level":"LOG","message":"✓ Compiled in 69ms"}

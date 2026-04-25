@@ -29,6 +29,7 @@ model Service {
   facebook    String?
   website     String?
   serviceType String
+  category    String
   userId      String
   user        User     @relation(fields: [userId], references: [id])
   createdAt   DateTime @default(now())
