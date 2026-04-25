@@ -1496,6 +1496,18 @@
   }
 
   @supports ((-webkit-backdrop-filter: var(--tw)) or (backdrop-filter: var(--tw))) {
+    .supports-backdrop-filter\:bg-white\/60 {
+      background-color: #fff9;
+    }
+
+    @supports (color: color-mix(in lab, red, red)) {
+      .supports-backdrop-filter\:bg-white\/60 {
+        background-color: color-mix(in oklab, var(--color-white) 60%, transparent);
+      }
+    }
+  }
+
+  @supports ((-webkit-backdrop-filter: var(--tw)) or (backdrop-filter: var(--tw))) {
     .supports-\[backdrop-filter\]\:bg-white\/60 {
       background-color: #fff9;
     }
