@@ -4,6 +4,9 @@ import prisma from '@/infrastructure/db/client'
 import { auth } from '@/infrastructure/auth/auth'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { UTApi } from 'uploadthing/server'
+
+const utapi = new UTApi()
 
 // Zod Schema para validação estrita dos dados do Serviço
 const createServiceSchema = z.object({
@@ -90,5 +93,117 @@ export async function createServiceAction(
       success: false,
       message: 'Ocorreu um erro interno ao criar o serviço.'
     }
+  }
+}
+
+/**
+ * Função utilitária para deletar uma imagem do UploadThing baseada na URL
+ */
+async function deleteImageFromUT(url: string | null | undefined) {
+  if (!url || !url.includes('/f/')) return
+
+  try {
+    const fileKey = url.split('/f/')[1]
+    if (fileKey) {
+      await utapi.deleteFiles(fileKey)
+      console.log(`[UT DEBUG] Arquivo deletado do storage: ${fileKey}`)
+    }
+  } catch (error) {
+    console.error('[UT DEBUG] Erro ao deletar arquivo do UploadThing:', error)
+  }
+}
+
+/**
+ * Action para Deletar um Serviço e sua imagem associada
+ */
+export async function deleteServiceAction(
+  serviceId: string
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return { success: false, message: 'Não autorizado' }
+    }
+
+    // 1. Busca o serviço para verificar o dono e pegar a URL da imagem
+    const service = await prisma.service.findUnique({
+      where: { id: serviceId }
+    })
+
+    if (!service || service.userId !== session.user.id) {
+      return { success: false, message: 'Serviço não encontrado ou negado' }
+    }
+
+    // 2. Deleta a imagem do UploadThing se existir
+    if (service.imageUrl) {
+      await deleteImageFromUT(service.imageUrl)
+    }
+
+    // 3. Deleta do Banco de Dados
+    await prisma.service.delete({
+      where: { id: serviceId }
+    })
+
+    revalidatePath('/')
+    revalidatePath('/dashboard')
+
+    return { success: true, message: 'Serviço removido com sucesso!' }
+  } catch (error) {
+    console.error('Erro ao deletar serviço:', error)
+    return { success: false, message: 'Erro ao processar a exclusão' }
+  }
+}
+
+/**
+ * Action para Atualizar um Serviço existente
+ */
+export async function updateServiceAction(
+  serviceId: string,
+  data: any
+): Promise<{ success: boolean; message: string }> {
+  try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return { success: false, message: 'Não autorizado' }
+    }
+
+    // Validação com o mesmo schema de criação (ou um similar parcial)
+    const parsedData = createServiceSchema.safeParse(data)
+    if (!parsedData.success) {
+      return { success: false, message: parsedData.error.issues[0].message }
+    }
+
+    // 1. Busca o serviço atual
+    const currentService = await prisma.service.findUnique({
+      where: { id: serviceId }
+    })
+
+    if (!currentService || currentService.userId !== session.user.id) {
+      return { success: false, message: 'Serviço não encontrado' }
+    }
+
+    // 2. SE o usuário enviou uma nova imagem e ela é diferente da atual, limpa a antiga
+    if (
+      parsedData.data.imageUrl &&
+      parsedData.data.imageUrl !== currentService.imageUrl
+    ) {
+      await deleteImageFromUT(currentService.imageUrl)
+    }
+
+    // 3. Atualiza no Banco
+    await prisma.service.update({
+      where: { id: serviceId },
+      data: {
+        ...parsedData.data
+      }
+    })
+
+    revalidatePath('/')
+    revalidatePath('/dashboard')
+
+    return { success: true, message: 'Serviço atualizado com sucesso!' }
+  } catch (error) {
+    console.error('Erro ao atualizar serviço:', error)
+    return { success: false, message: 'Erro ao processar a atualização' }
   }
 }
