@@ -1,0 +1,97 @@
+# Feature Specification: Vizin Marketplace
+
+**Feature Branch**: `001-local-directory`
+
+**Created**: 2026-07-03
+
+**Status**: Draft
+
+**Input**: User description: "Define the functional specification and product requirements for the Vizin platform..."
+
+## Clarifications
+
+### Session 2026-07-03
+- Q: Registration Collision / Apartment Verification → A: Allow multiple accounts per apartment (e.g., spouses/roommates) without strict uniqueness, trusting the closed community nature.
+- Q: Contact Links Validation → A: Use predefined structural fields (e.g., a specific field for WhatsApp number, another for Instagram handle) to enforce clean formatting.
+- Q: Empty States & Zero Results → A: Display a simple "No results" message with a button to easily clear active filters/search.
+
+## User Scenarios & Testing *(mandatory)*
+
+### User Story 1 - Public Service Catalog (Priority: P1)
+
+As a resident looking for a service, I want to access a public, easily searchable catalog of my neighbors' offerings so that I can hire trusted members of my immediate community.
+
+**Why this priority**: This is the core value proposition for the demand side of the marketplace. Without a searchable catalog, the directory has no value.
+
+**Independent Test**: Can be fully tested by a non-authenticated user visiting the homepage (`/`) and verifying the display, search, and filtering of mocked or existing listings.
+
+**Acceptance Scenarios**:
+
+1. **Given** a non-authenticated user on the homepage, **When** the page loads, **Then** they see a dynamic grid of active public services sorted by newest first.
+2. **Given** a user viewing a listing, **When** they inspect it, **Then** they see the image, category badge, title, description, price baseline, unit identification, and active contact links.
+3. **Given** a user on the homepage, **When** they type a query in the global search bar, **Then** the grid updates in real-time to show matches in titles and descriptions.
+4. **Given** a user on the homepage, **When** they click a category pill (e.g., Gastronomia), **Then** the grid isolates listings to that specific business vector.
+5. **Given** a user viewing a listing, **When** they trigger the share action, **Then** the native share drawer opens (mobile) or the link is copied to the clipboard (desktop).
+
+---
+
+### User Story 2 - Provider Dashboard (Priority: P1)
+
+As a resident provider, I want to securely log in to a private area to create, edit, or toggle the visibility of my service listings, ensuring my neighbors see accurate information and up-to-date contact links.
+
+**Why this priority**: This is the core value proposition for the supply side. Providers must be able to manage their offerings to populate the catalog.
+
+**Independent Test**: Can be fully tested by creating an account, logging in, and performing CRUD operations on listings in the isolated dashboard.
+
+**Acceptance Scenarios**:
+
+1. **Given** an unauthenticated user, **When** they attempt to access `/dashboard`, **Then** they are summarily redirected to `/login`.
+2. **Given** a new resident, **When** they sign up with Full Name, Email, Password, and a strictly numerical Apartment Identification, **Then** their identity is created and they can access the dashboard.
+3. **Given** an authenticated resident provider, **When** they access `/dashboard`, **Then** they see an isolated inventory grid containing only their personal service entries.
+4. **Given** an authenticated provider, **When** they use the multi-input creation form and upload an image, **Then** a new listing is created with upload state indicators during the process.
+5. **Given** an authenticated provider, **When** they delete a service instance or replace its illustration, **Then** the underlying framework drops the orphaned physical asset on the storage provider.
+
+---
+
+### Edge Cases
+
+- What happens if the image upload fails due to network issues or file size limits?
+- **Empty Search Fallback**: Display a simple "No results" message with a button to easily clear active filters/search.
+- **Account Collision**: Allow multiple accounts per apartment (e.g., spouses/roommates) without strict uniqueness, trusting the closed community nature.
+
+## Requirements *(mandatory)*
+
+### Functional Requirements
+
+- **FR-001**: System MUST display a dynamic grid of active, public services on the home page (`/`), sorted by newest first.
+- **FR-002**: System MUST render each listing with a main portfolio image, category badge (Gastronomia, Reformas, Aulas, Beleza, Saúde, or Outros), title, clamped description, optional price baseline, numerical unit identification, and active contact trigger components.
+- **FR-003**: System MUST provide a real-time global search mechanism indexing text matches inside titles and descriptions.
+- **FR-004**: System MUST provide category quick filter pills to isolate listings.
+- **FR-005**: System MUST support a native share system (mobile drawer or desktop clipboard fallback).
+- **FR-006**: System MUST intercept unauthenticated access to `/dashboard/*` and redirect to `/login`.
+- **FR-007**: System MUST collect Full Name, Email, Password, and strictly numerical Apartment Identification during Sign Up.
+- **FR-008**: System MUST authenticate users via Email and Password for Log In.
+- **FR-009**: System MUST isolate the dashboard inventory grid to show only the logged-in resident's listings.
+- **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with state indicators.
+- **FR-011**: System MUST instruct the storage provider to physically delete orphaned assets when a listing is purged or its image is switched.
+- **FR-012**: System MUST use predefined structural fields (e.g., specific field for WhatsApp, another for Instagram) when creating listings to enforce clean contact formatting.
+
+### Key Entities
+
+- **Resident (User)**: Represents a member of the condominium. Key attributes: Full Name, Email, Password Hash, strictly numerical Apartment ID.
+- **Service Listing**: Represents an offering by a resident. Key attributes: Title, Description, Portfolio Image URL, Category, Price Baseline, Contact Links (predefined structural fields for WhatsApp and Instagram), Visibility Status (Public/Hidden), Reference to Provider (Resident).
+
+## Success Criteria *(mandatory)*
+
+### Measurable Outcomes
+
+- **SC-001**: Demand-side users can successfully load the homepage, search, and filter the catalog with immediate UI feedback (sub-second perceived latency).
+- **SC-002**: Unauthenticated traffic attempting to reach `/dashboard` routes is successfully intercepted 100% of the time.
+- **SC-003**: Supply-side users can complete the entire listing creation flow (including image upload) without errors.
+- **SC-004**: Storage provider metrics confirm 1:1 parity with database state (zero orphaned image assets remaining after listing deletions or updates).
+
+## Assumptions
+
+- **Single-Tower Architecture**: The requirement for a strictly numerical Apartment Identification assumes the condominium is a single tower or block, meaning the unit number alone is uniquely identifying.
+- **Image Optimization**: The UploadThing SDK will handle necessary image transformations or standardizations (resizing/compression) to maintain grid performance.
+- **Approval Workflow**: Listings are instantly visible upon creation if flagged as public, assuming a high-trust neighborhood environment without pre-moderation requirements.
