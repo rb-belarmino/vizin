@@ -8,39 +8,38 @@
 
 ## Summary
 
-[Extract from feature spec: primary requirement + technical approach from research]
+Develop Vizin Marketplace: a local directory and marketplace for condominium residents. It includes a public catalog of services with search/filter capabilities, and a private provider dashboard for managing listings and uploading images. The technical approach strictly adheres to Clean Architecture using Next.js 16 App Router, Auth.js v5 on Edge, Prisma ORM, and UploadThing.
 
 ## Technical Context
 
-<!--
-  ACTION REQUIRED: Replace the content in this section with the technical details
-  for the project. The structure here is presented in advisory capacity to guide
-  the iteration process.
--->
+**Language/Version**: TypeScript
 
-**Language/Version**: [e.g., Python 3.11, Swift 5.9, Rust 1.75 or NEEDS CLARIFICATION]
+**Primary Dependencies**: Next.js 16 (App Router), Auth.js v5, Prisma ORM, Zod, Tailwind CSS, Radix UI, UploadThing
 
-**Primary Dependencies**: [e.g., FastAPI, UIKit, LLVM or NEEDS CLARIFICATION]
+**Storage**: NeonDB (PostgreSQL) and UploadThing (media assets)
 
-**Storage**: [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+**Testing**: Vitest (TDD Mandatory)
 
-**Testing**: [e.g., pytest, XCTest, cargo test or NEEDS CLARIFICATION]
+**Target Platform**: Web Browser / Vercel Edge Runtime
 
-**Target Platform**: [e.g., Linux server, iOS 15+, WASM or NEEDS CLARIFICATION]
+**Project Type**: Web Application
 
-**Project Type**: [e.g., library/cli/web-service/mobile-app/compiler/desktop-app or NEEDS CLARIFICATION]
+**Performance Goals**: < 2s latency for search/filter actions
 
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, 10k lines/sec, 60 fps or NEEDS CLARIFICATION]
+**Constraints**: Strict Clean Architecture (domain isolation), Edge Runtime compatibility for middleware/auth, 1:1 parity between DB and UploadThing.
 
-**Constraints**: [domain-specific, e.g., <200ms p95, <100MB memory, offline-capable or NEEDS CLARIFICATION]
-
-**Scale/Scope**: [domain-specific, e.g., 10k users, 1M LOC, 50 screens or NEEDS CLARIFICATION]
+**Scale/Scope**: Single-tower condominium residents
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [x] **Clean & Modular Architecture**: Business logic is in pure TypeScript domain entities/use-cases.
+- [x] **Unified Full-Stack**: Next.js 16 App Router with Server Actions as thin edge controllers using Zod.
+- [x] **TDD**: Automated unit tests in Vitest are planned prior to implementation.
+- [x] **Safe Cryptography & Edge**: Auth.js v5 Split Config pattern, isolating Prisma/bcryptjs from Edge.
+- [x] **Data Sync**: UploadThing parity included in requirements.
+- [x] **Security**: Plaintext logging prohibited; dashboard is gated.
 
 ## Project Structure
 
@@ -57,51 +56,29 @@ specs/[###-feature]/
 ```
 
 ### Source Code (repository root)
-<!--
-  ACTION REQUIRED: Replace the placeholder tree below with the concrete layout
-  for this feature. Delete unused options and expand the chosen structure with
-  real paths (e.g., apps/admin, packages/something). The delivered plan must
-  not include Option labels.
--->
 
 ```text
-# [REMOVE IF UNUSED] Option 1: Single project (DEFAULT)
 src/
-├── models/
-├── services/
-├── cli/
-└── lib/
+├── app/                 # Next.js 16 App Router UI & API routes
+│   ├── (public)/        # Public catalog pages
+│   ├── (private)/       # Protected dashboard pages
+│   └── api/             # Webhooks (e.g., UploadThing)
+├── components/          # React components (Radix UI + Tailwind)
+├── core/                # Pure TypeScript domain logic (Clean Architecture)
+│   ├── entities/        # Business models (Resident, Listing)
+│   └── use-cases/       # Application logic
+├── infrastructure/      # External adapters
+│   ├── database/        # Prisma Client & Repositories
+│   ├── storage/         # UploadThing SDK integration
+│   └── auth/            # Auth.js config (Split Config pattern)
+└── actions/             # Server Actions (thin edge controllers + Zod validation)
 
 tests/
-├── contract/
-├── integration/
-└── unit/
-
-# [REMOVE IF UNUSED] Option 2: Web application (when "frontend" + "backend" detected)
-backend/
-├── src/
-│   ├── models/
-│   ├── services/
-│   └── api/
-└── tests/
-
-frontend/
-├── src/
-│   ├── components/
-│   ├── pages/
-│   └── services/
-└── tests/
-
-# [REMOVE IF UNUSED] Option 3: Mobile + API (when "iOS/Android" detected)
-api/
-└── [same as backend above]
-
-ios/ or android/
-└── [platform-specific structure: feature modules, UI flows, platform tests]
+├── unit/                # Vitest core domain tests
+└── integration/         # Edge/DB integration tests
 ```
 
-**Structure Decision**: [Document the selected structure and reference the real
-directories captured above]
+**Structure Decision**: A custom Web application structure separating Next.js (`app/`, `components/`, `actions/`) from pure business logic (`core/`) and external dependencies (`infrastructure/`) to strictly satisfy the Clean Architecture and Edge Compatibility constraints of the Constitution.
 
 ## Complexity Tracking
 
