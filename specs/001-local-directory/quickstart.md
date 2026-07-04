@@ -6,15 +6,19 @@ This guide validates the end-to-end functionality of the Vizin Marketplace featu
 1. Clone repository and run `npm install`.
 2. Ensure Docker is running for local NeonDB Postgres substitute (or link to real Neon branch).
 3. Push Prisma schema: `npx prisma db push`.
-4. Configure `.env.local` with `UPLOADTHING_SECRET`, `UPLOADTHING_APP_ID`, and `AUTH_SECRET`.
-5. Run dev server: `npm run dev`.
+4. **Seed demo data**: `npm run db:seed` (creates 4 demo residents and 8 public listings).
+5. Configure `.env.local` with `UPLOADTHING_SECRET`, `UPLOADTHING_APP_ID`, and `AUTH_SECRET`.
+6. Run dev server: `npm run dev`.
+
+> **Demo credentials** (created by seed): `ana@vizin.demo`, `carlos@vizin.demo`, `mariana@vizin.demo`, `roberto@vizin.demo` — senha: `demo1234`
 
 ## Scenario 1: Unauthenticated Flow (Public Catalog)
 1. Open an incognito browser window.
 2. Navigate to `http://localhost:3000/`.
-3. **Verify**: You see the "Vizin Marketplace" header and an empty grid (or seeded public listings).
+3. **Verify**: You see the Vizin navbar, the dark hero section, and a grid of 8 seeded listings.
 4. Navigate to `http://localhost:3000/dashboard`.
 5. **Verify**: You are redirected to `/login`.
+
 
 ## Scenario 2: Provider Registration & Listing Creation
 1. On the `/login` page, click "Sign up".

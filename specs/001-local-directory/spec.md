@@ -64,10 +64,10 @@ As a resident provider, I want to securely log in to a private area to create, e
 ### Functional Requirements
 
 - **FR-001**: System MUST display a dynamic grid of active, public services on the home page (`/`), sorted by newest first.
-- **FR-002**: System MUST render each listing with a main portfolio image, category badge (Gastronomia, Reformas, Aulas, Beleza, Saúde, or Outros), title, clamped description, optional price baseline, numerical unit identification, and active contact trigger components.
+- **FR-002**: System MUST render each listing with a main portfolio image, category badge with emoji (Gastronomia 🍽️, Reformas 🔨, Aulas 📚, Beleza 💇, Saúde 🏥, or Outros ⭐), title, clamped description, optional price baseline, provider full name, numerical unit identification (apartment number), and active contact trigger components.
 - **FR-003**: System MUST provide a real-time global search mechanism indexing text matches inside titles and descriptions.
 - **FR-004**: System MUST provide category quick filter pills to isolate listings.
-- **FR-005**: System MUST support a native share system (mobile drawer or desktop clipboard fallback).
+- **FR-005**: System MUST support a native share system using the Web Share API (mobile drawer) with clipboard copy as desktop fallback, triggered from a share button on each listing card.
 - **FR-006**: System MUST intercept unauthenticated access to `/dashboard/*` and redirect to `/login`.
 - **FR-007**: System MUST collect Full Name, Email, Password, and strictly numerical Apartment Identification during Sign Up.
 - **FR-008**: System MUST authenticate users via Email and Password for Log In.
