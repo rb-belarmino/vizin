@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Listing } from '@/core/entities/listing';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useState } from 'react';
+import Link from 'next/link';
 
 const CATEGORY_EMOJI: Record<string, string> = {
   Gastronomia: '🍽️',
@@ -43,13 +44,15 @@ async function handleShare(listing: Listing) {
   }
 }
 
-export function ListingCard({ listing }: { listing: Listing }) {
+export function ListingCard({ listing, priority = false }: { listing: Listing; priority?: boolean }) {
   const [imgError, setImgError] = useState(false);
   const emoji = CATEGORY_EMOJI[listing.categoryId] ?? '⭐';
   const badgeColor = CATEGORY_COLORS[listing.categoryId] ?? 'bg-gray-100 text-gray-700 border-gray-200';
 
   return (
-    <Card className="overflow-hidden flex flex-col h-full group hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+    <Card className="relative overflow-hidden flex flex-col h-full group hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+      <Link href={`/listing/${listing.id}`} className="absolute inset-0 z-10" aria-label={`Ver detalhes de ${listing.title}`} />
+      
       {/* Image */}
       <div className="relative w-full h-48 bg-muted overflow-hidden">
         {listing.portfolioImageUrl && !imgError ? (
@@ -57,6 +60,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
             src={listing.portfolioImageUrl}
             alt={listing.title}
             fill
+            priority={priority}
             className="object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             onError={() => setImgError(true)}
@@ -69,11 +73,14 @@ export function ListingCard({ listing }: { listing: Listing }) {
         )}
         {/* Share button overlay */}
         <button
-          onClick={() => handleShare(listing)}
+          onClick={(e) => {
+            e.preventDefault();
+            handleShare(listing);
+          }}
           id={`share-btn-${listing.id}`}
           aria-label="Compartilhar serviço"
           title="Compartilhar"
-          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+          className="absolute top-2 right-2 z-20 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
         >
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
@@ -91,9 +98,22 @@ export function ListingCard({ listing }: { listing: Listing }) {
             {emoji} {listing.categoryId}
           </span>
         </div>
-        {listing.priceBaseline && (
-          <p className="text-sm font-bold text-primary mt-1">{listing.priceBaseline}</p>
-        )}
+        <div className="flex items-center justify-between mt-1">
+          {listing.priceBaseline && (
+            <p className="text-sm font-bold text-primary">{listing.priceBaseline}</p>
+          )}
+          {listing.reviewCount !== undefined && listing.reviewCount > 0 ? (
+            <div className="flex items-center gap-1 text-sm font-medium text-muted-foreground">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="text-yellow-400">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
+              <span className="text-foreground">{listing.ratingAverage}</span>
+              <span className="text-xs">({listing.reviewCount})</span>
+            </div>
+          ) : (
+            <div className="text-xs text-muted-foreground font-medium">Novo</div>
+          )}
+        </div>
       </CardHeader>
 
       {/* Description */}
@@ -104,7 +124,7 @@ export function ListingCard({ listing }: { listing: Listing }) {
       </CardContent>
 
       {/* Footer */}
-      <CardFooter className="flex flex-col gap-3 border-t bg-muted/30 p-4 pt-3">
+      <CardFooter className="relative z-20 flex flex-col gap-3 border-t bg-muted/30 p-4 pt-3">
         {/* Provider info */}
         {(listing.providerName || listing.providerApartmentId) && (
           <div className="flex items-center gap-2 w-full">

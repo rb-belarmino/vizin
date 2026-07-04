@@ -22,6 +22,8 @@ export interface Listing {
   providerId: string;
   providerName?: string;
   providerApartmentId?: number;
+  ratingAverage?: number;
+  reviewCount?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -31,4 +33,5 @@ export interface ListingRepository {
     searchQuery?: string;
     categoryId?: string;
   }): Promise<Listing[]>;
+  findById(id: string): Promise<Listing | null>;
 }

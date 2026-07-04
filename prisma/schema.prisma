@@ -16,6 +16,7 @@ model User {
   createdAt    DateTime         @default(now())
   updatedAt    DateTime         @updatedAt
   listings     ServiceListing[]
+  reviews      Review[]
 }
 
 model ServiceListing {
@@ -33,4 +34,20 @@ model ServiceListing {
   provider          User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+  reviews           Review[]
+}
+
+model Review {
+  id               String   @id @default(uuid())
+  rating           Int
+  comment          String?
+  authorId         String
+  serviceListingId String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  author         User           @relation(fields: [authorId], references: [id])
+  serviceListing ServiceListing @relation(fields: [serviceListingId], references: [id], onDelete: Cascade)
+
+  @@unique([authorId, serviceListingId])
 }

@@ -1,45 +1,84 @@
-# Implementation Plan: Sistema de Avaliações e Estrelas (Reviews & Ratings)
+# Implementation Plan: [FEATURE]
 
-## 1. Abordagem Arquitetural
-A funcionalidade será implementada seguindo a Arquitetura Hexagonal do projeto Vizin, distribuindo as responsabilidades de ponta a ponta:
+**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
 
-1. **Infraestrutura (Prisma/DB)**: O `data-model.md` já define a tabela `Review`. O Prisma cuidará da agregação das notas (cálculo da média aritmética) diretamente via `_avg` para garantir performance (NFR-001).
-2. **Core (Entidade)**: Criaremos uma interface TypeScript pura `Review` em `src/core/entities/review.ts` com os campos básicos da avaliação.
-3. **Actions (A Ponte)**: Criaremos um novo arquivo `src/actions/review-actions.ts` contendo:
-   - `createReviewAction(listingId, data)`: Valida sessão, impede autoavaliação (FR-002) e usa o `upsert` do Prisma para criar ou atualizar a avaliação (FR-003).
-   - `getListingReviewsAction(listingId)`: Retorna a lista detalhada de avaliações de um serviço para exibição no modal.
-4. **UI (Apresentação)**:
-   - **`StarRating`**: Componente visual (somente leitura) que exibe as estrelas preenchidas com base na média.
-   - **`ReviewForm`**: Formulário interativo com input de estrelas (rádios invisíveis com hover state em CSS/Tailwind) e campo de comentário.
-   - **`ReviewsModal`**: Um modal expansível no catálogo público onde o usuário clica no serviço para ver a lista de comentários deixados por outros vizinhos e deixar o seu próprio.
+**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
 
-## 2. Fases de Execução
+**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
 
-### Fase 1: Banco de Dados e Contratos
-O objetivo desta fase é deixar a base pronta.
-1. Inserir o modelo `Review` no `schema.prisma`.
-2. Executar `npx prisma db push` para criar as tabelas no Neon.
-3. Atualizar a entidade `Listing` para receber `averageRating?: number` e `reviewCount?: number`.
-4. Atualizar o método `findPublicListings` no `listing-repository.ts` para usar o `include: { _count: { select: { reviews: true } } }` e agregar a média.
+## Summary
 
-### Fase 2: Backend (Server Actions e Validação)
-O objetivo desta fase é criar as APIs seguras.
-1. Criar o `ReviewSchema` com Zod (nota de 1 a 5).
-2. Escrever a lógica do `createReviewAction`.
-3. Escrever a lógica de busca detalhada (`getListingReviewsAction`).
+Develop the Reviews & Ratings feature for the Vizin Marketplace, allowing authenticated residents to evaluate services (1 to 5 stars) and optionally leave comments. This establishes community trust and service reputation. The implementation will strictly follow Clean Architecture principles, isolating domain logic (Review entities and use cases) from Next.js Server Actions, utilizing Prisma for data persistence (with cascade deletes), and Zod for robust validation.
 
-### Fase 3: Frontend (Componentes de UI)
-O objetivo desta fase é construir os blocos visuais.
-1. Construir `StarRating.tsx` (visual) adaptado para frações (ex: 4.5 estrelas).
-2. Construir `StarRatingInput.tsx` (interativo) usando Tailwind para os efeitos de cor e hover.
-3. Atualizar o `ListingCard.tsx` para mostrar as estrelas e a contagem.
+## Technical Context
 
-### Fase 4: Integração (O Modal de Avaliações)
-O objetivo desta fase é juntar as pontas na tela final.
-1. Implementar o botão no card que abre o `ReviewsModal`.
-2. Dentro do modal, listar as avaliações de outros moradores.
-3. Mostrar o formulário de avaliação apenas se o usuário estiver logado E não for o dono do serviço.
+**Language/Version**: TypeScript
 
-## 3. Riscos e Prevenções
-- **Spam/Flood**: O uso de `upsert` (baseado em `@@unique([authorId, listingId])`) anula o risco de spam, pois requisições repetidas apenas sobrescrevem a nota anterior do próprio usuário.
-- **Autoavaliação**: Validada rigidamente no Server Action (backend). Mesmo que um usuário mal-intencionado force um POST, a Action checará `if (listing.providerId === session.user.id) throw Error`.
+**Primary Dependencies**: Next.js 16 (App Router), Prisma ORM, Zod, React Hook Form, Tailwind CSS, Radix UI
+
+**Storage**: NeonDB (PostgreSQL)
+
+**Testing**: Vitest (TDD Mandatory)
+
+**Target Platform**: Web Browser / Vercel Edge Runtime
+
+**Project Type**: Web Application
+
+**Performance Goals**: < 100ms latency for star average calculation and review submission
+
+**Constraints**: Strict Clean Architecture (domain isolation), Edge Runtime compatibility, Zod validation for Server Actions, OKLCH variables for styling (no hex in Tailwind).
+
+**Scale/Scope**: Single-tower condominium residents
+
+## Constitution Check
+
+*GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
+
+- [x] **Clean & Modular Architecture**: Review domain logic is isolated in `src/core/` (entities and use cases).
+- [x] **Unified Full-Stack**: Server actions inside `src/actions/` act as thin edge controllers with Zod schema validation.
+- [x] **TDD**: Tests planned for Use Cases ensuring isolation and correct business rules (no self-review, one review per user).
+- [x] **Security**: UI/UX adheres strictly to styling variables without hex codes; Server Actions gate operations to authenticated users only.
+
+## Project Structure
+
+### Documentation (this feature)
+
+```text
+specs/[###-feature]/
+├── plan.md              # This file (/speckit.plan command output)
+├── research.md          # Phase 0 output (/speckit.plan command)
+├── data-model.md        # Phase 1 output (/speckit.plan command)
+├── quickstart.md        # Phase 1 output (/speckit.plan command)
+├── contracts/           # Phase 1 output (/speckit.plan command)
+└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+```
+
+### Source Code (repository root)
+
+```text
+prisma/
+└── schema.prisma        # Addition of Review model and relations
+
+src/
+├── app/
+│   └── (public)/        # UI integration on listing details page
+├── components/          
+│   └── reviews/         # StarRating, ReviewForm, ListingCard updates
+├── core/                
+│   ├── entities/        # Review.ts
+│   └── use-cases/       # CreateReview, UpdateReview, DeleteReview, ListReviews
+├── infrastructure/      
+│   └── database/        # Prisma review repositories
+└── actions/             
+    ├── reviews.ts       # Server Actions for handling reviews
+    └── schemas/         
+        └── review.ts    # Zod schemas for payload validation
+```
+
+**Structure Decision**: Integrated seamlessly into the existing Next.js web application structure following Clean Architecture principles. Domain logic isolated in `core`, with Next.js serving as the presentation and entry layer via `actions` and `components`.
+
+## Complexity Tracking
+
+> **Fill ONLY if Constitution Check has violations that must be justified**
+
+*(No violations - Architecture complies with Constitution)*

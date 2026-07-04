@@ -223,6 +223,37 @@ async function main() {
     console.log(`  ✓ Serviço criado: "${listing.title}"`)
   }
 
+  // Create demo reviews
+  const dbListings = await prisma.serviceListing.findMany()
+  const dbUsers = await prisma.user.findMany()
+  
+  for (const listing of dbListings) {
+    const nonProviders = dbUsers.filter(u => u.id !== listing.providerId)
+    // Add 1 to 2 random reviews for each listing
+    const numReviews = Math.floor(Math.random() * 2) + 1
+    
+    for (let i = 0; i < numReviews; i++) {
+      if (nonProviders[i]) {
+        const rating = Math.floor(Math.random() * 2) + 4 // 4 or 5 stars
+        const existingReview = await prisma.review.findFirst({
+          where: { authorId: nonProviders[i].id, serviceListingId: listing.id }
+        })
+
+        if (!existingReview) {
+          await prisma.review.create({
+            data: {
+              rating,
+              comment: rating === 5 ? 'Excelente serviço, super recomendo!' : 'Muito bom, profissional.',
+              authorId: nonProviders[i].id,
+              serviceListingId: listing.id
+            }
+          })
+        }
+      }
+    }
+  }
+  console.log(`  ✓ Avaliações criadas!`)
+
   console.log('\n✅ Seed concluído!')
   console.log('\n📧 Contas demo disponíveis (senha: demo1234):')
   for (const user of demoUsers) {

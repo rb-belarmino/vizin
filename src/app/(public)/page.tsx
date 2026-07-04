@@ -185,10 +185,10 @@ export default async function PublicCatalogPage({
               {listings.map((listing, i) => (
                 <div
                   key={listing.id}
-                  className="animate-slide-up"
+                  className="animate-slide-up block h-full focus:outline-none"
                   style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'both' }}
                 >
-                  <ListingCard listing={listing} />
+                  <ListingCard listing={listing} priority={i < 4} />
                 </div>
               ))}
             </div>
