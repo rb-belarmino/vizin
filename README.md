@@ -42,10 +42,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 This project strictly follows the constraints defined in our **[Vizin Constitution](.specify/memory/constitution.md)**. All developers must read the Constitution before contributing.
 
 **Key principles include:**
+
 1. **Clean & Modular Architecture**: Business logic must reside purely in TypeScript domain entities and use-cases, separated from the Next.js infrastructure.
 2. **Server Actions as Controllers**: Next.js Server Actions should only validate inputs using Zod and delegate processing to pure use-cases.
 3. **Test-Driven Development (TDD)**: Unit tests via Vitest are mandatory for core domain logic prior to implementation.
 4. **Data Sync**: Storage assets must maintain exact parity with the database (strict garbage collection).
 
 Please refer to the `specs/` directory for detailed documentation on individual features and implemented user stories.
-
