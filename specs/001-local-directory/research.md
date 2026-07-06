@@ -14,3 +14,8 @@
 - **Decision**: Use UploadThing webhooks/callbacks to manage physical file lifecycle directly from Server Actions or domain use-cases that handle listing deletion.
 - **Rationale**: Constitution rule V requires precise parity and garbage collection of orphaned assets.
 - **Alternatives considered**: AWS S3 with manual SDK (UploadThing is already homologated in stack).
+
+## Transactional Emails (Password Recovery)
+- **Decision**: Use Resend (with React Email) to handle transactional email delivery.
+- **Rationale**: Best-in-class developer experience for Next.js environments, fast edge execution, and easy local templating.
+- **Alternatives considered**: Nodemailer (requires SMTP config, heavier), SendGrid (more complex setup for simple use cases).

@@ -8,13 +8,13 @@
 
 ## Summary
 
-Develop Vizin Marketplace: a local directory and marketplace for condominium residents. It includes a public catalog of services with search/filter capabilities, and a private provider dashboard for managing listings and uploading images. The technical approach strictly adheres to Clean Architecture using Next.js 16 App Router, Auth.js v5 on Edge, Prisma ORM, and UploadThing.
+Develop Vizin Marketplace: a local directory and marketplace for condominium residents. It includes a public catalog of services with search/filter capabilities, a private provider dashboard for managing listings and uploading images, and a user profile management system with a secure password recovery flow. The technical approach strictly adheres to Clean Architecture using Next.js 16 App Router, Auth.js v5 on Edge, Prisma ORM, UploadThing, and Resend for transactional emails.
 
 ## Technical Context
 
 **Language/Version**: TypeScript
 
-**Primary Dependencies**: Next.js 16 (App Router), Auth.js v5, Prisma ORM, Zod, Tailwind CSS, Radix UI, UploadThing
+**Primary Dependencies**: Next.js 16 (App Router), Auth.js v5, Prisma ORM, Zod, Tailwind CSS, Radix UI, UploadThing, Resend, React Email
 
 **Storage**: NeonDB (PostgreSQL) and UploadThing (media assets)
 

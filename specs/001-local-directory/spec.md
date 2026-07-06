@@ -15,6 +15,9 @@
 - Q: Contact Links Validation → A: Use predefined structural fields (e.g., a specific field for WhatsApp number, another for Instagram handle) to enforce clean formatting.
 - Q: Empty States & Zero Results → A: Display a simple "No results" message with a button to easily clear active filters/search.
 
+### Session 2026-07-06
+- Q: O que o sistema deve fazer se um usuário tentar recuperar a senha informando um e-mail não cadastrado? → A: Mostrar um erro explícito informando que o e-mail não foi encontrado, priorizando a usabilidade.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Public Service Catalog (Priority: P1)
@@ -53,11 +56,36 @@ As a resident provider, I want to securely log in to a private area to create, e
 
 ---
 
+### User Story 3 - Perfil do Usuário (Priority: P2)
+
+Como um residente cadastrado, quero ter um local seguro ("Minha Conta" ou "Perfil") para administrar meus dados pessoais (nome, apartamento) e alterar minha senha, garantindo que minhas informações de contato e segurança estejam sempre atualizadas.
+
+**Acceptance Scenarios**:
+
+1. **Dado** um usuário autenticado acessando `/dashboard/profile`, **Quando** a página carregar, **Então** ele verá seus dados atuais (Nome, Email, Apartamento) preenchidos no formulário.
+2. **Dado** um usuário editando seu perfil, **Quando** ele enviar novos dados válidos para Nome ou Apartamento, **Então** o sistema atualizará seu perfil e refletirá essas mudanças em seus anúncios existentes. O campo de Email estará visível, porém desativado para edição (imutável).
+3. **Dado** um usuário na área de segurança, **Quando** ele fornecer a senha atual correta e a nova senha, **Então** o sistema atualizará suas credenciais com sucesso.
+
+---
+
+### User Story 4 - Recuperação de Senha (Priority: P1)
+
+Como um residente que esqueceu sua senha, quero poder solicitar um link seguro de recuperação para o meu e-mail cadastrado, para que eu possa recuperar o acesso à minha conta.
+
+**Acceptance Scenarios**:
+
+1. **Dado** um usuário na tela de login, **Quando** ele clicar em "Esqueci minha senha" e enviar seu e-mail, **Então** o sistema enviará um token de recuperação seguro para o endereço de e-mail informado — ou exibirá um erro explícito ("Email not found") caso o endereço não esteja cadastrado.
+2. **Dado** um usuário com um link de recuperação válido, **Quando** ele acessá-lo e definir uma nova senha, **Então** sua senha será atualizada e ele será redirecionado para o login.
+
+---
+
 ### Edge Cases
 
 - What happens if the image upload fails due to network issues or file size limits?
 - **Empty Search Fallback**: Display a simple "No results" message with a button to easily clear active filters/search.
 - **Account Collision**: Allow multiple accounts per apartment (e.g., spouses/roommates) without strict uniqueness, trusting the closed community nature.
+- **Expired Recovery Link**: If a password recovery link expires before the user clicks it, show an invalid link warning and prompt them to generate a new one.
+- **Unregistered Email Recovery**: If a user attempts to recover a password using an unregistered email, the system MUST display an explicit error message ("Email not found") instead of failing silently.
 
 ## Requirements *(mandatory)*
 
@@ -75,6 +103,11 @@ As a resident provider, I want to securely log in to a private area to create, e
 - **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with state indicators.
 - **FR-011**: System MUST instruct the storage provider to physically delete orphaned assets when a listing is purged or its image is switched.
 - **FR-012**: System MUST use predefined structural fields (e.g., specific field for WhatsApp, another for Instagram) when creating listings to enforce clean contact formatting.
+- **FR-013**: System MUST provide a protected route (`/dashboard/profile`) for authenticated users to view their current registration data (Name, Email, Apartment).
+- **FR-014**: System MUST allow users to update their Full Name and Apartment ID, but MUST strictly prevent Email changes (immutable primary key).
+- **FR-015**: System MUST provide a password change mechanism in the profile, requiring validation of the current password before applying the new encrypted password.
+- **FR-016**: System MUST provide a public "Forgot Password" flow (`/forgot-password` and `/reset-password`) sending a secure (expiring) token via email to allow credential reset for accounts that lost access.
+- **FR-016b**: System MUST display an explicit error message ("Email not found") on the `/forgot-password` form when the submitted email address does not match any registered account, prioritizing usability over security obfuscation.
 
 ### Key Entities
 

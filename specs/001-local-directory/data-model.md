@@ -15,6 +15,7 @@ Represents a condominium resident who can access the private dashboard and manag
   - `updatedAt`: DateTime
 - **Relationships**:
   - `listings`: 1-to-Many with `ServiceListing`
+  - `passwordResetTokens`: 1-to-Many with `PasswordResetToken`
 - **Validation**:
   - `apartmentId` must be >= 1.
   - Multiple users can share the same `apartmentId` (Clarification decision: Trust closed community nature).
@@ -42,7 +43,23 @@ Represents a service offered by a resident to the condominium.
   - At least one contact field (`whatsappNumber` or `instagramHandle`) must be provided.
   - Image key is strictly required to satisfy UploadThing garbage collection requirements.
 
+### PasswordResetToken
+Represents a secure, short-lived token used for recovering access to a user account.
+
+- **Fields**:
+  - `id`: UUID (Primary Key)
+  - `token`: String (Required, Unique, Securely generated)
+  - `expiresAt`: DateTime (Required, Future date/time for expiration)
+  - `userId`: UUID (Foreign Key to User)
+  - `createdAt`: DateTime
+- **Relationships**:
+  - `user`: Many-to-1 with `User`
+- **Validation**:
+  - `token` must be cryptographically secure.
+  - `expiresAt` should typically be set to 1-2 hours after creation.
+
 ## State Transitions
 - **Listing Creation**: Draft -> Public
 - **Listing Visibility Toggle**: Public <-> Hidden
 - **Listing Deletion**: Deletes DB row AND triggers UploadThing asset deletion via API (Parity constraint).
+- **Password Recovery**: Token Generated (Pending) -> Token Used (Consumed/Deleted) or Expired.
