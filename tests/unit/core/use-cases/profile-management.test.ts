@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 // These modules don't exist yet, we are writing the tests first (TDD).

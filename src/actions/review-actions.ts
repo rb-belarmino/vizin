@@ -37,9 +37,9 @@ export async function submitReviewAction(data: ReviewInput) {
     revalidatePath('/')
 
     return { success: 'Avaliação enviada com sucesso!' }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Failed to submit review:', error)
-    return { error: error.message || 'Falha ao enviar a avaliação.' }
+    return { error: (error instanceof Error ? error.message : String(error)) || 'Falha ao enviar a avaliação.' }
   }
 }
 
@@ -66,8 +66,8 @@ export async function deleteReviewAction(
     revalidatePath('/')
 
     return { success: 'Avaliação excluída com sucesso!' }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Failed to delete review:', error)
-    return { error: error.message || 'Falha ao excluir a avaliação.' }
+    return { error: (error instanceof Error ? error.message : String(error)) || 'Falha ao excluir a avaliação.' }
   }
 }

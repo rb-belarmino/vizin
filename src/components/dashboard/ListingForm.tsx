@@ -29,7 +29,7 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
   const router = useRouter()
   const [serverError, setServerError] = useState<string | null>(null)
   const [uploadState, setUploadState] = useState<UploadState | null>(null)
-  const [isUploading, setIsUploading] = useState(false)
+  const [isUploading] = useState(false)
 
   const {
     register,

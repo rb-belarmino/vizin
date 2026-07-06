@@ -42,7 +42,6 @@ export async function registerAction(data: RegisterSchemaType) {
 }
 
 export async function loginAction(data: LoginSchemaType) {
-  const repository = new ResidentRepository()
   const parsed = LoginSchema.safeParse(data)
   if (!parsed.success) {
     return { error: 'Invalid credentials' }

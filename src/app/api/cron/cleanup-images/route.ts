@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { UTApi } from 'uploadthing/server'
-import { PrismaClient } from '@prisma/client'
-
-const prisma = new PrismaClient()
+import { prisma } from '@/lib/prisma'
 const utapi = new UTApi()
 
 export async function GET(request: Request) {
@@ -56,7 +54,5 @@ export async function GET(request: Request) {
       { error: 'Internal Server Error during cleanup' },
       { status: 500 }
     )
-  } finally {
-    await prisma.$disconnect()
   }
 }

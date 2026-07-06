@@ -29,7 +29,7 @@ export async function updateProfileAction(data: UpdateProfileInput) {
     revalidatePath('/dashboard/profile')
 
     return { success: 'Perfil atualizado com sucesso!' }
-  } catch (error: any) {
+  } catch (error) {
     console.error('Update Profile Error:', error)
     return { error: 'Erro ao atualizar o perfil. Tente novamente mais tarde.' }
   }

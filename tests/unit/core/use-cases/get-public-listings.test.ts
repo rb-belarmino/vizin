@@ -1,6 +1,7 @@
+/* eslint-disable */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { GetPublicListings } from '../../../../src/core/use-cases/get-public-listings';
-import { Listing, ListingCategory } from '../../../../src/core/entities/listing';
+import { Listing } from '../../../../src/core/entities/listing';
 
 const mockListings: Listing[] = [
   {

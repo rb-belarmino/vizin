@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, useWatch } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { reviewSchema, ReviewInput } from '../../actions/schemas/review.schema'
 import { submitReviewAction, deleteReviewAction } from '../../actions/review-actions'
@@ -27,7 +27,7 @@ export function ReviewForm({ serviceListingId, existingReview }: ReviewFormProps
     register,
     handleSubmit,
     setValue,
-    watch,
+    control,
     formState: { errors }
   } = useForm<ReviewInput>({
     resolver: zodResolver(reviewSchema),
@@ -38,8 +38,7 @@ export function ReviewForm({ serviceListingId, existingReview }: ReviewFormProps
     }
   })
 
-  const currentRating = watch('rating')
-
+  const currentRating = useWatch({ control, name: 'rating' })
   const onSubmit = async (data: ReviewInput) => {
     setIsSubmitting(true)
     setError(null)

@@ -1,10 +1,9 @@
-import { prisma } from '@/lib/prisma';
+import { ResidentRepository } from '@/infrastructure/database/resident-repository';
 import bcrypt from 'bcryptjs';
 
 export async function changePassword(userId: string, currentPassword: string, newPassword: string) {
-  const user = await prisma.user.findUnique({
-    where: { id: userId },
-  });
+  const repository = new ResidentRepository();
+  const user = await repository.findResidentForAuth(userId);
 
   if (!user) {
     throw new Error('Usuário não encontrado.');
@@ -18,10 +17,7 @@ export async function changePassword(userId: string, currentPassword: string, ne
 
   const newPasswordHash = await bcrypt.hash(newPassword, 10);
 
-  await prisma.user.update({
-    where: { id: userId },
-    data: { passwordHash: newPasswordHash },
-  });
+  await repository.updateResident(userId, { passwordHash: newPasswordHash });
 
   return true;
 }

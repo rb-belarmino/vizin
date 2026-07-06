@@ -34,10 +34,10 @@ export async function changePasswordAction(data: ChangePasswordInput) {
     )
 
     return { success: 'Senha atualizada com sucesso!' }
-  } catch (error: any) {
+  } catch (error) {
     // If the error message is about incorrect password, return it directly
-    if (error.message === 'A senha atual está incorreta.') {
-      return { error: error.message }
+    if ((error instanceof Error ? error.message : String(error)) === 'A senha atual está incorreta.') {
+      return { error: (error instanceof Error ? error.message : String(error)) }
     }
     return { error: 'Erro interno ao alterar senha.' }
   }
@@ -53,9 +53,9 @@ export async function forgotPasswordAction(data: ForgotPasswordInput) {
     await generateResetToken(parsed.data.email)
 
     return { success: 'Um link de recuperação foi enviado para o seu e-mail.' }
-  } catch (error: any) {
+  } catch (error) {
     // FR-016b: Explicit error for email not found
-    if (error.message === 'Email not found') {
+    if ((error instanceof Error ? error.message : String(error)) === 'Email not found') {
       return { error: 'Este e-mail não está cadastrado no sistema.' }
     }
     return {
@@ -76,10 +76,10 @@ export async function resetPasswordAction(data: ResetPasswordInput) {
     return {
       success: 'Sua senha foi redefinida com sucesso! Você já pode fazer login.'
     }
-  } catch (error: any) {
+  } catch (error) {
     return {
       error:
-        error.message ||
+        (error instanceof Error ? error.message : String(error)) ||
         'Erro ao redefinir a senha. O token pode estar expirado.'
     }
   }

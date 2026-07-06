@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/infrastructure/auth/auth";
 
@@ -41,7 +42,7 @@ export default async function DashboardLayout({
       <header className="border-b bg-card sticky top-0 z-10 shadow-sm">
         <div className="container mx-auto px-4 py-3 max-w-5xl flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <a
+            <Link
               href="/"
               id="back-to-catalog-nav"
               className="flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors text-sm group"
@@ -50,7 +51,7 @@ export default async function DashboardLayout({
                 <path d="M3.86 8.753l5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
               </svg>
               Catálogo
-            </a>
+            </Link>
             <span className="text-muted-foreground/40">/</span>
             <div className="flex items-center gap-2">
               <div className="w-5 h-5 rounded-md brand-gradient flex items-center justify-center">

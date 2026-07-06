@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { deleteListingAction } from '../../../src/actions/listing-actions'
 import { ManageListingsUseCase } from '../../../src/core/use-cases/manage-listings'

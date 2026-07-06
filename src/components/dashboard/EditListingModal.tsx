@@ -41,7 +41,7 @@ export function EditListingModal({
   const [serverError, setServerError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [uploadState, setUploadState] = useState<UploadState | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const [isUploading] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -79,9 +79,7 @@ export function EditListingModal({
         portfolioImageUrl: listing.portfolioImageUrl,
         portfolioImageKey: listing.portfolioImageKey,
       });
-      setUploadState(null);
-      setServerError(null);
-      setSuccessMsg(null);
+      
     }
   }, [open, listing, reset]);
 

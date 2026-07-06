@@ -1,6 +1,5 @@
 import { notFound } from 'next/navigation';
-import { PrismaListingRepository } from '@/infrastructure/database/listing-repository';
-import { PrismaReviewRepository } from '@/infrastructure/database/review-repository';
+import { getListingDetailsUseCase, getListingReviewsUseCase } from '@/core/use-cases/get-listing-details';
 import { ListingCard } from '@/components/catalog/ListingCard';
 import { ReviewForm } from '@/components/reviews/ReviewForm';
 import { ReviewList } from '@/components/reviews/ReviewList';
@@ -10,18 +9,16 @@ import { Button } from '@/components/ui/button';
 
 export default async function ListingDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const listingRepository = new PrismaListingRepository();
-  const listing = await listingRepository.findById(id);
+  const listing = await getListingDetailsUseCase(id);
 
   if (!listing) {
     notFound();
   }
 
   const session = await auth();
-  const reviewRepository = new PrismaReviewRepository();
   
   // For US1, fetch the existing review for the logged in user
-  const allReviews = await reviewRepository.findByListingId(id);
+  const allReviews = await getListingReviewsUseCase(id);
   const userId = session?.user?.id;
   const userReview = userId 
     ? allReviews.find(r => r.authorId === userId)

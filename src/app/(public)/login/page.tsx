@@ -58,12 +58,12 @@ export default function LoginPage() {
 
       {/* Logo */}
       <div className="mb-8 flex flex-col items-center gap-3 relative animate-slide-up">
-        <a href="/" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 rounded-xl brand-gradient flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
             <span className="text-white text-base font-black">V</span>
           </div>
           <span className="font-bold text-2xl tracking-tight text-white">Vizin</span>
-        </a>
+        </Link>
         <p className="text-indigo-300 text-sm text-center max-w-xs">
           {isLogin
             ? "Acesse sua conta para gerenciar seus serviços"
@@ -256,13 +256,13 @@ export default function LoginPage() {
       </div>
 
       {/* Back link */}
-      <a
+      <Link
         href="/"
         id="back-to-catalog-link"
         className="mt-6 text-sm text-white/50 hover:text-white/80 transition-colors relative"
       >
         ← Voltar ao catálogo
-      </a>
+      </Link>
     </div>
   );
 }

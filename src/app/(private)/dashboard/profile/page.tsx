@@ -1,5 +1,5 @@
 import { auth } from '@/infrastructure/auth/auth';
-import { prisma } from '@/lib/prisma';
+import { getProfileUseCase } from '@/core/use-cases/get-profile';
 import { redirect } from 'next/navigation';
 import { ProfileForm } from '@/components/profile/ProfileForm';
 import { PasswordForm } from '@/components/profile/PasswordForm';
@@ -15,10 +15,7 @@ export default async function ProfilePage() {
     redirect('/login');
   }
 
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { fullName: true, email: true, apartmentId: true }
-  });
+  const user = await getProfileUseCase(session.user.id);
 
   if (!user) {
     redirect('/login');

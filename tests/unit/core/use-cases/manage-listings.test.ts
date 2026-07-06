@@ -37,7 +37,7 @@ describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
       mockResidentRepository.getListingById.mockResolvedValue(mockListing);
       mockResidentRepository.deleteListing.mockResolvedValue(true);
       
-      const result = await useCase.deleteListing(listingId);
+      await useCase.deleteListing(listingId);
       
       expect(mockResidentRepository.getListingById).toHaveBeenCalledWith(listingId);
       expect(mockStorageService.deleteImage).toHaveBeenCalledWith('image-123');
@@ -52,7 +52,7 @@ describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
       mockResidentRepository.getListingById.mockResolvedValue(mockListing);
       mockResidentRepository.deleteListing.mockResolvedValue(true);
       
-      const result = await useCase.deleteListing(listingId);
+      await useCase.deleteListing(listingId);
       
       expect(mockStorageService.deleteImage).not.toHaveBeenCalled();
       expect(mockResidentRepository.deleteListing).toHaveBeenCalledWith(listingId);

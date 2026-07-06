@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/prisma'
+import { ResidentRepository } from '@/infrastructure/database/resident-repository'
 import { sendEmail } from '@/infrastructure/email/mailer'
 import ResetPasswordEmail from '@/infrastructure/email/templates/reset-password'
 import bcrypt from 'bcryptjs'
@@ -6,7 +6,8 @@ import crypto from 'crypto'
 import * as React from 'react'
 
 export async function generateResetToken(email: string) {
-  const user = await prisma.user.findUnique({ where: { email } })
+  const repository = new ResidentRepository()
+  const user = await repository.findResidentByEmail(email)
 
   // FR-016b: Throw explicit error for UX
   if (!user) {
@@ -17,12 +18,10 @@ export async function generateResetToken(email: string) {
   const expires = new Date(Date.now() + 3600000) // 1 hour from now
   const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`
 
-  await prisma.passwordResetToken.create({
-    data: {
-      email,
-      token,
-      expires
-    }
+  await repository.createPasswordResetToken({
+    email,
+    token,
+    expires
   })
 
   await sendEmail({
@@ -38,22 +37,19 @@ export async function generateResetToken(email: string) {
 }
 
 export async function validateResetToken(token: string, newPassword: string) {
-  const resetToken = await prisma.passwordResetToken.findUnique({
-    where: { token }
-  })
+  const repository = new ResidentRepository()
+  const resetToken = await repository.findPasswordResetToken(token)
 
   if (!resetToken) {
     throw new Error('Token inválido ou expirado.')
   }
 
   if (resetToken.expires < new Date()) {
-    await prisma.passwordResetToken.delete({ where: { id: resetToken.id } })
+    await repository.deletePasswordResetToken(resetToken.id)
     throw new Error('Token expirado. Por favor, solicite um novo.')
   }
 
-  const user = await prisma.user.findUnique({
-    where: { email: resetToken.email }
-  })
+  const user = await repository.findResidentByEmail(resetToken.email)
 
   if (!user) {
     throw new Error('Usuário não encontrado.')
@@ -62,15 +58,7 @@ export async function validateResetToken(token: string, newPassword: string) {
   const hashedPassword = await bcrypt.hash(newPassword, 10)
 
   // Use transaction to ensure both operations succeed
-  await prisma.$transaction([
-    prisma.user.update({
-      where: { id: user.id },
-      data: { passwordHash: hashedPassword }
-    }),
-    prisma.passwordResetToken.deleteMany({
-      where: { email: user.email } // Delete all tokens for this user
-    })
-  ])
+  await repository.resetPasswordWithTransaction(user.id, user.email, hashedPassword)
 
   return true
 }
