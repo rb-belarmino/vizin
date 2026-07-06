@@ -5,18 +5,20 @@ export const metadata = {
   title: 'Redefinir Senha - Vizin'
 };
 
-export default function ResetPasswordPage({
+export default async function ResetPasswordPage({
   searchParams,
 }: {
-  searchParams: { token?: string };
+  searchParams: Promise<{ token?: string }>;
 }) {
-  if (!searchParams.token) {
+  const { token } = await searchParams;
+
+  if (!token) {
     redirect('/login');
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 hero-gradient">
-      <ResetPasswordForm token={searchParams.token} />
+      <ResetPasswordForm token={token} />
     </div>
   );
 }

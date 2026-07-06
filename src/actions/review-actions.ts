@@ -20,7 +20,10 @@ export async function submitReviewAction(data: ReviewInput) {
 
   const reviewRepository = new PrismaReviewRepository()
   const listingRepository = new PrismaListingRepository()
-  const manageReviews = new ManageReviewsUseCase(reviewRepository, listingRepository)
+  const manageReviews = new ManageReviewsUseCase(
+    reviewRepository,
+    listingRepository
+  )
 
   try {
     await manageReviews.submitReview({
@@ -40,7 +43,10 @@ export async function submitReviewAction(data: ReviewInput) {
   }
 }
 
-export async function deleteReviewAction(reviewId: string, serviceListingId: string) {
+export async function deleteReviewAction(
+  reviewId: string,
+  serviceListingId: string
+) {
   const session = await auth()
   if (!session?.user?.id) {
     return { error: 'Não autorizado.' }
@@ -48,7 +54,10 @@ export async function deleteReviewAction(reviewId: string, serviceListingId: str
 
   const reviewRepository = new PrismaReviewRepository()
   const listingRepository = new PrismaListingRepository()
-  const manageReviews = new ManageReviewsUseCase(reviewRepository, listingRepository)
+  const manageReviews = new ManageReviewsUseCase(
+    reviewRepository,
+    listingRepository
+  )
 
   try {
     await manageReviews.deleteReview(reviewId, session.user.id)

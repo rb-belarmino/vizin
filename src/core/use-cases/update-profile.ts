@@ -1,4 +1,4 @@
-import { prisma } from '@/infrastructure/database/prisma';
+import { prisma } from '@/lib/prisma';
 import { UpdateProfileInput } from '@/actions/schemas/profile-schema';
 
 export async function updateProfile(userId: string, data: UpdateProfileInput) {

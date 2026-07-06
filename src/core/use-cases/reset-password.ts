@@ -1,4 +1,4 @@
-import { prisma } from '@/infrastructure/database/prisma';
+import { prisma } from '@/lib/prisma';
 import { sendEmail } from '@/infrastructure/email/mailer';
 import ResetPasswordEmail from '@/infrastructure/email/templates/reset-password';
 import bcrypt from 'bcryptjs';
@@ -24,6 +24,11 @@ export async function generateResetToken(email: string) {
   });
 
   const resetLink = `http://localhost:3000/reset-password?token=${token}`; // Use env var for base URL in prod
+
+  // FOR LOCAL TESTING: log the link to the server console
+  console.log('--- RECOVERY LINK ---');
+  console.log(resetLink);
+  console.log('---------------------');
 
   await sendEmail({
     to: email,

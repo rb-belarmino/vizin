@@ -1,7 +1,7 @@
 import { Resend } from 'resend';
 
-// Initialize Resend with the API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Instantiate conditionally to prevent crashing at startup if the key is missing
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export async function sendEmail({
   to,
@@ -12,14 +12,14 @@ export async function sendEmail({
   subject: string;
   react: React.ReactElement;
 }) {
-  if (!process.env.RESEND_API_KEY) {
+  if (!resend) {
     console.warn('RESEND_API_KEY is not set. Email would have been sent:', { to, subject });
     return { data: null, error: new Error('RESEND_API_KEY missing') };
   }
 
   try {
     const data = await resend.emails.send({
-      from: 'Vizin <no-reply@vizin.demo>',
+      from: 'Vizin <onboarding@resend.dev>',
       to,
       subject,
       react,

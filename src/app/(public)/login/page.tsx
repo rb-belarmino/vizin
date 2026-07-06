@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginSchemaType, RegisterSchema, RegisterSchemaType } from "@/actions/schemas/auth-schema";
 import { loginAction, registerAction } from "@/actions/auth-actions";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -143,6 +144,11 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 className="w-full px-3 py-2.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder:text-white/35 text-sm outline-none focus:ring-2 focus:ring-white/30 transition-all"
               />
+              <div className="flex justify-end mt-2">
+                <Link href="/forgot-password" className="text-xs text-indigo-300 hover:text-white transition-colors">
+                  Esqueceu a senha?
+                </Link>
+              </div>
             </div>
 
             <button

@@ -1,4 +1,4 @@
-import { prisma } from '@/infrastructure/database/prisma';
+import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
 export async function changePassword(userId: string, currentPassword: string, newPassword: string) {
