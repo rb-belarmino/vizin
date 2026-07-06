@@ -5,6 +5,9 @@ import { ResidentRepository } from '../infrastructure/database/resident-reposito
 import { auth } from '../infrastructure/auth/auth'
 import { revalidatePath } from 'next/cache'
 
+import { ManageListingsUseCase } from '../core/use-cases/manage-listings'
+import { UploadStorageUseCase } from '../core/use-cases/upload-storage'
+
 export async function createListingAction(data: ListingSchemaType) {
   const repository = new ResidentRepository()
   const session = await auth()
@@ -18,7 +21,8 @@ export async function createListingAction(data: ListingSchemaType) {
   }
 
   try {
-    await repository.createListing({
+    const useCase = new ManageListingsUseCase(repository)
+    await useCase.createListing({
       ...parsed.data,
       providerId: session.user.id
     })
@@ -35,6 +39,7 @@ export async function createListingAction(data: ListingSchemaType) {
 
 export async function updateListingAction(id: string, data: ListingSchemaType) {
   const repository = new ResidentRepository()
+  const storage = new UploadStorageUseCase()
   const session = await auth()
   if (!session?.user?.id) {
     return { error: 'Não autorizado.' }
@@ -52,7 +57,8 @@ export async function updateListingAction(id: string, data: ListingSchemaType) {
       return { error: 'Serviço não encontrado ou acesso negado.' }
     }
 
-    await repository.updateListing(id, {
+    const useCase = new ManageListingsUseCase(repository, storage)
+    await useCase.updateListing(id, {
       title: parsed.data.title,
       description: parsed.data.description,
       categoryId: parsed.data.categoryId,
@@ -89,7 +95,8 @@ export async function toggleVisibilityAction(id: string) {
 
     const newStatus =
       existing.visibilityStatus === 'Public' ? 'Hidden' : 'Public'
-    await repository.updateListing(id, { visibilityStatus: newStatus })
+    const useCase = new ManageListingsUseCase(repository)
+    await useCase.updateListing(id, { visibilityStatus: newStatus })
 
     revalidatePath('/dashboard')
     revalidatePath('/')
@@ -106,6 +113,7 @@ export async function toggleVisibilityAction(id: string) {
 
 export async function deleteListingAction(id: string) {
   const repository = new ResidentRepository()
+  const storage = new UploadStorageUseCase()
   const session = await auth()
   if (!session?.user?.id) {
     return { error: 'Não autorizado.' }
@@ -118,7 +126,8 @@ export async function deleteListingAction(id: string) {
       return { error: 'Serviço não encontrado ou acesso negado.' }
     }
 
-    await repository.deleteListing(id)
+    const useCase = new ManageListingsUseCase(repository, storage)
+    await useCase.deleteListing(id)
 
     revalidatePath('/dashboard')
     revalidatePath('/')

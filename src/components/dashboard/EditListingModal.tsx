@@ -4,8 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { UploadButton } from "@uploadthing/react";
-import { OurFileRouter } from "@/infrastructure/storage/uploadthing";
+import { ServiceImageDropzone } from "@/components/upload/ServiceImageDropzone";
 import {
   ListingSchema,
   ListingSchemaType,
@@ -194,61 +193,17 @@ export function EditListingModal({
             <label className="block text-sm font-medium">
               Imagem do serviço
             </label>
-            <div className="relative rounded-xl overflow-hidden h-36 bg-muted group">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={currentImageUrl}
-                alt="Imagem atual"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2">
-                <p className="text-white text-xs font-medium">Trocar imagem:</p>
-                {isUploading ? (
-                  <div className="flex items-center gap-1.5 text-white text-xs">
-                    <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    Enviando...
-                  </div>
-                ) : (
-                  <div className="scale-90">
-                    <UploadButton<OurFileRouter, "imageUploader">
-                      endpoint="imageUploader"
-                      onUploadBegin={() => setIsUploading(true)}
-                      onClientUploadComplete={(res) => {
-                        setIsUploading(false);
-                        if (res && res[0]) {
-                          const file = res[0];
-                          setUploadState({ url: file.url, key: file.key });
-                          setValue("portfolioImageUrl", file.url);
-                          setValue("portfolioImageKey", file.key);
-                        }
-                      }}
-                      onUploadError={(error) => {
-                        setIsUploading(false);
-                        setServerError(`Erro no upload: ${error.message}`);
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-              {uploadState && (
-                <div className="absolute top-2 right-2 bg-emerald-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  Nova imagem ✓
-                </div>
-              )}
-            </div>
-            {uploadState && (
-              <button
-                type="button"
-                onClick={() => {
-                  setUploadState(null);
-                  setValue("portfolioImageUrl", listing.portfolioImageUrl);
-                  setValue("portfolioImageKey", listing.portfolioImageKey);
-                }}
-                className="text-xs text-muted-foreground hover:text-destructive transition-colors"
-              >
-                ↩ Usar imagem original
-              </button>
-            )}
+            <ServiceImageDropzone
+              initialImageUrl={currentImageUrl}
+              onUploadComplete={(url, key) => {
+                setUploadState({ url, key });
+                setValue("portfolioImageUrl", url);
+                setValue("portfolioImageKey", key);
+              }}
+              onUploadError={(error) => {
+                setServerError(`Erro no upload: ${error.message}`);
+              }}
+            />
           </div>
 
           {/* Title */}

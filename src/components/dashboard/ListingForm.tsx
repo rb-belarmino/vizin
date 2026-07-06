@@ -4,8 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { UploadButton } from "@uploadthing/react";
-import { OurFileRouter } from "@/infrastructure/storage/uploadthing";
+import { ServiceImageDropzone } from "@/components/upload/ServiceImageDropzone";
 import { ListingSchema, ListingSchemaType } from "@/actions/schemas/listing-schema";
 import { createListingAction } from "@/actions/listing-actions";
 
@@ -193,58 +192,17 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
         <label className="block text-sm font-medium">
           Imagem do serviço <span className="text-destructive">*</span>
         </label>
-        <div className="rounded-md border-2 border-dashed border-border p-4 text-center transition-colors hover:border-muted-foreground/50">
-          {uploadState ? (
-            <div className="space-y-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={uploadState.url}
-                alt="Preview"
-                className="mx-auto h-32 w-auto rounded-md object-cover"
-              />
-              <p className="text-xs text-muted-foreground">Imagem carregada com sucesso ✓</p>
-              <button
-                type="button"
-                onClick={() => setUploadState(null)}
-                className="text-xs text-destructive hover:underline"
-              >
-                Remover e trocar
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-2">
-              {isUploading ? (
-                <div className="flex flex-col items-center gap-2">
-                  <div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-                  <p className="text-xs text-muted-foreground">Enviando imagem...</p>
-                </div>
-              ) : (
-                <>
-                  <p className="text-sm text-muted-foreground">
-                    Arraste ou clique para selecionar uma imagem (máx. 4MB)
-                  </p>
-                  <UploadButton<OurFileRouter, "imageUploader">
-                    endpoint="imageUploader"
-                    onUploadBegin={() => setIsUploading(true)}
-                    onClientUploadComplete={(res) => {
-                      setIsUploading(false);
-                      if (res && res[0]) {
-                        const file = res[0];
-                        setUploadState({ url: file.url, key: file.key });
-                        setValue("portfolioImageUrl", file.url);
-                        setValue("portfolioImageKey", file.key);
-                      }
-                    }}
-                    onUploadError={(error) => {
-                      setIsUploading(false);
-                      setServerError(`Erro no upload: ${error.message}`);
-                    }}
-                  />
-                </>
-              )}
-            </div>
-          )}
-        </div>
+        <ServiceImageDropzone
+          initialImageUrl={uploadState?.url}
+          onUploadComplete={(url, key) => {
+            setUploadState({ url, key });
+            setValue("portfolioImageUrl", url);
+            setValue("portfolioImageKey", key);
+          }}
+          onUploadError={(error) => {
+            setServerError(`Erro no upload: ${error.message}`);
+          }}
+        />
         {errors.portfolioImageUrl && (
           <p className="text-xs text-destructive">{errors.portfolioImageUrl.message}</p>
         )}
