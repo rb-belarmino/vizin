@@ -20,8 +20,8 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Project initialization and dependency setup
 
-- [ ] T001 Install `uploadthing` and `@uploadthing/react` dependencies
-- [ ] T002 Add `UPLOADTHING_TOKEN` requirement to the environment configuration
+- [x] T001 Install `uploadthing` and `@uploadthing/react` dependencies
+- [x] T002 Add `UPLOADTHING_TOKEN` requirement to the environment configuration
 
 ---
 
@@ -31,8 +31,8 @@ description: "Task list template for feature implementation"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T003 Update database schema in `prisma/schema.prisma` to add `portfolioImageUrl` and `portfolioImageKey` (optional string fields) to `ServiceListing`
-- [ ] T004 Generate and apply Prisma migrations for the schema changes
+- [x] T003 Update database schema in `prisma/schema.prisma` to add `portfolioImageUrl` and `portfolioImageKey` (optional string fields) to `ServiceListing`
+- [x] T004 Generate and apply Prisma migrations for the schema changes
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -46,10 +46,10 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 1
 
-- [ ] T005 [P] [US1] Create UploadThing File Router in `src/app/api/uploadthing/core.ts` with Auth.js session validation and 4MB image limit
-- [ ] T006 [P] [US1] Expose Next.js API route in `src/app/api/uploadthing/route.ts`
-- [ ] T007 [US1] Implement custom `ServiceImageDropzone.tsx` in `src/components/upload/ServiceImageDropzone.tsx` using `@uploadthing/react` `<UploadDropzone>`
-- [ ] T008 [US1] Integrate `ServiceImageDropzone` into the Create/Edit Service Listing form component
+- [x] T005 [P] [US1] Create UploadThing File Router in `src/app/api/uploadthing/core.ts` with Auth.js session validation and 4MB image limit
+- [x] T006 [P] [US1] Expose Next.js API route in `src/app/api/uploadthing/route.ts`
+- [x] T007 [US1] Implement custom `ServiceImageDropzone.tsx` in `src/components/upload/ServiceImageDropzone.tsx` using `@uploadthing/react` `<UploadDropzone>`
+- [x] T008 [US1] Integrate `ServiceImageDropzone` into the Create/Edit Service Listing form component
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
@@ -63,11 +63,11 @@ description: "Task list template for feature implementation"
 
 ### Implementation for User Story 2
 
-- [ ] T008.1 [US2] Write automated unit tests (TDD) with Vitest for the domain logic `deleteListing.ts` ensuring `UTApi.deleteFiles` is called appropriately
-- [ ] T008.2 [US2] Write automated unit tests (TDD) with Vitest for the Server Action `delete.ts` to ensure edge controller delegates correctly
-- [ ] T009 [P] [US2] Update domain logic in `src/core/use-cases/listings/deleteListing.ts` to call `UTApi.deleteFiles` (non-blocking)
-- [ ] T010 [US2] Update Server Action in `src/actions/service-listings/delete.ts` to use the updated domain logic
-- [ ] T011 [US2] Implement daily Vercel Cron Job in `src/app/api/cron/cleanup-images/route.ts` to identify and delete orphaned files
+- [x] T008.1 [US2] Write automated unit tests (TDD) with Vitest for the domain logic `deleteListing.ts` ensuring `UTApi.deleteFiles` is called appropriately
+- [x] T008.2 [US2] Write automated unit tests (TDD) with Vitest for the Server Action `delete.ts` to ensure edge controller delegates correctly
+- [x] T009 [P] [US2] Update domain logic in `src/core/use-cases/listings/deleteListing.ts` to call `UTApi.deleteFiles` (non-blocking)
+- [x] T010 [US2] Update Server Action in `src/actions/service-listings/delete.ts` to use the updated domain logic
+- [x] T011 [US2] Implement daily Vercel Cron Job in `src/app/api/cron/cleanup-images/route.ts` to identify and delete orphaned files
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
@@ -77,8 +77,8 @@ description: "Task list template for feature implementation"
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [ ] T012 Validate error handling (e.g., file > 4MB) displays properly in the UI
-- [ ] T013 Run `quickstart.md` end-to-end validation scenarios
+- [x] T012 Validate error handling (e.g., file > 4MB) displays properly in the UI
+- [x] T013 Run `quickstart.md` end-to-end validation scenarios
 
 ---
 

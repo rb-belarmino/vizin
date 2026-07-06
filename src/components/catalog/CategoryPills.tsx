@@ -1,43 +1,47 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import React from 'react'
+import { useRouter, useSearchParams, usePathname } from 'next/navigation'
+import { cn } from '@/lib/utils'
 
 const categories = [
   { id: 'Gastronomia', emoji: '🍽️' },
-  { id: 'Reformas',    emoji: '🔨' },
-  { id: 'Aulas',       emoji: '📚' },
-  { id: 'Beleza',      emoji: '💇' },
-  { id: 'Saúde',       emoji: '🏥' },
-  { id: 'Outros',      emoji: '⭐' },
-];
+  { id: 'Reformas', emoji: '🔨' },
+  { id: 'Aulas', emoji: '📚' },
+  { id: 'Beleza', emoji: '💇' },
+  { id: 'Saúde', emoji: '🏥' },
+  { id: 'Outros', emoji: '⭐' }
+]
 
 export function CategoryPills() {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
-  const currentCategory = searchParams.get('category');
+  const currentCategory = searchParams.get('category')
 
   const handleSelect = (categoryId: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString())
     if (currentCategory === categoryId) {
-      params.delete('category');
+      params.delete('category')
     } else {
-      params.set('category', categoryId);
+      params.set('category', categoryId)
     }
-    router.push(`${pathname}?${params.toString()}`);
-  };
+    router.push(`${pathname}?${params.toString()}`)
+  }
 
   const clearCategory = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('category');
-    router.push(`${pathname}?${params.toString()}`);
-  };
+    const params = new URLSearchParams(searchParams.toString())
+    params.delete('category')
+    router.push(`${pathname}?${params.toString()}`)
+  }
 
   return (
-    <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoria">
+    <div
+      className="flex flex-wrap gap-2"
+      role="group"
+      aria-label="Filtrar por categoria"
+    >
       <button
         onClick={clearCategory}
         id="category-all-btn"
@@ -51,8 +55,8 @@ export function CategoryPills() {
       >
         Todos
       </button>
-      {categories.map((cat) => {
-        const isActive = currentCategory === cat.id;
+      {categories.map(cat => {
+        const isActive = currentCategory === cat.id
         return (
           <button
             key={cat.id}
@@ -66,11 +70,13 @@ export function CategoryPills() {
                 : 'bg-card text-muted-foreground border-border hover:border-primary/40 hover:text-foreground hover:scale-105'
             )}
           >
-            <span role="img" aria-hidden="true">{cat.emoji}</span>
+            <span role="img" aria-hidden="true">
+              {cat.emoji}
+            </span>
             {cat.id}
           </button>
-        );
+        )
       })}
     </div>
-  );
+  )
 }

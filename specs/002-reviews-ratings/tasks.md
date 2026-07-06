@@ -12,9 +12,9 @@ description: "Task list for Reviews & Ratings implementation"
 
 **Purpose**: Core infrastructure that MUST be complete before ANY user story can be implemented
 
-- [ ] T001 Setup Prisma database schema for `Review` model and migrations (`prisma/schema.prisma`)
-- [ ] T002 Update `src/core/entities/listing.ts` to include `ratingAverage` and `reviewCount`
-- [ ] T003 Create base `Review` entity in `src/core/entities/review.ts`
+- [x] T001 Setup Prisma database schema for `Review` model and migrations (`prisma/schema.prisma`)
+- [x] T002 Update `src/core/entities/listing.ts` to include `ratingAverage` and `reviewCount`
+- [x] T003 Create base `Review` entity in `src/core/entities/review.ts`
 - [ ] T004 Create `Review` Zod schemas in `src/actions/schemas/review.ts`
 
 **Checkpoint**: Foundation ready - user story implementation can now begin.

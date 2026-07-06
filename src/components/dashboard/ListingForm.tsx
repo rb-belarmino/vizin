@@ -1,77 +1,80 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { ServiceImageDropzone } from "@/components/upload/ServiceImageDropzone";
-import { ListingSchema, ListingSchemaType } from "@/actions/schemas/listing-schema";
-import { createListingAction } from "@/actions/listing-actions";
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { ServiceImageDropzone } from '@/components/upload/ServiceImageDropzone'
+import {
+  ListingSchema,
+  ListingSchemaType
+} from '@/actions/schemas/listing-schema'
+import { createListingAction } from '@/actions/listing-actions'
 
 const CATEGORIES = [
-  "Gastronomia",
-  "Reformas",
-  "Aulas",
-  "Beleza",
-  "Saúde",
-  "Outros",
-] as const;
+  'Gastronomia',
+  'Reformas',
+  'Aulas',
+  'Beleza',
+  'Saúde',
+  'Outros'
+] as const
 
 interface UploadState {
-  url: string;
-  key: string;
+  url: string
+  key: string
 }
 
 export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
-  const router = useRouter();
-  const [serverError, setServerError] = useState<string | null>(null);
-  const [uploadState, setUploadState] = useState<UploadState | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
+  const router = useRouter()
+  const [serverError, setServerError] = useState<string | null>(null)
+  const [uploadState, setUploadState] = useState<UploadState | null>(null)
+  const [isUploading, setIsUploading] = useState(false)
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
-    reset,
+    reset
   } = useForm<ListingSchemaType>({
     resolver: zodResolver(ListingSchema) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     defaultValues: {
-      title: "",
-      description: "",
-      categoryId: "",
-      priceBaseline: "",
-      whatsappNumber: "",
-      instagramHandle: "",
-      visibilityStatus: "Public" as const,
-      portfolioImageUrl: "",
-      portfolioImageKey: "",
-    },
-  });
+      title: '',
+      description: '',
+      categoryId: '',
+      priceBaseline: '',
+      whatsappNumber: '',
+      instagramHandle: '',
+      visibilityStatus: 'Public' as const,
+      portfolioImageUrl: '',
+      portfolioImageKey: ''
+    }
+  })
 
   const onSubmit = async (data: ListingSchemaType) => {
-    setServerError(null);
+    setServerError(null)
 
     if (!uploadState) {
-      setServerError("Por favor, faça o upload de uma imagem para continuar.");
-      return;
+      setServerError('Por favor, faça o upload de uma imagem para continuar.')
+      return
     }
 
     const result = await createListingAction({
       ...data,
       portfolioImageUrl: uploadState.url,
-      portfolioImageKey: uploadState.key,
-    });
+      portfolioImageKey: uploadState.key
+    })
 
     if (result.error) {
-      setServerError(result.error);
+      setServerError(result.error)
     } else {
-      reset();
-      setUploadState(null);
-      onSuccess?.();
-      router.refresh();
+      reset()
+      setUploadState(null)
+      onSuccess?.()
+      router.refresh()
     }
-  };
+  }
 
   return (
     <form
@@ -93,7 +96,7 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
         </label>
         <input
           id="listing-title"
-          {...register("title")}
+          {...register('title')}
           type="text"
           placeholder="Ex: Aulas de violão para iniciantes"
           className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -105,18 +108,25 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
 
       {/* Description */}
       <div className="space-y-1">
-        <label htmlFor="listing-description" className="block text-sm font-medium">
+        <label
+          htmlFor="listing-description"
+          className="block text-sm font-medium"
+        >
           Descrição <span className="text-destructive">*</span>
         </label>
         <textarea
           id="listing-description"
-          {...register("description")}
-          rows={3}
-          placeholder="Descreva seu serviço com detalhes..."
+          {...register('description')}
+          rows={5}
+          placeholder={
+            'Descreva seu serviço com detalhes...\n\n\n\n(Texto mínimo: 10 caracteres)'
+          }
           className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring resize-none"
         />
         {errors.description && (
-          <p className="text-xs text-destructive">{errors.description.message}</p>
+          <p className="text-xs text-destructive">
+            {errors.description.message}
+          </p>
         )}
       </div>
 
@@ -127,32 +137,35 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
         </label>
         <select
           id="listing-category"
-          {...register("categoryId")}
+          {...register('categoryId')}
           className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
           defaultValue=""
         >
           <option value="" disabled>
             Selecione uma categoria
           </option>
-          {CATEGORIES.map((cat) => (
+          {CATEGORIES.map(cat => (
             <option key={cat} value={cat}>
               {cat}
             </option>
           ))}
         </select>
         {errors.categoryId && (
-          <p className="text-xs text-destructive">{errors.categoryId.message}</p>
+          <p className="text-xs text-destructive">
+            {errors.categoryId.message}
+          </p>
         )}
       </div>
 
       {/* Price */}
       <div className="space-y-1">
         <label htmlFor="listing-price" className="block text-sm font-medium">
-          Preço base <span className="text-muted-foreground text-xs">(opcional)</span>
+          Preço base{' '}
+          <span className="text-muted-foreground text-xs">(opcional)</span>
         </label>
         <input
           id="listing-price"
-          {...register("priceBaseline")}
+          {...register('priceBaseline')}
           type="text"
           placeholder="Ex: A partir de R$ 50"
           className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -162,24 +175,32 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
       {/* Contact fields */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div className="space-y-1">
-          <label htmlFor="listing-whatsapp" className="block text-sm font-medium">
-            WhatsApp <span className="text-muted-foreground text-xs">(opcional)</span>
+          <label
+            htmlFor="listing-whatsapp"
+            className="block text-sm font-medium"
+          >
+            WhatsApp{' '}
+            <span className="text-muted-foreground text-xs">(opcional)</span>
           </label>
           <input
             id="listing-whatsapp"
-            {...register("whatsappNumber")}
+            {...register('whatsappNumber')}
             type="tel"
             placeholder="5511999999999"
             className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
           />
         </div>
         <div className="space-y-1">
-          <label htmlFor="listing-instagram" className="block text-sm font-medium">
-            Instagram <span className="text-muted-foreground text-xs">(opcional)</span>
+          <label
+            htmlFor="listing-instagram"
+            className="block text-sm font-medium"
+          >
+            Instagram{' '}
+            <span className="text-muted-foreground text-xs">(opcional)</span>
           </label>
           <input
             id="listing-instagram"
-            {...register("instagramHandle")}
+            {...register('instagramHandle')}
             type="text"
             placeholder="seuperfil (sem @)"
             className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -195,27 +216,32 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
         <ServiceImageDropzone
           initialImageUrl={uploadState?.url}
           onUploadComplete={(url, key) => {
-            setUploadState({ url, key });
-            setValue("portfolioImageUrl", url);
-            setValue("portfolioImageKey", key);
+            setUploadState({ url, key })
+            setValue('portfolioImageUrl', url)
+            setValue('portfolioImageKey', key)
           }}
-          onUploadError={(error) => {
-            setServerError(`Erro no upload: ${error.message}`);
+          onUploadError={error => {
+            setServerError(`Erro no upload: ${error.message}`)
           }}
         />
         {errors.portfolioImageUrl && (
-          <p className="text-xs text-destructive">{errors.portfolioImageUrl.message}</p>
+          <p className="text-xs text-destructive">
+            {errors.portfolioImageUrl.message}
+          </p>
         )}
       </div>
 
       {/* Visibility */}
       <div className="space-y-1">
-        <label htmlFor="listing-visibility" className="block text-sm font-medium">
+        <label
+          htmlFor="listing-visibility"
+          className="block text-sm font-medium"
+        >
           Visibilidade
         </label>
         <select
           id="listing-visibility"
-          {...register("visibilityStatus")}
+          {...register('visibilityStatus')}
           className="w-full rounded-md border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
         >
           <option value="Public">Público</option>
@@ -229,8 +255,8 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
         disabled={isSubmitting || isUploading}
         className="w-full rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
       >
-        {isSubmitting ? "Publicando..." : "Publicar Serviço"}
+        {isSubmitting ? 'Publicando...' : 'Publicar Serviço'}
       </button>
     </form>
-  );
+  )
 }

@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vizin
+
+Vizin is a modern, hyper-local marketplace platform connecting residents with reliable neighborhood service providers.
+
+## Tech Stack
+
+This project is built with a strictly typed, full-stack architecture optimized for the Edge:
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router & Server Actions)
+- **Database**: NeonDB (Serverless PostgreSQL)
+- **ORM**: [Prisma](https://www.prisma.io/)
+- **Authentication**: [Auth.js v5](https://authjs.dev/) (Credentials Provider with Edge support)
+- **Storage**: [UploadThing](https://uploadthing.com/)
+- **UI & Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/) (inspired by shadcn/ui)
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+```
+
+Ensure your `.env` is properly configured with your NeonDB connection string, Auth secret, and UploadThing keys.
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Database Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Run migrations: `npx prisma db push` (or `npx prisma migrate dev`)
+- Seed demo data: `npm run db:seed`
+- Browse database locally: `npx prisma studio`
 
-## Learn More
+## Architecture & Contribution Guidelines
 
-To learn more about Next.js, take a look at the following resources:
+This project strictly follows the constraints defined in our **[Vizin Constitution](.specify/memory/constitution.md)**. All developers must read the Constitution before contributing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Key principles include:**
+1. **Clean & Modular Architecture**: Business logic must reside purely in TypeScript domain entities and use-cases, separated from the Next.js infrastructure.
+2. **Server Actions as Controllers**: Next.js Server Actions should only validate inputs using Zod and delegate processing to pure use-cases.
+3. **Test-Driven Development (TDD)**: Unit tests via Vitest are mandatory for core domain logic prior to implementation.
+4. **Data Sync**: Storage assets must maintain exact parity with the database (strict garbage collection).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Please refer to the `specs/` directory for detailed documentation on individual features and implemented user stories.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
