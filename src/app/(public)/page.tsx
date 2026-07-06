@@ -4,7 +4,8 @@ import { CategoryPills } from '@/components/catalog/CategoryPills'
 import { ListingCard } from '@/components/catalog/ListingCard'
 import Link from 'next/link'
 import Image from 'next/image'
-import { auth } from '@/infrastructure/auth/auth'
+import { auth, signOut } from '@/infrastructure/auth/auth'
+import { UserMenu } from '@/components/layout/UserMenu'
 
 export const metadata = {
   title: 'Vizin — Serviços do Condomínio',
@@ -46,18 +47,14 @@ export default async function PublicCatalogPage({
           <div className="flex items-center gap-3">
             {session?.user ? (
               <>
-                <Link
-                  href="/dashboard"
-                  id="nav-dashboard-btn"
-                  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
-                >
-                  <div className="w-6 h-6 rounded-full brand-gradient flex items-center justify-center">
-                    <span className="text-white text-[10px] font-bold">
-                      {session.user.name?.charAt(0).toUpperCase() ?? '?'}
-                    </span>
-                  </div>
-                  <span className="hidden sm:inline">Painel</span>
-                </Link>
+                <UserMenu 
+                  userName={session.user.name ?? ''} 
+                  userEmail={session.user.email}
+                  signOutAction={async () => {
+                    'use server'
+                    await signOut({ redirectTo: '/' })
+                  }} 
+                />
                 <Link
                   href="/dashboard"
                   id="nav-publicar-btn"

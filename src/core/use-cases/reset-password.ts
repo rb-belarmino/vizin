@@ -24,7 +24,7 @@ export async function generateResetToken(email: string) {
     expires
   })
 
-  await sendEmail({
+  const emailResult = await sendEmail({
     to: email,
     subject: 'Redefinição de Senha - Vizin',
     react: React.createElement(ResetPasswordEmail, {
@@ -32,6 +32,13 @@ export async function generateResetToken(email: string) {
       userName: user.fullName
     })
   })
+
+  if (emailResult.error) {
+    console.error('Falha ao enviar email de reset:', emailResult.error)
+    throw new Error(
+      'Não foi possível enviar o e-mail de redefinição. Tente novamente mais tarde.'
+    )
+  }
 
   return true
 }
@@ -58,7 +65,11 @@ export async function validateResetToken(token: string, newPassword: string) {
   const hashedPassword = await bcrypt.hash(newPassword, 10)
 
   // Use transaction to ensure both operations succeed
-  await repository.resetPasswordWithTransaction(user.id, user.email, hashedPassword)
+  await repository.resetPasswordWithTransaction(
+    user.id,
+    user.email,
+    hashedPassword
+  )
 
   return true
 }

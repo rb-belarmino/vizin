@@ -1,20 +1,23 @@
-import { UTApi } from "uploadthing/server";
-import { IStorageService } from "../contracts/storage-service";
+import { UTApi } from 'uploadthing/server'
+import { IStorageService } from '../contracts/storage-service'
 
 export class UploadStorageUseCase implements IStorageService {
-  private utapi: UTApi;
+  private utapi: UTApi
 
   constructor() {
-    this.utapi = new UTApi();
+    this.utapi = new UTApi()
   }
 
   async deleteImage(imageKey: string): Promise<void> {
-    if (!imageKey) return;
+    if (!imageKey) return
     try {
-      await this.utapi.deleteFiles(imageKey);
-      console.log(`Successfully deleted image ${imageKey} from UploadThing`);
+      await this.utapi.deleteFiles(imageKey)
+      console.log(`Successfully deleted image ${imageKey} from UploadThing`)
     } catch (error) {
-      console.error(`Failed to delete image ${imageKey} from UploadThing:`, error);
+      console.error(
+        `Failed to delete image ${imageKey} from UploadThing:`,
+        error
+      )
     }
   }
 }

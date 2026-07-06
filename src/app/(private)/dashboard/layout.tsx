@@ -8,24 +8,7 @@ export const metadata = {
   description: 'Gerencie seus anúncios de serviços no condomínio.'
 }
 
-async function SignOutButton() {
-  return (
-    <form
-      action={async () => {
-        'use server'
-        await signOut({ redirectTo: '/' })
-      }}
-    >
-      <button
-        type="submit"
-        id="signout-btn"
-        className="text-sm text-muted-foreground hover:text-destructive transition-colors"
-      >
-        Sair
-      </button>
-    </form>
-  )
-}
+import { UserMenu } from '@/components/layout/UserMenu'
 
 export default async function DashboardLayout({
   children
@@ -72,17 +55,14 @@ export default async function DashboardLayout({
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Link href="/dashboard/profile" className="flex items-center gap-2 group hover:bg-muted/50 p-1.5 pr-3 rounded-full transition-colors cursor-pointer" title="Meu Perfil">
-              <div className="w-6 h-6 rounded-full brand-gradient flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-                <span className="text-white text-[10px] font-bold">
-                  {session.user.name?.charAt(0).toUpperCase() ?? '?'}
-                </span>
-              </div>
-              <span className="text-sm text-muted-foreground group-hover:text-foreground hidden sm:block font-medium transition-colors">
-                {session.user.name ?? session.user.email}
-              </span>
-            </Link>
-            <SignOutButton />
+            <UserMenu 
+              userName={session.user.name ?? ''} 
+              userEmail={session.user.email}
+              signOutAction={async () => {
+                'use server'
+                await signOut({ redirectTo: '/' })
+              }} 
+            />
           </div>
         </div>
       </header>

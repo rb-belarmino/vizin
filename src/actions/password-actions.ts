@@ -59,7 +59,7 @@ export async function forgotPasswordAction(data: ForgotPasswordInput) {
       return { error: 'Este e-mail não está cadastrado no sistema.' }
     }
     return {
-      error: 'Erro ao solicitar redefinição. Tente novamente mais tarde.'
+      error: error instanceof Error ? error.message : 'Erro ao solicitar redefinição. Tente novamente mais tarde.'
     }
   }
 }
