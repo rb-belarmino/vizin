@@ -1,18 +1,20 @@
-import * as React from 'react';
+import * as React from 'react'
 
 interface ResetPasswordEmailProps {
-  resetLink: string;
-  userName: string;
+  resetLink: string
+  userName: string
 }
 
 export const ResetPasswordEmail: React.FC<ResetPasswordEmailProps> = ({
   resetLink,
-  userName,
+  userName
 }) => {
   return (
     <div style={{ fontFamily: 'sans-serif', padding: '20px', color: '#333' }}>
       <h2>Olá, {userName}</h2>
-      <p>Recebemos uma solicitação para redefinir a senha da sua conta no Vizin.</p>
+      <p>
+        Recebemos uma solicitação para redefinir a senha da sua conta no Vizin.
+      </p>
       <p>Se você não fez essa solicitação, pode ignorar este e-mail.</p>
       <div style={{ margin: '30px 0' }}>
         <a
@@ -33,7 +35,7 @@ export const ResetPasswordEmail: React.FC<ResetPasswordEmailProps> = ({
         Este link expira em 1 hora.
       </p>
     </div>
-  );
-};
+  )
+}
 
-export default ResetPasswordEmail;
+export default ResetPasswordEmail

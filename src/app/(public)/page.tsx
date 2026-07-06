@@ -1,26 +1,30 @@
-import { fetchPublicListings } from '@/actions/catalog-actions';
-import { CategoryPills } from '@/components/catalog/CategoryPills';
-import { ListingCard } from '@/components/catalog/ListingCard';
-import Link from 'next/link';
-import { auth } from '@/infrastructure/auth/auth';
+import { fetchPublicListings } from '@/actions/catalog-actions'
+import { CategoryPills } from '@/components/catalog/CategoryPills'
+import { ListingCard } from '@/components/catalog/ListingCard'
+import Link from 'next/link'
+import { auth } from '@/infrastructure/auth/auth'
 
 export const metadata = {
   title: 'Vizin — Serviços do Condomínio',
-  description: 'Catálogo de serviços oferecidos pelos moradores do condomínio.',
-};
+  description: 'Catálogo de serviços oferecidos pelos moradores do condomínio.'
+}
 
 export default async function PublicCatalogPage({
-  searchParams,
+  searchParams
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
-  const resolvedParams = await searchParams;
+  const resolvedParams = await searchParams
 
-  const categoryId = typeof resolvedParams.category === 'string' ? resolvedParams.category : undefined;
-  const searchQuery = typeof resolvedParams.q === 'string' ? resolvedParams.q : undefined;
+  const categoryId =
+    typeof resolvedParams.category === 'string'
+      ? resolvedParams.category
+      : undefined
+  const searchQuery =
+    typeof resolvedParams.q === 'string' ? resolvedParams.q : undefined
 
-  const listings = await fetchPublicListings({ categoryId, searchQuery });
-  const session = await auth();
+  const listings = await fetchPublicListings({ categoryId, searchQuery })
+  const session = await auth()
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -43,7 +47,7 @@ export default async function PublicCatalogPage({
                 >
                   <div className="w-6 h-6 rounded-full brand-gradient flex items-center justify-center">
                     <span className="text-white text-[10px] font-bold">
-                      {session.user.name?.charAt(0).toUpperCase() ?? "?"}
+                      {session.user.name?.charAt(0).toUpperCase() ?? '?'}
                     </span>
                   </div>
                   <span className="hidden sm:inline">Painel</span>
@@ -81,7 +85,10 @@ export default async function PublicCatalogPage({
       {/* Hero */}
       <section className="hero-gradient text-white py-16 px-4 relative overflow-hidden">
         {/* decorative blobs */}
-        <div className="absolute inset-0 pointer-events-none select-none" aria-hidden="true">
+        <div
+          className="absolute inset-0 pointer-events-none select-none"
+          aria-hidden="true"
+        >
           <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-indigo-500/20 blur-3xl" />
           <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-violet-500/20 blur-3xl" />
         </div>
@@ -90,21 +97,33 @@ export default async function PublicCatalogPage({
             Catálogo do Condomínio
           </p>
           <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
-            Seus vizinhos oferecem<br />
+            Seus vizinhos oferecem
+            <br />
             <span className="text-indigo-300">serviços incríveis</span>
           </h1>
           <p className="text-indigo-200 text-lg mb-8 max-w-lg">
-            Gastronomia, reformas, aulas, beleza e muito mais. Tudo dentro do seu condomínio.
+            Gastronomia, reformas, aulas, beleza e muito mais. Tudo dentro do
+            seu condomínio.
           </p>
 
           {/* Search bar */}
-          <form method="GET" action="/" className="flex items-center gap-2 max-w-xl">
+          <form
+            method="GET"
+            action="/"
+            className="flex items-center gap-2 max-w-xl"
+          >
             <div className="relative flex-1">
               <svg
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-white/50 pointer-events-none"
-                width="16" height="16" viewBox="0 0 16 16" fill="none"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
               >
-                <path d="M6.5 1a5.5 5.5 0 1 0 3.41 9.824l3.383 3.383a.75.75 0 0 0 1.06-1.06l-3.383-3.383A5.5 5.5 0 0 0 6.5 1zM2.5 6.5a4 4 0 1 1 8 0 4 4 0 0 1-8 0z" fill="currentColor" />
+                <path
+                  d="M6.5 1a5.5 5.5 0 1 0 3.41 9.824l3.383 3.383a.75.75 0 0 0 1.06-1.06l-3.383-3.383A5.5 5.5 0 0 0 6.5 1zM2.5 6.5a4 4 0 1 1 8 0 4 4 0 0 1-8 0z"
+                  fill="currentColor"
+                />
               </svg>
               <input
                 type="search"
@@ -141,10 +160,18 @@ export default async function PublicCatalogPage({
         {(searchQuery || categoryId) && (
           <div className="flex items-center justify-between mb-4">
             <p className="text-sm text-muted-foreground">
-              {listings.length === 0 ? 'Nenhum resultado para' : `${listings.length} resultado${listings.length !== 1 ? 's' : ''} para`}
-              {' '}
-              {searchQuery && <strong className="text-foreground">"{searchQuery}"</strong>}
-              {categoryId && <span className="text-foreground"> em <strong>{categoryId}</strong></span>}
+              {listings.length === 0
+                ? 'Nenhum resultado para'
+                : `${listings.length} resultado${listings.length !== 1 ? 's' : ''} para`}{' '}
+              {searchQuery && (
+                <strong className="text-foreground">"{searchQuery}"</strong>
+              )}
+              {categoryId && (
+                <span className="text-foreground">
+                  {' '}
+                  em <strong>{categoryId}</strong>
+                </span>
+              )}
             </p>
             <a
               href="/"
@@ -161,15 +188,25 @@ export default async function PublicCatalogPage({
           {listings.length === 0 ? (
             <div className="text-center py-24 flex flex-col items-center gap-4 animate-fade-in">
               <div className="w-16 h-16 rounded-2xl brand-gradient flex items-center justify-center opacity-40">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+                <svg
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="white"
+                  strokeWidth="2"
+                >
                   <circle cx="11" cy="11" r="8" />
                   <path d="m21 21-4.35-4.35" />
                 </svg>
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-1">Nenhum serviço encontrado</h3>
+                <h3 className="text-xl font-semibold mb-1">
+                  Nenhum serviço encontrado
+                </h3>
                 <p className="text-muted-foreground text-sm max-w-xs mx-auto">
-                  Tente selecionar outra categoria ou buscar por termos diferentes.
+                  Tente selecionar outra categoria ou buscar por termos
+                  diferentes.
                 </p>
               </div>
               <a
@@ -186,7 +223,10 @@ export default async function PublicCatalogPage({
                 <div
                   key={listing.id}
                   className="animate-slide-up block h-full focus:outline-none"
-                  style={{ animationDelay: `${i * 60}ms`, animationFillMode: 'both' }}
+                  style={{
+                    animationDelay: `${i * 60}ms`,
+                    animationFillMode: 'both'
+                  }}
                 >
                   <ListingCard listing={listing} priority={i < 4} />
                 </div>
@@ -201,5 +241,5 @@ export default async function PublicCatalogPage({
         <p>© {new Date().getFullYear()} Vizin · Feito com ❤️ pelos moradores</p>
       </footer>
     </div>
-  );
+  )
 }
