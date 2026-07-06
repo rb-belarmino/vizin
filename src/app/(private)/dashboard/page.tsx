@@ -1,28 +1,31 @@
-import { auth } from "@/infrastructure/auth/auth";
-import { ResidentRepository } from "@/infrastructure/database/resident-repository";
-import { ListingCard } from "@/components/catalog/ListingCard";
-import { ListingForm } from "@/components/dashboard/ListingForm";
-import { DashboardListingActions } from "@/components/dashboard/DashboardListingActions";
-import { deleteListingAction, toggleVisibilityAction } from "@/actions/listing-actions";
-import { Listing } from "@/core/entities/listing";
+import { auth } from '@/infrastructure/auth/auth'
+import { ResidentRepository } from '@/infrastructure/database/resident-repository'
+import { ListingCard } from '@/components/catalog/ListingCard'
+import { ListingForm } from '@/components/dashboard/ListingForm'
+import { DashboardListingActions } from '@/components/dashboard/DashboardListingActions'
+import {
+  deleteListingAction,
+  toggleVisibilityAction
+} from '@/actions/listing-actions'
+import { Listing } from '@/core/entities/listing'
 
 export const metadata = {
-  title: "Meus Serviços | Vizin",
-};
+  title: 'Meus Serviços | Vizin'
+}
 
 async function ToggleVisibilityButton({
   listingId,
-  status,
+  status
 }: {
-  listingId: string;
-  status: string;
+  listingId: string
+  status: string
 }) {
-  const isPublic = status === "Public";
+  const isPublic = status === 'Public'
   return (
     <form
       action={async () => {
-        "use server";
-        await toggleVisibilityAction(listingId);
+        'use server'
+        await toggleVisibilityAction(listingId)
       }}
     >
       <button
@@ -30,22 +33,22 @@ async function ToggleVisibilityButton({
         id={`toggle-visibility-${listingId}`}
         className={`mt-1 w-full rounded-md px-3 py-1.5 text-xs font-medium transition-colors border ${
           isPublic
-            ? "border-green-200 text-green-700 hover:bg-green-50"
-            : "border-amber-200 text-amber-700 hover:bg-amber-50"
+            ? 'border-green-200 text-green-700 hover:bg-green-50'
+            : 'border-amber-200 text-amber-700 hover:bg-amber-50'
         }`}
       >
-        {isPublic ? "✓ Público" : "○ Oculto — tornar público"}
+        {isPublic ? '✓ Público' : '○ Oculto — tornar público'}
       </button>
     </form>
-  );
+  )
 }
 
 async function DeleteButton({ listingId }: { listingId: string }) {
   return (
     <form
       action={async () => {
-        "use server";
-        await deleteListingAction(listingId);
+        'use server'
+        await deleteListingAction(listingId)
       }}
     >
       <button
@@ -56,18 +59,18 @@ async function DeleteButton({ listingId }: { listingId: string }) {
         Excluir
       </button>
     </form>
-  );
+  )
 }
 
 export default async function DashboardPage() {
-  const session = await auth();
-  const providerId = session!.user!.id as string;
+  const session = await auth()
+  const providerId = session!.user!.id as string
 
-  const repository = new ResidentRepository();
-  const rawListings = await repository.getResidentListings(providerId);
+  const repository = new ResidentRepository()
+  const rawListings = await repository.getResidentListings(providerId)
 
   // Map to Listing entity shape (include provider info)
-  const listings: Listing[] = rawListings.map((l) => ({
+  const listings: Listing[] = rawListings.map(l => ({
     id: l.id,
     title: l.title,
     description: l.description,
@@ -82,10 +85,12 @@ export default async function DashboardPage() {
     providerName: l.provider?.fullName,
     providerApartmentId: l.provider?.apartmentId,
     createdAt: l.createdAt,
-    updatedAt: l.updatedAt,
-  }));
+    updatedAt: l.updatedAt
+  }))
 
-  const publicCount = listings.filter((l) => l.visibilityStatus === "Public").length;
+  const publicCount = listings.filter(
+    l => l.visibilityStatus === 'Public'
+  ).length
 
   return (
     <div className="space-y-10">
@@ -99,8 +104,8 @@ export default async function DashboardPage() {
         <div className="h-px flex-1 bg-border" />
         <span className="text-sm text-muted-foreground whitespace-nowrap">
           {listings.length === 0
-            ? "Você ainda não tem serviços publicados"
-            : `${listings.length} serviço${listings.length > 1 ? "s" : ""} · ${publicCount} público${publicCount !== 1 ? "s" : ""}`}
+            ? 'Você ainda não tem serviços publicados'
+            : `${listings.length} serviço${listings.length > 1 ? 's' : ''} · ${publicCount} público${publicCount !== 1 ? 's' : ''}`}
         </span>
         <div className="h-px flex-1 bg-border" />
       </div>
@@ -110,7 +115,14 @@ export default async function DashboardPage() {
         {listings.length === 0 ? (
           <div className="rounded-2xl border border-dashed bg-muted/20 py-20 text-center flex flex-col items-center gap-3">
             <div className="w-12 h-12 rounded-2xl brand-gradient flex items-center justify-center opacity-40">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="white"
+                strokeWidth="2"
+              >
                 <rect x="3" y="3" width="18" height="18" rx="2" />
                 <line x1="12" y1="8" x2="12" y2="16" />
                 <line x1="8" y1="12" x2="16" y2="12" />
@@ -125,8 +137,11 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {listings.map((listing) => (
-              <div key={listing.id} className="flex flex-col gap-1 animate-slide-up">
+            {listings.map(listing => (
+              <div
+                key={listing.id}
+                className="flex flex-col gap-1 animate-slide-up"
+              >
                 <div className="flex-1">
                   <ListingCard listing={listing} />
                 </div>
@@ -143,5 +158,5 @@ export default async function DashboardPage() {
         )}
       </section>
     </div>
-  );
+  )
 }

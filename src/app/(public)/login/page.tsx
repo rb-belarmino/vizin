@@ -7,6 +7,7 @@ import { LoginSchema, LoginSchemaType, RegisterSchema, RegisterSchemaType } from
 import { loginAction, registerAction } from "@/actions/auth-actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function LoginPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -59,9 +60,7 @@ export default function LoginPage() {
       {/* Logo */}
       <div className="mb-8 flex flex-col items-center gap-3 relative animate-slide-up">
         <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-10 h-10 rounded-xl brand-gradient flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-            <span className="text-white text-base font-black">V</span>
-          </div>
+          <Image src="/logo.jpg" alt="Vizin Logo" width={64} height={64} className="rounded-xl shadow-lg" />
           <span className="font-bold text-2xl tracking-tight text-white">Vizin</span>
         </Link>
         <p className="text-indigo-300 text-sm text-center max-w-xs">

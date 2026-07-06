@@ -1,24 +1,24 @@
-import { auth } from '@/infrastructure/auth/auth';
-import { getProfileUseCase } from '@/core/use-cases/get-profile';
-import { redirect } from 'next/navigation';
-import { ProfileForm } from '@/components/profile/ProfileForm';
-import { PasswordForm } from '@/components/profile/PasswordForm';
+import { auth } from '@/infrastructure/auth/auth'
+import { getProfileUseCase } from '@/core/use-cases/get-profile'
+import { redirect } from 'next/navigation'
+import { ProfileForm } from '@/components/profile/ProfileForm'
+import { PasswordForm } from '@/components/profile/PasswordForm'
 
 export const metadata = {
   title: 'Meu Perfil - Vizin'
-};
+}
 
 export default async function ProfilePage() {
-  const session = await auth();
-  
+  const session = await auth()
+
   if (!session?.user?.id) {
-    redirect('/login');
+    redirect('/login')
   }
 
-  const user = await getProfileUseCase(session.user.id);
+  const user = await getProfileUseCase(session.user.id)
 
   if (!user) {
-    redirect('/login');
+    redirect('/login')
   }
 
   return (
@@ -48,5 +48,5 @@ export default async function ProfilePage() {
         </section>
       </div>
     </div>
-  );
+  )
 }

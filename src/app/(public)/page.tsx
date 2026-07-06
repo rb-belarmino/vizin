@@ -3,6 +3,7 @@ import { fetchPublicListings } from '@/actions/catalog-actions'
 import { CategoryPills } from '@/components/catalog/CategoryPills'
 import { ListingCard } from '@/components/catalog/ListingCard'
 import Link from 'next/link'
+import Image from 'next/image'
 import { auth } from '@/infrastructure/auth/auth'
 
 export const metadata = {
@@ -33,9 +34,13 @@ export default async function PublicCatalogPage({
       <header className="sticky top-0 z-50 border-b bg-card/80 backdrop-blur-md">
         <div className="container mx-auto px-4 max-w-5xl h-14 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 rounded-lg brand-gradient flex items-center justify-center shadow-sm group-hover:shadow-md transition-shadow">
-              <span className="text-white text-xs font-black">V</span>
-            </div>
+            <Image
+              src="/logo.jpg"
+              alt="Vizin Logo"
+              width={40}
+              height={40}
+              className="rounded-md"
+            />
             <span className="font-bold text-lg tracking-tight">Vizin</span>
           </Link>
           <div className="flex items-center gap-3">
@@ -211,7 +216,7 @@ export default async function PublicCatalogPage({
                 </p>
               </div>
               <Link
-              href="/"
+                href="/"
                 id="empty-state-clear-btn"
                 className="px-4 py-2 rounded-full border border-primary/30 text-primary text-sm font-medium hover:bg-primary/5 transition-colors"
               >
@@ -239,7 +244,10 @@ export default async function PublicCatalogPage({
 
       {/* Footer */}
       <footer className="border-t py-6 text-center text-xs text-muted-foreground">
-        <p>© {new Date().getFullYear()} Vizin · Feito com ❤️ pelos moradores</p>
+        <p>
+          © {new Date().getFullYear()} Vizin · Feito com ❤️ para os nossos
+          vizinhos
+        </p>
       </footer>
     </div>
   )
