@@ -92,20 +92,20 @@ description: "Task list for Vizin Marketplace implementation"
 
 ### Tests for US3 & US4 ⚠️
 > **NOTE: Write these tests FIRST, ensure they FAIL before implementation**
-- [ ] T037 [US3] [US4] Create Vitest tests for profile updates and password reset flow in `tests/unit/core/use-cases/profile-management.test.ts`
+- [x] T037 [US3] [US4] Create Vitest tests for profile updates and password reset flow in `tests/unit/core/use-cases/profile-management.test.ts`
 
 ### Implementation for US3 & US4
-- [ ] T038 [P] [US3] [US4] Update Prisma schema with `PasswordResetToken` model in `prisma/schema.prisma`
-- [ ] T039 [P] [US3] [US4] Create Zod schemas for Profile Update and Password Reset in `src/actions/schemas/profile-schema.ts`
-- [ ] T040 [US4] Implement Resend email provider setup in `src/infrastructure/email/mailer.ts`
-- [ ] T041 [US4] Build password recovery email template in `src/infrastructure/email/templates/reset-password.tsx`
-- [ ] T042 [US3] Implement `UpdateProfile` use-case in `src/core/use-cases/update-profile.ts`
-- [ ] T043 [US4] Implement `GenerateResetToken` and `ValidateResetToken` use-cases in `src/core/use-cases/reset-password.ts`
-- [ ] T044 [US3] Implement Profile Server Actions in `src/actions/profile-actions.ts`
-- [ ] T045 [US4] Implement Password Server Actions (change password + reset) in `src/actions/password-actions.ts`
-- [ ] T046 [US3] Build Profile Page UI in `src/app/(private)/dashboard/profile/page.tsx`
-- [ ] T047 [US4] Build Forgot Password Page UI in `src/app/(public)/forgot-password/page.tsx`
-- [ ] T048 [US4] Build Reset Password Page UI in `src/app/(public)/reset-password/page.tsx`
+- [x] T038 [P] [US3] [US4] Update Prisma schema with `PasswordResetToken` model in `prisma/schema.prisma`
+- [x] T039 [P] [US3] [US4] Create Zod schemas for Profile Update and Password Reset in `src/actions/schemas/profile-schema.ts`
+- [x] T040 [US4] Implement Resend email provider setup in `src/infrastructure/email/mailer.ts`
+- [x] T041 [US4] Build password recovery email template in `src/infrastructure/email/templates/reset-password.tsx`
+- [x] T042 [US3] Implement `UpdateProfile` use-case in `src/core/use-cases/update-profile.ts`
+- [x] T043 [US4] Implement `GenerateResetToken` and `ValidateResetToken` use-cases in `src/core/use-cases/reset-password.ts`
+- [x] T044 [US3] Implement Profile Server Actions in `src/actions/profile-actions.ts`
+- [x] T045 [US4] Implement Password Server Actions (change password + reset) in `src/actions/password-actions.ts`
+- [x] T046 [US3] Build Profile Page UI in `src/app/(private)/dashboard/profile/page.tsx`
+- [x] T047 [US4] Build Forgot Password Page UI in `src/app/(public)/forgot-password/page.tsx`
+- [x] T048 [US4] Build Reset Password Page UI in `src/app/(public)/reset-password/page.tsx`
 
 ---
 
