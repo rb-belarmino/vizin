@@ -13,7 +13,8 @@ export const ListingSchema = z.object({
   priceBaseline: z.string().optional(),
   whatsappNumber: z.string().optional(),
   instagramHandle: z.string().optional(),
-  visibilityStatus: z.enum(['Public', 'Private'])
+  visibilityStatus: z.enum(['Public', 'Private']),
+  showApartment: z.boolean().default(true)
 })
 
 export type ListingSchemaType = z.infer<typeof ListingSchema>

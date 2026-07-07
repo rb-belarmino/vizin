@@ -28,8 +28,9 @@ interface UploadState {
 export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
   const router = useRouter()
   const [serverError, setServerError] = useState<string | null>(null)
+  const [successMessage, setSuccessMessage] = useState<string | null>(null)
   const [uploadState, setUploadState] = useState<UploadState | null>(null)
-  const [isUploading] = useState(false)
+  const [isUploading, setIsUploading] = useState(false)
 
   const {
     register,
@@ -47,6 +48,7 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
       whatsappNumber: '',
       instagramHandle: '',
       visibilityStatus: 'Public' as const,
+      showApartment: true,
       portfolioImageUrl: '',
       portfolioImageKey: ''
     }
@@ -54,6 +56,7 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
 
   const onSubmit = async (data: ListingSchemaType) => {
     setServerError(null)
+    setSuccessMessage(null)
 
     if (!uploadState) {
       setServerError('Por favor, faça o upload de uma imagem para continuar.')
@@ -71,8 +74,12 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
     } else {
       reset()
       setUploadState(null)
+      setSuccessMessage('Serviço publicado com sucesso!')
       onSuccess?.()
       router.refresh()
+
+      setTimeout(() => setSuccessMessage(null), 4000)
+      window.scrollBy({ top: 500, behavior: 'smooth' })
     }
   }
 
@@ -86,6 +93,12 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
       {serverError && (
         <div className="rounded-md bg-destructive/10 px-4 py-3 text-sm text-destructive">
           {serverError}
+        </div>
+      )}
+
+      {successMessage && (
+        <div className="rounded-md bg-green-50 px-4 py-3 text-sm text-green-700 border border-green-200">
+          {successMessage}
         </div>
       )}
 
@@ -215,12 +228,15 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
         </label>
         <ServiceImageDropzone
           initialImageUrl={uploadState?.url}
+          onUploadBegin={() => setIsUploading(true)}
           onUploadComplete={(url, key) => {
+            setIsUploading(false)
             setUploadState({ url, key })
             setValue('portfolioImageUrl', url)
             setValue('portfolioImageKey', key)
           }}
           onUploadError={error => {
+            setIsUploading(false)
             setServerError(`Erro no upload: ${error.message}`)
           }}
         />
@@ -247,6 +263,19 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
           <option value="Public">Público</option>
           <option value="Private">Privado (rascunho)</option>
         </select>
+      </div>
+
+      {/* Privacy */}
+      <div className="flex items-center gap-2 pt-2 pb-1">
+        <input
+          type="checkbox"
+          id="listing-show-apartment"
+          {...register('showApartment')}
+          className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+        />
+        <label htmlFor="listing-show-apartment" className="text-sm font-medium leading-none">
+          Exibir número do meu apartamento no anúncio
+        </label>
       </div>
 
       <button

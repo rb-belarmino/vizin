@@ -82,6 +82,7 @@ export class ResidentRepository {
     whatsappNumber?: string;
     instagramHandle?: string;
     visibilityStatus: string;
+    showApartment?: boolean;
     providerId: string;
   }) {
     return prisma.serviceListing.create({
@@ -99,6 +100,7 @@ export class ResidentRepository {
     whatsappNumber?: string;
     instagramHandle?: string;
     visibilityStatus: string;
+    showApartment?: boolean;
   }>) {
     return prisma.serviceListing.update({
       where: { id },

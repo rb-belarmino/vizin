@@ -19,6 +19,7 @@ export interface Listing {
   whatsappNumber: string | null;
   instagramHandle: string | null;
   visibilityStatus: string;
+  showApartment: boolean;
   providerId: string;
   providerName?: string;
   providerApartmentId?: number;

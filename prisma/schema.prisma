@@ -30,6 +30,7 @@ model ServiceListing {
   whatsappNumber    String?
   instagramHandle   String?
   visibilityStatus  String   @default("Public")
+  showApartment     Boolean  @default(true)
   providerId        String
   provider          User     @relation(fields: [providerId], references: [id], onDelete: Cascade)
   createdAt         DateTime @default(now())

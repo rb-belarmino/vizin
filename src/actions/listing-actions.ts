@@ -67,7 +67,8 @@ export async function updateListingAction(id: string, data: ListingSchemaType) {
       priceBaseline: parsed.data.priceBaseline,
       whatsappNumber: parsed.data.whatsappNumber,
       instagramHandle: parsed.data.instagramHandle,
-      visibilityStatus: parsed.data.visibilityStatus
+      visibilityStatus: parsed.data.visibilityStatus,
+      showApartment: parsed.data.showApartment
     })
 
     revalidatePath('/dashboard')

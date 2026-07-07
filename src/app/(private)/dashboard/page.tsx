@@ -81,6 +81,7 @@ export default async function DashboardPage() {
     whatsappNumber: l.whatsappNumber,
     instagramHandle: l.instagramHandle,
     visibilityStatus: l.visibilityStatus,
+    showApartment: l.showApartment,
     providerId: l.providerId,
     providerName: l.provider?.fullName,
     providerApartmentId: l.provider?.apartmentId,

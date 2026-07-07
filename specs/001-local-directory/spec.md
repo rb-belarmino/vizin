@@ -21,6 +21,7 @@
 ### Session 2026-07-07
 - Q: Exibição do Apartamento → A: Permitir que os usuários ocultem o número do apartamento nos anúncios públicos por questões de privacidade. Opcional na visualização, mas obrigatório no cadastro.
 - Q: O que acontece se o upload da imagem falhar por erro de rede ou tamanho? → A: Exibir um erro visual (Toast/Alerta) e impedir a criação do anúncio até que a imagem seja enviada com sucesso (imagens são estritamente obrigatórias).
+- Q: Feedback visual de Upload e Publicação → A: O upload da imagem deve exibir um indicador visual de carregamento (loading) que deve engatilhar **imediatamente** (on drop/select) e não apenas no evento principal de upload. Ao clicar em publicar, o sistema deve mostrar uma mensagem de sucesso ("Publicado com sucesso") e redirecionar/focar na listagem atualizada do dashboard. Além disso, o Modal de Edição deve apresentar uma largura expandida (ex: max-w-3xl) para proporcionar mais conforto visual.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -104,7 +105,7 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 - **FR-007**: System MUST collect Full Name, Email, Password, and strictly numerical Apartment Identification during Sign Up.
 - **FR-008**: System MUST authenticate users via Email and Password for Log In.
 - **FR-009**: System MUST isolate the dashboard inventory grid to show only the logged-in resident's listings.
-- **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with state indicators, and an option to hide their apartment number from public view.
+- **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with visual loading states during upload, an option to hide their apartment number from public view, and MUST provide clear success feedback upon publishing before navigating the user to the updated grid.
 - **FR-011**: System MUST instruct the storage provider to physically delete orphaned assets when a listing is purged or its image is switched.
 - **FR-012**: System MUST use predefined structural fields (e.g., specific field for WhatsApp, another for Instagram) when creating listings to enforce clean contact formatting.
 - **FR-013**: System MUST provide a protected route (`/dashboard/profile`) for authenticated users to view their current registration data (Name, Email, Apartment).

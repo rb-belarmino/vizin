@@ -183,7 +183,7 @@ export function ListingCard({
             </div>
             <span className="text-xs text-muted-foreground font-medium truncate">
               {listing.providerName}
-              {listing.providerApartmentId && (
+              {listing.providerApartmentId && listing.showApartment && (
                 <span className="text-muted-foreground/60 ml-1">
                   · Apto {listing.providerApartmentId}
                 </span>

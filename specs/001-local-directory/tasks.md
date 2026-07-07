@@ -121,7 +121,7 @@ description: "Task list for Vizin Marketplace implementation"
 - [x] T034 [P] Add visibility toggle (Public/Hidden) button per listing in dashboard via `toggleVisibilityAction`
 - [x] T035 [P] Redesign premium UI: indigo/blue brand color system, hero gradient, glassmorphism login, animated cards, emoji category pills, provider info on cards
 - [x] T036 [P] Implement edit listing modal (`EditListingModal.tsx`) with pre-populated form, image preview with hover-to-replace, and `updateListingAction` integration
-- [ ] T054 [P] Audit perceived latency for catalog search/filter using Lighthouse and React Profiler to guarantee sub-second interaction (SC-001)
+- [x] T054 [P] Audit perceived latency for catalog search/filter using Lighthouse and React Profiler to guarantee sub-second interaction (SC-001)
 
 ---
 
@@ -129,11 +129,22 @@ description: "Task list for Vizin Marketplace implementation"
 
 **Purpose**: Implement the optional `showApartment` privacy flag requested post-launch.
 
-- [ ] T049 [US2] Update `prisma/schema.prisma` to add `showApartment` Boolean to `ServiceListing` (default: true) and run migration
-- [ ] T050 [US2] Update Zod validation in `src/actions/schemas/listing-schema.ts` to accept `showApartment`
-- [ ] T051 [US2] Update Server Actions in `src/actions/listing-actions.ts` to process and save `showApartment`
-- [ ] T052 [US2] Update `src/components/dashboard/ListingForm.tsx` to include the privacy toggle para exibir/ocultar o número do apartamento
-- [ ] T053 [US1] Update `src/components/catalog/ListingCard.tsx` to conditionally render the apartment number based on `showApartment`
+- [x] T049 [US2] Update `prisma/schema.prisma` to add `showApartment` Boolean to `ServiceListing` (default: true) and run migration
+- [x] T050 [US2] Update Zod validation in `src/actions/schemas/listing-schema.ts` to accept `showApartment`
+- [x] T051 [US2] Update Server Actions in `src/actions/listing-actions.ts` to process and save `showApartment`
+- [x] T052 [US2] Update `src/components/dashboard/ListingForm.tsx` to include the privacy toggle para exibir/ocultar o número do apartamento
+- [x] T053 [US1] Update `src/components/catalog/ListingCard.tsx` to conditionally render the apartment number based on `showApartment`
+
+---
+
+## Phase 8: UX Enhancements - Feedback & Navigation
+
+**Purpose**: Refine the user experience during async operations.
+
+- [x] T055 [US2] Update `ServiceImageDropzone.tsx` to display a visual loading indicator (spinner/text) while the image is uploading.
+- [x] T056 [US2] Update `ListingForm.tsx` to show a success message upon publishing, clear the form, and smoothly scroll/refresh the dashboard to show the new listing.
+- [x] T057 [US2] Update `ServiceImageDropzone.tsx` to trigger the loading state immediately via onBeforeUploadBegin/onUploadProgress.
+- [x] T058 [US2] Update `EditListingModal.tsx` to increase the modal width (e.g., max-w-3xl) for a better editing experience.
 
 ---
 

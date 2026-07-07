@@ -145,7 +145,7 @@ export function EditListingModal({
       aria-label="Editar serviço"
     >
       {/* Modal panel */}
-      <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-2xl bg-card border shadow-2xl animate-scale-in">
+      <div className="w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-card border shadow-2xl animate-scale-in">
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b sticky top-0 bg-card z-10">
           <div>
