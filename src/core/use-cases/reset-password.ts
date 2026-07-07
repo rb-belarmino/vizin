@@ -14,6 +14,11 @@ export async function generateResetToken(email: string) {
     throw new Error('Email not found')
   }
 
+  // Guard: OAuth-only users (e.g., Google) have no password to reset.
+  if (!user.passwordHash) {
+    throw new Error('Esta conta usa login pelo Google e não possui senha. Acesse com sua conta Google.')
+  }
+
   const token = crypto.randomBytes(32).toString('hex')
   const expires = new Date(Date.now() + 3600000) // 1 hour from now
   const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`

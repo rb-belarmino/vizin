@@ -103,8 +103,8 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 - **FR-004**: System MUST provide category quick filter pills to isolate listings.
 - **FR-005**: System MUST support a native share system using the Web Share API (mobile drawer) with clipboard copy as desktop fallback, triggered from a share button on each listing card.
 - **FR-006**: System MUST intercept unauthenticated access to `/dashboard/*` and redirect to `/login`.
-- **FR-007**: System MUST collect Full Name, Email, Password, and strictly numerical Apartment Identification during Sign Up.
-- **FR-008**: System MUST authenticate users via Email and Password for Log In.
+- **FR-007**: System MUST collect Full Name, Email, Password, and strictly numerical Apartment Identification during Sign Up via the credentials form. For Google OAuth sign-up, only Full Name and Email are obtained from Google; Apartment ID is collected in a mandatory Onboarding step.
+- **FR-008**: System MUST authenticate users via Email and Password OR via Google OAuth (Login com Google) for Log In.
 - **FR-009**: System MUST isolate the dashboard inventory grid to show only the logged-in resident's listings.
 - **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with visual loading states during upload, an option to hide their apartment number from public view, and MUST provide clear success feedback upon publishing before navigating the user to the updated grid.
 - **FR-011**: System MUST instruct the storage provider to physically delete orphaned assets when a listing is purged or its image is switched.
@@ -117,8 +117,9 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 
 ### Key Entities
 
-- **Resident (User)**: Represents a member of the condominium. Key attributes: Full Name, Email, Password Hash, strictly numerical Apartment ID.
+- **Resident (User)**: Represents a member of the condominium. Key attributes: Full Name, Email, Password Hash (optional — null for Google OAuth users), Apartment ID (optional until Onboarding is complete).
 - **Service Listing**: Represents an offering by a resident. Key attributes: Title, Description, Portfolio Image URL, Category, Price Baseline, Contact Links (predefined structural fields for WhatsApp and Instagram), Visibility Status (Public/Hidden), Show Apartment Flag (Boolean), Reference to Provider (Resident).
+- **Account (OAuth)**: Represents the link between a User and an external OAuth provider (e.g., Google). Managed automatically by Auth.js PrismaAdapter. Contains the provider name, providerAccountId, and OAuth tokens.
 
 ## Success Criteria *(mandatory)*
 

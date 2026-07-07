@@ -4,21 +4,30 @@ Since the project uses Next.js 16 Server Actions as edge controllers, input boun
 
 ## Authentication Boundaries
 
-### Registration Payload
+### Registration Payload (Credentials)
+> Usado apenas no cadastro via formulário (email + senha). Para usuários do Google, o `apartmentId` é coletado separadamente no Onboarding.
 ```typescript
 const RegisterSchema = z.object({
   fullName: z.string().min(3).max(100),
   email: z.string().email(),
   password: z.string().min(8),
-  apartmentId: z.coerce.number().int().positive()
+  apartmentId: z.coerce.number().int().positive() // obrigatório no fluxo de credenciais
 });
 ```
 
-### Login Payload
+### Login Payload (Credentials)
 ```typescript
 const LoginSchema = z.object({
   email: z.string().email(),
   password: z.string()
+});
+```
+
+### Onboarding Payload (Google OAuth — Complemento de Cadastro)
+> Usado na tela `/onboarding` para usuários que autenticaram via Google e ainda não possuem `apartmentId`.
+```typescript
+const OnboardingSchema = z.object({
+  apartmentId: z.coerce.number().int().positive()
 });
 ```
 

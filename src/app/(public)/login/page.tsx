@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, LoginSchemaType, RegisterSchema, RegisterSchemaType } from "@/actions/schemas/auth-schema";
 import { loginAction, registerAction } from "@/actions/auth-actions";
+import { GoogleSignInButton } from "@/components/auth/GoogleSignInButton";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -252,6 +253,14 @@ export default function LoginPage() {
             </button>
           </form>
         )}
+
+        <div className="flex items-center gap-4 my-6">
+          <hr className="flex-1 border-white/10" />
+          <span className="text-xs text-white/50 uppercase tracking-wider">Ou continue com</span>
+          <hr className="flex-1 border-white/10" />
+        </div>
+
+        <GoogleSignInButton />
       </div>
 
       {/* Back link */}

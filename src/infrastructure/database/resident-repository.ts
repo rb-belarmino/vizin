@@ -1,9 +1,23 @@
 import { prisma } from '../../lib/prisma';
 
 export class ResidentRepository {
-  async createResident(data: { fullName: string; email: string; passwordHash: string; apartmentId: number }) {
+  async createResident(data: {
+    fullName: string;
+    email: string;
+    passwordHash?: string | null; // Optional — not provided for OAuth users
+    apartmentId?: number | null;  // Optional — collected in Onboarding for OAuth users
+  }) {
+    // NOTE: The `as any` cast is intentional. The Prisma Client types still reflect
+    // the old schema (passwordHash and apartmentId as required). Once the migration
+    // `004-google-login` runs and `prisma generate` is executed, these fields will
+    // become optional in the generated types and this cast can be removed.
     return prisma.user.create({
-      data,
+      data: {
+        fullName: data.fullName,
+        email: data.email,
+        ...(data.passwordHash !== undefined && { passwordHash: data.passwordHash }),
+        ...(data.apartmentId !== undefined && { apartmentId: data.apartmentId }),
+      } as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     });
   }
 

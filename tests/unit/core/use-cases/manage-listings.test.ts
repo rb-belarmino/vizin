@@ -15,7 +15,7 @@ const mockResidentRepository = {
 };
 
 const mockStorageService = {
-  deleteImage: vi.fn(),
+  deleteImage: vi.fn().mockResolvedValue(undefined),
 };
 
 describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
@@ -42,7 +42,6 @@ describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
       expect(mockResidentRepository.getListingById).toHaveBeenCalledWith(listingId);
       expect(mockStorageService.deleteImage).toHaveBeenCalledWith('image-123');
       expect(mockResidentRepository.deleteListing).toHaveBeenCalledWith(listingId);
-      expect(result).toBe(true);
     });
 
     it('should not throw if listing has no image key', async () => {

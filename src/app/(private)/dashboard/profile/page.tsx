@@ -49,7 +49,7 @@ export default async function ProfilePage() {
           <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
             Segurança
           </h2>
-          <PasswordForm />
+          <PasswordForm hasPassword={user.hasPassword} />
         </section>
       </div>
     </div>

@@ -9,7 +9,7 @@ import { updateProfileAction } from '@/actions/profile-actions';
 interface ProfileFormProps {
   initialData: {
     fullName: string;
-    apartmentId: number;
+    apartmentId: number | null; // null for OAuth users who haven't completed onboarding
     email: string; // read-only
   };
 }
@@ -21,7 +21,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
       fullName: initialData.fullName,
-      apartmentId: initialData.apartmentId,
+      apartmentId: initialData.apartmentId ?? 0, // fallback to 0 if null (onboarding not completed)
     }
   });
 

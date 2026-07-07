@@ -148,13 +148,13 @@ export default async function DashboardPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {listings.map(listing => (
+            {listings.map((listing, index) => (
               <div
                 key={listing.id}
                 className="flex flex-col gap-1 animate-slide-up"
               >
                 <div className="flex-1">
-                  <ListingCard listing={listing} />
+                  <ListingCard listing={listing} priority={index < 2} />
                 </div>
                 {/* Edit button (client — opens modal) */}
                 <DashboardListingActions listing={listing} />

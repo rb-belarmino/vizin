@@ -7,7 +7,7 @@ This guide validates the end-to-end functionality of the Vizin Marketplace featu
 2. Ensure Docker is running for local NeonDB Postgres substitute (or link to real Neon branch).
 3. Push Prisma schema: `npx prisma db push`.
 4. **Seed demo data**: `npm run db:seed` (creates 4 demo residents and 8 public listings).
-5. Configure `.env.local` with `UPLOADTHING_SECRET`, `UPLOADTHING_APP_ID`, `AUTH_SECRET`, and `RESEND_API_KEY`.
+5. Configure `.env.local` with `UPLOADTHING_TOKEN`, `AUTH_SECRET`, `RESEND_API_KEY`, `GOOGLE_CLIENT_ID`, and `GOOGLE_CLIENT_SECRET`.
 6. Run dev server: `npm run dev`.
 
 > **Demo credentials** (created by seed): `ana@vizin.demo`, `carlos@vizin.demo`, `mariana@vizin.demo`, `roberto@vizin.demo` — senha: `demo1234`
@@ -24,10 +24,11 @@ This guide validates the end-to-end functionality of the Vizin Marketplace featu
 1. On the `/login` page, click "Sign up".
 2. Register with `John Doe`, `john@example.com`, `password123`, and Apartment `101`.
 3. **Verify**: You are redirected to `/dashboard`.
-4. Click "Nova Oferta" (New Listing).
-5. Fill out the form, upload an image via UploadThing, and enter a WhatsApp number.
-6. Submit the form.
-7. **Verify**: The new listing appears in your private dashboard.
+4. *(Alternative — Google OAuth)*: Click "Continuar com o Google", authorize the app, fill in Apartment `101` on the `/onboarding` page, and verify you are redirected to `/dashboard`.
+5. Click "Nova Oferta" (New Listing).
+6. Fill out the form, upload an image via UploadThing, and enter a WhatsApp number.
+7. Submit the form.
+8. **Verify**: The new listing appears in your private dashboard.
 
 ## Scenario 3: Parity & Deletion
 1. In the `/dashboard`, click the "Delete" icon on your created listing.

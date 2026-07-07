@@ -22,7 +22,7 @@ export interface Listing {
   showApartment: boolean;
   providerId: string;
   providerName?: string;
-  providerApartmentId?: number;
+  providerApartmentId?: number | null;
   ratingAverage?: number;
   reviewCount?: number;
   createdAt: Date;

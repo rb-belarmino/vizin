@@ -9,11 +9,37 @@ import {
 import {
   changePasswordSchema,
   ChangePasswordInput,
+  setPasswordSchema,
+  SetPasswordInput,
   forgotPasswordSchema,
   ForgotPasswordInput,
   resetPasswordSchema,
   ResetPasswordInput
 } from './schemas/profile-schema'
+import { setLocalPassword } from '@/core/use-cases/set-local-password'
+
+export async function setLocalPasswordAction(data: SetPasswordInput) {
+  try {
+    const session = await auth()
+    if (!session?.user?.id) {
+      return { error: 'Não autorizado. Faça login.' }
+    }
+
+    const parsed = setPasswordSchema.safeParse(data)
+    if (!parsed.success) {
+      return { error: 'Dados inválidos.' }
+    }
+
+    await setLocalPassword(session.user.id, parsed.data.newPassword)
+
+    return { success: 'Senha criada com sucesso! Você já pode usá-la para fazer login.' }
+  } catch (error) {
+    if (error instanceof Error) {
+      return { error: error.message }
+    }
+    return { error: 'Erro interno ao criar senha.' }
+  }
+}
 
 export async function changePasswordAction(data: ChangePasswordInput) {
   try {

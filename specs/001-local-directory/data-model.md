@@ -9,16 +9,18 @@ Represents a condominium resident who can access the private dashboard and manag
   - `id`: UUID (Primary Key)
   - `fullName`: String (Required)
   - `email`: String (Required, Unique, Valid Email)
-  - `passwordHash`: String (Required)
-  - `apartmentId`: Integer (Required, Strictly Numerical)
+  - `passwordHash`: String (**Optional** — nulo para usuários que autenticam via Google OAuth)
+  - `apartmentId`: Integer (**Optional** — nulo até o usuário completar o Onboarding; preenchimento obrigatório pelo fluxo da aplicação)
   - `createdAt`: DateTime
   - `updatedAt`: DateTime
 - **Relationships**:
   - `listings`: 1-to-Many with `ServiceListing`
   - `passwordResetTokens`: 1-to-Many with `PasswordResetToken`
+  - `accounts`: 1-to-Many with `Account` (tokens OAuth)
 - **Validation**:
-  - `apartmentId` must be >= 1.
-  - Multiple users can share the same `apartmentId` (Clarification decision: Trust closed community nature).
+  - `apartmentId`, quando presente, deve ser >= 1.
+  - Múltiplos usuários podem compartilhar o mesmo `apartmentId` (decisão de clarificação: confiança na natureza fechada da comunidade).
+  - Um usuário com `apartmentId` nulo está em estado de **Onboarding Pendente** e não pode acessar rotas privadas.
 
 ### ServiceListing
 Represents a service offered by a resident to the condominium.
@@ -45,6 +47,28 @@ Represents a service offered by a resident to the condominium.
   - Image key is strictly required to satisfy UploadThing garbage collection requirements.
   - `showApartment` controls if the provider's apartment number is visible to the public.
 
+### Account (OAuth)
+Represents a linked OAuth provider account for a user (ex: Google). Gerenciado automaticamente pelo PrismaAdapter do Auth.js.
+
+- **Fields**:
+  - `id`: UUID (Primary Key)
+  - `userId`: UUID (Foreign Key to User)
+  - `type`: String (ex: `oauth`)
+  - `provider`: String (ex: `google`)
+  - `providerAccountId`: String (ID único do usuário no provedor externo)
+  - `access_token`: String (Optional)
+  - `refresh_token`: String (Optional)
+  - `expires_at`: Integer (Optional)
+  - `token_type`: String (Optional)
+  - `scope`: String (Optional)
+  - `id_token`: String (Optional)
+- **Relationships**:
+  - `user`: Many-to-1 with `User` (`onDelete: Cascade`)
+- **Constraints**:
+  - `@@unique([provider, providerAccountId])`: Um par provider+ID é único no sistema.
+
+---
+
 ### PasswordResetToken
 Represents a secure, short-lived token used for recovering access to a user account.
 
@@ -59,6 +83,7 @@ Represents a secure, short-lived token used for recovering access to a user acco
 - **Validation**:
   - `token` must be cryptographically secure.
   - `expiresAt` should typically be set to 1-2 hours after creation.
+  - Aplicável apenas a usuários com `passwordHash` definido (não aplicável a usuários exclusivamente OAuth).
 
 ## State Transitions
 - **Listing Creation**: Draft -> Public

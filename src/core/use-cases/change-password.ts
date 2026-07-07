@@ -9,6 +9,11 @@ export async function changePassword(userId: string, currentPassword: string, ne
     throw new Error('Usuário não encontrado.');
   }
 
+  // Guard: OAuth users (e.g., Google) do not have a password set.
+  if (!user.passwordHash) {
+    throw new Error('Sua conta usa login pelo Google e não possui senha. Acesse com sua conta Google.');
+  }
+
   const isValidPassword = await bcrypt.compare(currentPassword, user.passwordHash);
 
   if (!isValidPassword) {
