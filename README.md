@@ -21,8 +21,13 @@ First, install dependencies:
 npm install
 ```
 
-Ensure your `.env` is properly configured with your NeonDB connection string, Auth secret, and UploadThing keys.
+Ensure your `.env` is properly configured. You will need to set up the following environment variables:
 
+- `DATABASE_URL`: NeonDB connection string
+- `AUTH_SECRET`: Auth.js secret (can be generated via `npx auth secret`)
+- `UPLOADTHING_TOKEN`: UploadThing API token
+- `RESEND_API_KEY`: Resend API key for sending emails
+- `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET`: Google OAuth credentials
 Run the development server:
 
 ```bash
