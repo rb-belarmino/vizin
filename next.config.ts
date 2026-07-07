@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd()
   },
+  logging: {
+    serverFunctions: false
+  },
   serverExternalPackages: ['@prisma/client'],
   images: {
     remotePatterns: [
