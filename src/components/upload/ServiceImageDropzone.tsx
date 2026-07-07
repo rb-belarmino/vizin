@@ -62,6 +62,9 @@ export function ServiceImageDropzone({
             setIsUploading(true)
             onUploadBegin?.()
           }}
+          onUploadProgress={(p) => {
+            setIsUploading(true)
+          }}
           onClientUploadComplete={res => {
             setIsUploading(false)
             if (res && res.length > 0) {

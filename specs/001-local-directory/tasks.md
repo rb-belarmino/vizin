@@ -145,6 +145,8 @@ description: "Task list for Vizin Marketplace implementation"
 - [x] T056 [US2] Update `ListingForm.tsx` to show a success message upon publishing, clear the form, and smoothly scroll/refresh the dashboard to show the new listing.
 - [x] T057 [US2] Update `ServiceImageDropzone.tsx` to trigger the loading state immediately via onBeforeUploadBegin/onUploadProgress.
 - [x] T058 [US2] Update `EditListingModal.tsx` to increase the modal width (e.g., max-w-3xl) for a better editing experience.
+- [x] T059 [US2] Update `ServiceImageDropzone.tsx` to capture onUploadProgress directly to guarantee the loading spinner triggers when interacting anywhere.
+- [x] T060 [US2] Update `EditListingModal.tsx` to increase the modal width to max-w-4xl (900px) with w-full for maximum spatial comfort.
 
 ---
 

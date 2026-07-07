@@ -21,7 +21,7 @@
 ### Session 2026-07-07
 - Q: Exibição do Apartamento → A: Permitir que os usuários ocultem o número do apartamento nos anúncios públicos por questões de privacidade. Opcional na visualização, mas obrigatório no cadastro.
 - Q: O que acontece se o upload da imagem falhar por erro de rede ou tamanho? → A: Exibir um erro visual (Toast/Alerta) e impedir a criação do anúncio até que a imagem seja enviada com sucesso (imagens são estritamente obrigatórias).
-- Q: Feedback visual de Upload e Publicação → A: O upload da imagem deve exibir um indicador visual de carregamento (loading) que deve engatilhar **imediatamente** (on drop/select) e não apenas no evento principal de upload. Ao clicar em publicar, o sistema deve mostrar uma mensagem de sucesso ("Publicado com sucesso") e redirecionar/focar na listagem atualizada do dashboard. Além disso, o Modal de Edição deve apresentar uma largura expandida (ex: max-w-3xl) para proporcionar mais conforto visual.
+- Q: Feedback visual de Upload e Publicação → A: O upload da imagem deve exibir um indicador visual de carregamento (loading) que deve engatilhar **imediatamente e absolutamente** (capturando qualquer drop, clique na área tracejada ou no botão). Ao clicar em publicar, o sistema deve mostrar uma mensagem de sucesso ("Publicado com sucesso") e redirecionar/focar na listagem atualizada do dashboard. Além disso, o Modal de Edição deve apresentar uma largura massiva (ex: max-w-4xl / w-[900px]) para proporcionar máximo conforto visual.
 
 ## User Scenarios & Testing *(mandatory)*
 
