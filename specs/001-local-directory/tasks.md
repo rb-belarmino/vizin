@@ -148,6 +148,13 @@ description: "Task list for Vizin Marketplace implementation"
 - [x] T059 [US2] Update `ServiceImageDropzone.tsx` to capture onUploadProgress directly to guarantee the loading spinner triggers when interacting anywhere.
 - [x] T060 [US2] Update `EditListingModal.tsx` to increase the modal width to max-w-4xl (900px) with w-full for maximum spatial comfort.
 
+### Phase 9: Dashboard Restructuring
+
+- [x] T061 [US2] Create new route `/dashboard/novo` and extract the `ListingForm` component into it.
+- [x] T062 [US2] Update `/dashboard/page.tsx` to remove the inline form and add a "Novo Serviço" call-to-action button linking to `/dashboard/novo`.
+- [x] T063 [US2] Update `ListingForm.tsx` success handler to use `router.push('/dashboard')` instead of just refreshing the current page.
+- [x] T064 [US2] Update `EditListingModal.tsx` to use inline styles for `width: 95vw` and `maxWidth: 900px` to bypass any Tailwind JIT compilation caching issues.
+
 ---
 
 ## Dependencies & Execution Order

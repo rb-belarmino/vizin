@@ -1,69 +1,70 @@
-"use client";
+'use client'
 
-import { useState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
-import { ServiceImageDropzone } from "@/components/upload/ServiceImageDropzone";
+import { useState, useEffect, useRef } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
+import { ServiceImageDropzone } from '@/components/upload/ServiceImageDropzone'
 import {
   ListingSchema,
-  ListingSchemaType,
-} from "@/actions/schemas/listing-schema";
-import { updateListingAction } from "@/actions/listing-actions";
-import { Listing } from "@/core/entities/listing";
+  ListingSchemaType
+} from '@/actions/schemas/listing-schema'
+import { updateListingAction } from '@/actions/listing-actions'
+import { Listing } from '@/core/entities/listing'
 
 const CATEGORIES = [
-  "Gastronomia",
-  "Reformas",
-  "Aulas",
-  "Beleza",
-  "Saúde",
-  "Outros",
-] as const;
+  'Gastronomia',
+  'Reformas',
+  'Aulas',
+  'Beleza',
+  'Saúde',
+  'Outros'
+] as const
 
 interface UploadState {
-  url: string;
-  key: string;
+  url: string
+  key: string
 }
 
 interface EditListingModalProps {
-  listing: Listing;
-  open: boolean;
-  onClose: () => void;
+  listing: Listing
+  open: boolean
+  onClose: () => void
 }
 
 export function EditListingModal({
   listing,
   open,
-  onClose,
+  onClose
 }: EditListingModalProps) {
-  const router = useRouter();
-  const [serverError, setServerError] = useState<string | null>(null);
-  const [successMsg, setSuccessMsg] = useState<string | null>(null);
-  const [uploadState, setUploadState] = useState<UploadState | null>(null);
-  const [isUploading] = useState(false);
-  const overlayRef = useRef<HTMLDivElement>(null);
+  const router = useRouter()
+  const [serverError, setServerError] = useState<string | null>(null)
+  const [successMsg, setSuccessMsg] = useState<string | null>(null)
+  const [uploadState, setUploadState] = useState<UploadState | null>(null)
+  const [isUploading] = useState(false)
+  const overlayRef = useRef<HTMLDivElement>(null)
 
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors, isSubmitting },
-    reset,
+    reset
   } = useForm<ListingSchemaType>({
     resolver: zodResolver(ListingSchema) as any, // eslint-disable-line @typescript-eslint/no-explicit-any
     defaultValues: {
       title: listing.title,
       description: listing.description,
       categoryId: listing.categoryId,
-      priceBaseline: listing.priceBaseline ?? "",
-      whatsappNumber: listing.whatsappNumber ?? "",
-      instagramHandle: listing.instagramHandle ?? "",
-      visibilityStatus: (listing.visibilityStatus as "Public" | "Private") ?? "Public",
+      priceBaseline: listing.priceBaseline ?? '',
+      whatsappNumber: listing.whatsappNumber ?? '',
+      instagramHandle: listing.instagramHandle ?? '',
+      visibilityStatus:
+        (listing.visibilityStatus as 'Public' | 'Private') ?? 'Public',
       portfolioImageUrl: listing.portfolioImageUrl,
-      portfolioImageKey: listing.portfolioImageKey,
-    },
-  });
+      portfolioImageKey: listing.portfolioImageKey
+    }
+  })
 
   // Reset form when listing changes (e.g., different modal opened)
   useEffect(() => {
@@ -72,85 +73,92 @@ export function EditListingModal({
         title: listing.title,
         description: listing.description,
         categoryId: listing.categoryId,
-        priceBaseline: listing.priceBaseline ?? "",
-        whatsappNumber: listing.whatsappNumber ?? "",
-        instagramHandle: listing.instagramHandle ?? "",
-        visibilityStatus: (listing.visibilityStatus as "Public" | "Private") ?? "Public",
+        priceBaseline: listing.priceBaseline ?? '',
+        whatsappNumber: listing.whatsappNumber ?? '',
+        instagramHandle: listing.instagramHandle ?? '',
+        visibilityStatus:
+          (listing.visibilityStatus as 'Public' | 'Private') ?? 'Public',
         portfolioImageUrl: listing.portfolioImageUrl,
-        portfolioImageKey: listing.portfolioImageKey,
-      });
-      
+        portfolioImageKey: listing.portfolioImageKey
+      })
     }
-  }, [open, listing, reset]);
+  }, [open, listing, reset])
 
   // Close on Escape key
   useEffect(() => {
-    if (!open) return;
+    if (!open) return
     const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", handleKey);
-    return () => document.removeEventListener("keydown", handleKey);
-  }, [open, onClose]);
+      if (e.key === 'Escape') onClose()
+    }
+    document.addEventListener('keydown', handleKey)
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [open, onClose])
 
   // Prevent body scroll while modal open
   useEffect(() => {
     if (open) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden'
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = ''
     }
-    return () => { document.body.style.overflow = ""; };
-  }, [open]);
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [open])
 
-  const currentImageUrl = uploadState?.url ?? listing.portfolioImageUrl;
-  const currentImageKey = uploadState?.key ?? listing.portfolioImageKey;
+  const currentImageUrl = uploadState?.url ?? listing.portfolioImageUrl
+  const currentImageKey = uploadState?.key ?? listing.portfolioImageKey
 
   const onSubmit = async (data: ListingSchemaType) => {
-    setServerError(null);
-    setSuccessMsg(null);
+    setServerError(null)
+    setSuccessMsg(null)
 
     const result = await updateListingAction(listing.id, {
       ...data,
       portfolioImageUrl: currentImageUrl,
-      portfolioImageKey: currentImageKey,
-    });
+      portfolioImageKey: currentImageKey
+    })
 
     if (result.error) {
-      setServerError(result.error);
+      setServerError(result.error)
     } else {
-      setSuccessMsg("Serviço atualizado com sucesso!");
-      router.refresh();
+      setSuccessMsg('Serviço atualizado com sucesso!')
+      router.refresh()
       // Close after short delay so user sees the success message
       setTimeout(() => {
-        onClose();
-      }, 1200);
+        onClose()
+      }, 1200)
     }
-  };
+  }
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === overlayRef.current) onClose();
-  };
+    if (e.target === overlayRef.current) onClose()
+  }
 
-  if (!open) return null;
+  if (!open) return null
 
   return (
     <div
       ref={overlayRef}
       onClick={handleOverlayClick}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "oklch(0 0 0 / 0.5)", backdropFilter: "blur(4px)" }}
+      style={{ background: 'oklch(0 0 0 / 0.5)', backdropFilter: 'blur(4px)' }}
       role="dialog"
       aria-modal="true"
       aria-label="Editar serviço"
     >
       {/* Modal panel */}
-      <div className="w-full max-w-[900px] max-h-[90vh] overflow-y-auto rounded-2xl bg-card border shadow-2xl animate-scale-in">
+      <div 
+        className="w-full max-h-[90vh] overflow-y-auto rounded-2xl bg-card border shadow-2xl animate-scale-in"
+        style={{ width: '95vw', maxWidth: '1200px', minWidth: 'min(95vw, 800px)' }}
+      >
         {/* Header */}
         <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b sticky top-0 bg-card z-10">
           <div>
             <h2 className="text-base font-semibold">Editar serviço</h2>
-            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{listing.title}</p>
+            <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+              {listing.title}
+            </p>
           </div>
           <button
             type="button"
@@ -179,7 +187,12 @@ export function EditListingModal({
           )}
           {successMsg && (
             <div className="rounded-xl bg-emerald-500/10 border border-emerald-500/20 px-4 py-3 text-sm text-emerald-700 dark:text-emerald-400 flex items-center gap-2 animate-fade-in">
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+              >
                 <path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z" />
               </svg>
               {successMsg}
@@ -194,12 +207,12 @@ export function EditListingModal({
             <ServiceImageDropzone
               initialImageUrl={currentImageUrl}
               onUploadComplete={(url, key) => {
-                setUploadState({ url, key });
-                setValue("portfolioImageUrl", url);
-                setValue("portfolioImageKey", key);
+                setUploadState({ url, key })
+                setValue('portfolioImageUrl', url)
+                setValue('portfolioImageKey', key)
               }}
-              onUploadError={(error) => {
-                setServerError(`Erro no upload: ${error.message}`);
+              onUploadError={error => {
+                setServerError(`Erro no upload: ${error.message}`)
               }}
             />
           </div>
@@ -211,7 +224,7 @@ export function EditListingModal({
             </label>
             <input
               id="edit-title"
-              {...register("title")}
+              {...register('title')}
               type="text"
               className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
             />
@@ -222,49 +235,62 @@ export function EditListingModal({
 
           {/* Description */}
           <div className="space-y-1">
-            <label htmlFor="edit-description" className="block text-sm font-medium">
+            <label
+              htmlFor="edit-description"
+              className="block text-sm font-medium"
+            >
               Descrição <span className="text-destructive">*</span>
             </label>
             <textarea
               id="edit-description"
-              {...register("description")}
+              {...register('description')}
               rows={4}
               className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring resize-none"
             />
             {errors.description && (
-              <p className="text-xs text-destructive">{errors.description.message}</p>
+              <p className="text-xs text-destructive">
+                {errors.description.message}
+              </p>
             )}
           </div>
 
           {/* Category + Price — 2-col grid */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label htmlFor="edit-category" className="block text-sm font-medium">
+              <label
+                htmlFor="edit-category"
+                className="block text-sm font-medium"
+              >
                 Categoria <span className="text-destructive">*</span>
               </label>
               <select
                 id="edit-category"
-                {...register("categoryId")}
+                {...register('categoryId')}
                 className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
               >
-                {CATEGORIES.map((cat) => (
+                {CATEGORIES.map(cat => (
                   <option key={cat} value={cat}>
                     {cat}
                   </option>
                 ))}
               </select>
               {errors.categoryId && (
-                <p className="text-xs text-destructive">{errors.categoryId.message}</p>
+                <p className="text-xs text-destructive">
+                  {errors.categoryId.message}
+                </p>
               )}
             </div>
 
             <div className="space-y-1">
               <label htmlFor="edit-price" className="block text-sm font-medium">
-                Preço base <span className="text-muted-foreground text-xs">(opcional)</span>
+                Preço base{' '}
+                <span className="text-muted-foreground text-xs">
+                  (opcional)
+                </span>
               </label>
               <input
                 id="edit-price"
-                {...register("priceBaseline")}
+                {...register('priceBaseline')}
                 type="text"
                 placeholder="Ex: A partir de R$ 50"
                 className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -275,24 +301,36 @@ export function EditListingModal({
           {/* Contact fields */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1">
-              <label htmlFor="edit-whatsapp" className="block text-sm font-medium">
-                WhatsApp <span className="text-muted-foreground text-xs">(opcional)</span>
+              <label
+                htmlFor="edit-whatsapp"
+                className="block text-sm font-medium"
+              >
+                WhatsApp{' '}
+                <span className="text-muted-foreground text-xs">
+                  (opcional)
+                </span>
               </label>
               <input
                 id="edit-whatsapp"
-                {...register("whatsappNumber")}
+                {...register('whatsappNumber')}
                 type="tel"
                 placeholder="5511999999999"
                 className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
               />
             </div>
             <div className="space-y-1">
-              <label htmlFor="edit-instagram" className="block text-sm font-medium">
-                Instagram <span className="text-muted-foreground text-xs">(opcional)</span>
+              <label
+                htmlFor="edit-instagram"
+                className="block text-sm font-medium"
+              >
+                Instagram{' '}
+                <span className="text-muted-foreground text-xs">
+                  (opcional)
+                </span>
               </label>
               <input
                 id="edit-instagram"
-                {...register("instagramHandle")}
+                {...register('instagramHandle')}
                 type="text"
                 placeholder="seuperfil (sem @)"
                 className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -302,12 +340,15 @@ export function EditListingModal({
 
           {/* Visibility */}
           <div className="space-y-1">
-            <label htmlFor="edit-visibility" className="block text-sm font-medium">
+            <label
+              htmlFor="edit-visibility"
+              className="block text-sm font-medium"
+            >
               Visibilidade
             </label>
             <select
               id="edit-visibility"
-              {...register("visibilityStatus")}
+              {...register('visibilityStatus')}
               className="w-full rounded-xl border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
             >
               <option value="Public">Público — visível no catálogo</option>
@@ -337,12 +378,12 @@ export function EditListingModal({
                   Salvando...
                 </>
               ) : (
-                "Salvar alterações"
+                'Salvar alterações'
               )}
             </button>
           </div>
         </form>
       </div>
     </div>
-  );
+  )
 }

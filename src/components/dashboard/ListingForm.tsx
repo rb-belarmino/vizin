@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { ServiceImageDropzone } from '@/components/upload/ServiceImageDropzone'
 import {
   ListingSchema,
@@ -76,10 +76,12 @@ export function ListingForm({ onSuccess }: { onSuccess?: () => void }) {
       setUploadState(null)
       setSuccessMessage('Serviço publicado com sucesso!')
       onSuccess?.()
-      router.refresh()
-
-      setTimeout(() => setSuccessMessage(null), 4000)
-      window.scrollBy({ top: 500, behavior: 'smooth' })
+      
+      setTimeout(() => {
+        setSuccessMessage(null)
+        router.push('/dashboard')
+        router.refresh()
+      }, 2000)
     }
   }
 
