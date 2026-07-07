@@ -1,14 +1,14 @@
-# Implementation Plan: [FEATURE]
+# Implementation Plan: Vizin Marketplace
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
+**Branch**: `001-local-directory` | **Date**: 2026-07-07 | **Spec**: `/specs/001-local-directory/spec.md`
 
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Input**: Feature specification from `/specs/001-local-directory/spec.md`
 
 **Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/plan-template.md` for the execution workflow.
 
 ## Summary
 
-Develop Vizin Marketplace: a local directory and marketplace for condominium residents. It includes a public catalog of services with search/filter capabilities, a private provider dashboard for managing listings and uploading images, and a user profile management system with a secure password recovery flow. The technical approach strictly adheres to Clean Architecture using Next.js 16 App Router, Auth.js v5 on Edge, Prisma ORM, UploadThing, and Resend for transactional emails.
+Develop Vizin Marketplace: a local directory and marketplace for condominium residents. It includes a public catalog of services with search/filter capabilities, a private provider dashboard for managing listings and uploading images (with privacy controls allowing providers to hide their apartment numbers), and a user profile management system with a secure password recovery flow. The technical approach strictly adheres to Clean Architecture using Next.js 16 App Router, Auth.js v5 on Edge, Prisma ORM, UploadThing, and Resend for transactional emails.
 
 ## Technical Context
 
@@ -46,7 +46,7 @@ Develop Vizin Marketplace: a local directory and marketplace for condominium res
 ### Documentation (this feature)
 
 ```text
-specs/[###-feature]/
+specs/001-local-directory/
 ├── plan.md              # This file (/speckit.plan command output)
 ├── research.md          # Phase 0 output (/speckit.plan command)
 ├── data-model.md        # Phase 1 output (/speckit.plan command)

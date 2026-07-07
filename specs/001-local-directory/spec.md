@@ -18,6 +18,10 @@
 ### Session 2026-07-06
 - Q: O que o sistema deve fazer se um usuário tentar recuperar a senha informando um e-mail não cadastrado? → A: Mostrar um erro explícito informando que o e-mail não foi encontrado, priorizando a usabilidade.
 
+### Session 2026-07-07
+- Q: Exibição do Apartamento → A: Permitir que os usuários ocultem o número do apartamento nos anúncios públicos por questões de privacidade. Opcional na visualização, mas obrigatório no cadastro.
+- Q: O que acontece se o upload da imagem falhar por erro de rede ou tamanho? → A: Exibir um erro visual (Toast/Alerta) e impedir a criação do anúncio até que a imagem seja enviada com sucesso (imagens são estritamente obrigatórias).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Public Service Catalog (Priority: P1)
@@ -31,7 +35,7 @@ As a resident looking for a service, I want to access a public, easily searchabl
 **Acceptance Scenarios**:
 
 1. **Given** a non-authenticated user on the homepage, **When** the page loads, **Then** they see a dynamic grid of active public services sorted by newest first.
-2. **Given** a user viewing a listing, **When** they inspect it, **Then** they see the image, category badge, title, description, price baseline, unit identification, and active contact links.
+2. **Given** a user viewing a listing, **When** they inspect it, **Then** they see the image, category badge, title, description, price baseline, unit identification (if allowed by provider), and active contact links.
 3. **Given** a user on the homepage, **When** they type a query in the global search bar, **Then** the grid updates in real-time to show matches in titles and descriptions.
 4. **Given** a user on the homepage, **When** they click a category pill (e.g., Gastronomia), **Then** the grid isolates listings to that specific business vector.
 5. **Given** a user viewing a listing, **When** they trigger the share action, **Then** the native share drawer opens (mobile) or the link is copied to the clipboard (desktop).
@@ -81,7 +85,7 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 
 ### Edge Cases
 
-- What happens if the image upload fails due to network issues or file size limits?
+- **Image Upload Failure**: If the image upload fails due to network issues or file size limits, display a visual error (Toast/Alert) and block the listing creation until a successful upload occurs.
 - **Empty Search Fallback**: Display a simple "No results" message with a button to easily clear active filters/search.
 - **Account Collision**: Allow multiple accounts per apartment (e.g., spouses/roommates) without strict uniqueness, trusting the closed community nature.
 - **Expired Recovery Link**: If a password recovery link expires before the user clicks it, show an invalid link warning and prompt them to generate a new one.
@@ -92,7 +96,7 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 ### Functional Requirements
 
 - **FR-001**: System MUST display a dynamic grid of active, public services on the home page (`/`), sorted by newest first.
-- **FR-002**: System MUST render each listing with a main portfolio image, category badge with emoji (Gastronomia 🍽️, Reformas 🔨, Aulas 📚, Beleza 💇, Saúde 🏥, or Outros ⭐), title, clamped description, optional price baseline, provider full name, numerical unit identification (apartment number), and active contact trigger components.
+- **FR-002**: System MUST render each listing with a main portfolio image, category badge with emoji (Gastronomia 🍽️, Reformas 🔨, Aulas 📚, Beleza 💇, Saúde 🏥, or Outros ⭐), title, clamped description, optional price baseline, provider full name, numerical unit identification (apartment number - if visibility is granted), and active contact trigger components.
 - **FR-003**: System MUST provide a real-time global search mechanism indexing text matches inside titles and descriptions.
 - **FR-004**: System MUST provide category quick filter pills to isolate listings.
 - **FR-005**: System MUST support a native share system using the Web Share API (mobile drawer) with clipboard copy as desktop fallback, triggered from a share button on each listing card.
@@ -100,7 +104,7 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 - **FR-007**: System MUST collect Full Name, Email, Password, and strictly numerical Apartment Identification during Sign Up.
 - **FR-008**: System MUST authenticate users via Email and Password for Log In.
 - **FR-009**: System MUST isolate the dashboard inventory grid to show only the logged-in resident's listings.
-- **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with state indicators.
+- **FR-010**: System MUST provide a multi-input creation form for listings, including a visible file upload zone with state indicators, and an option to hide their apartment number from public view.
 - **FR-011**: System MUST instruct the storage provider to physically delete orphaned assets when a listing is purged or its image is switched.
 - **FR-012**: System MUST use predefined structural fields (e.g., specific field for WhatsApp, another for Instagram) when creating listings to enforce clean contact formatting.
 - **FR-013**: System MUST provide a protected route (`/dashboard/profile`) for authenticated users to view their current registration data (Name, Email, Apartment).
@@ -112,7 +116,7 @@ Como um residente que esqueceu sua senha, quero poder solicitar um link seguro d
 ### Key Entities
 
 - **Resident (User)**: Represents a member of the condominium. Key attributes: Full Name, Email, Password Hash, strictly numerical Apartment ID.
-- **Service Listing**: Represents an offering by a resident. Key attributes: Title, Description, Portfolio Image URL, Category, Price Baseline, Contact Links (predefined structural fields for WhatsApp and Instagram), Visibility Status (Public/Hidden), Reference to Provider (Resident).
+- **Service Listing**: Represents an offering by a resident. Key attributes: Title, Description, Portfolio Image URL, Category, Price Baseline, Contact Links (predefined structural fields for WhatsApp and Instagram), Visibility Status (Public/Hidden), Show Apartment Flag (Boolean), Reference to Provider (Resident).
 
 ## Success Criteria *(mandatory)*
 

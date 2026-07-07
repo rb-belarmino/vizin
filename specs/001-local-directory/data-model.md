@@ -34,6 +34,7 @@ Represents a service offered by a resident to the condominium.
   - `whatsappNumber`: String (Optional, Clean numeric only, predefined structural field)
   - `instagramHandle`: String (Optional, Without '@', predefined structural field)
   - `visibilityStatus`: Enum (Public, Hidden) - Default: Public
+  - `showApartment`: Boolean (Required) - Default: true
   - `providerId`: UUID (Foreign Key to User)
   - `createdAt`: DateTime
   - `updatedAt`: DateTime
@@ -42,6 +43,7 @@ Represents a service offered by a resident to the condominium.
 - **Validation**:
   - At least one contact field (`whatsappNumber` or `instagramHandle`) must be provided.
   - Image key is strictly required to satisfy UploadThing garbage collection requirements.
+  - `showApartment` controls if the provider's apartment number is visible to the public.
 
 ### PasswordResetToken
 Represents a secure, short-lived token used for recovering access to a user account.
