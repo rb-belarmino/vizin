@@ -29,6 +29,45 @@ describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
     );
   });
 
+  describe('registerResident', () => {
+    it('should register a resident', async () => {
+      mockResidentRepository.createResident.mockResolvedValue({ id: 'user-1' });
+      const result = await useCase.registerResident({ email: 'test@test.com' });
+      expect(result).toEqual({ id: 'user-1' });
+      expect(mockResidentRepository.createResident).toHaveBeenCalledWith({ email: 'test@test.com', passwordHash: 'hashed_password' });
+    });
+  });
+
+  describe('loginResident', () => {
+    it('should login a resident successfully', async () => {
+      mockResidentRepository.findResidentByEmail.mockResolvedValue({ id: 'user-1' });
+      const result = await useCase.loginResident('test@test.com');
+      expect(result).toEqual({ id: 'user-1' });
+    });
+
+    it('should throw if invalid credentials', async () => {
+      mockResidentRepository.findResidentByEmail.mockResolvedValue(null);
+      await expect(useCase.loginResident('test@test.com')).rejects.toThrow('Invalid credentials');
+    });
+  });
+
+  describe('createListing', () => {
+    it('should create a listing', async () => {
+      mockResidentRepository.createListing.mockResolvedValue({ id: 'listing-1' });
+      const result = await useCase.createListing({ title: 'New' });
+      expect(result).toEqual({ id: 'listing-1' });
+      expect(mockResidentRepository.createListing).toHaveBeenCalledWith({ title: 'New' });
+    });
+  });
+
+  describe('getResidentListings', () => {
+    it('should get resident listings', async () => {
+      mockResidentRepository.getResidentListings.mockResolvedValue([{ id: 'listing-1' }]);
+      const result = await useCase.getResidentListings('provider-1');
+      expect(result).toEqual([{ id: 'listing-1' }]);
+    });
+  });
+
   describe('deleteListing', () => {
     it('should delete image from storage when listing is deleted', async () => {
       const listingId = 'listing-1';

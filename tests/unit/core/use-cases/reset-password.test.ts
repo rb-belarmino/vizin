@@ -136,5 +136,19 @@ describe('Reset Password Use Cases', () => {
       await expect(validateResetToken('expired-token', 'new')).rejects.toThrow('Token expirado. Por favor, solicite um novo.');
       expect(mockDeletePasswordResetToken).toHaveBeenCalledWith('token-1');
     });
+
+    it('should throw if user associated with valid token is not found', async () => {
+      const futureDate = new Date();
+      futureDate.setHours(futureDate.getHours() + 1);
+      
+      mockFindPasswordResetToken.mockResolvedValue({
+        id: 'token-1',
+        email: 'test@example.com',
+        expires: futureDate
+      });
+      mockFindResidentByEmail.mockResolvedValue(null);
+
+      await expect(validateResetToken('valid-token', 'new-password')).rejects.toThrow('Usuário não encontrado.');
+    });
   });
 });

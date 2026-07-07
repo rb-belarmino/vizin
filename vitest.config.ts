@@ -10,6 +10,11 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src')
     },
-    setupFiles: ['./tests/setup.ts']
+    setupFiles: ['./tests/setup.ts'],
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      include: ['src/core/use-cases/**/*.ts'],
+    }
   }
 })
