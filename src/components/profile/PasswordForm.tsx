@@ -59,9 +59,11 @@ export function PasswordForm({ hasPassword }: { hasPassword: boolean }) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Nova Senha</label>
+            <label htmlFor="set-new-password" className="block text-sm font-medium mb-1">Nova Senha</label>
             <input 
+              id="set-new-password"
               type="password" 
+              autoComplete="new-password"
               {...setPasswordForm.register('newPassword')}
               className="w-full p-2 rounded-md bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary"
             />
@@ -79,9 +81,11 @@ export function PasswordForm({ hasPassword }: { hasPassword: boolean }) {
       ) : (
         <form onSubmit={changePasswordForm.handleSubmit(onChangeSubmit)} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium mb-1">Senha Atual</label>
+            <label htmlFor="current-password" className="block text-sm font-medium mb-1">Senha Atual</label>
             <input 
+              id="current-password"
               type="password" 
+              autoComplete="current-password"
               {...changePasswordForm.register('currentPassword')}
               className="w-full p-2 rounded-md bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary"
             />
@@ -89,9 +93,11 @@ export function PasswordForm({ hasPassword }: { hasPassword: boolean }) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium mb-1">Nova Senha</label>
+            <label htmlFor="change-new-password" className="block text-sm font-medium mb-1">Nova Senha</label>
             <input 
+              id="change-new-password"
               type="password" 
+              autoComplete="new-password"
               {...changePasswordForm.register('newPassword')}
               className="w-full p-2 rounded-md bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary"
             />
