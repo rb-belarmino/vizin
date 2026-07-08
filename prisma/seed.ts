@@ -226,12 +226,12 @@ async function main() {
   // Create demo reviews
   const dbListings = await prisma.serviceListing.findMany()
   const dbUsers = await prisma.user.findMany()
-  
+
   for (const listing of dbListings) {
     const nonProviders = dbUsers.filter(u => u.id !== listing.providerId)
     // Add 1 to 2 random reviews for each listing
     const numReviews = Math.floor(Math.random() * 2) + 1
-    
+
     for (let i = 0; i < numReviews; i++) {
       if (nonProviders[i]) {
         const rating = Math.floor(Math.random() * 2) + 4 // 4 or 5 stars
@@ -243,7 +243,10 @@ async function main() {
           await prisma.review.create({
             data: {
               rating,
-              comment: rating === 5 ? 'Excelente serviço, super recomendo!' : 'Muito bom, profissional.',
+              comment:
+                rating === 5
+                  ? 'Excelente serviço, super recomendo!'
+                  : 'Muito bom, profissional.',
               authorId: nonProviders[i].id,
               serviceListingId: listing.id
             }
