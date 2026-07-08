@@ -95,6 +95,20 @@ describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
       expect(mockStorageService.deleteImage).not.toHaveBeenCalled();
       expect(mockResidentRepository.deleteListing).toHaveBeenCalledWith(listingId);
     });
+
+    it('should not attempt to delete image from storage if storageService is undefined when listing is deleted', async () => {
+      const useCaseWithoutStorage = new ManageListingsUseCase(mockResidentRepository as unknown as ResidentRepository);
+      const listingId = 'listing-1';
+      const mockListing = { id: listingId, portfolioImageKey: 'image-123' };
+      
+      mockResidentRepository.getListingById.mockResolvedValue(mockListing);
+      mockResidentRepository.deleteListing.mockResolvedValue(true);
+      
+      await useCaseWithoutStorage.deleteListing(listingId);
+      
+      expect(mockStorageService.deleteImage).not.toHaveBeenCalled();
+      expect(mockResidentRepository.deleteListing).toHaveBeenCalledWith(listingId);
+    });
   });
 
   describe('updateListing', () => {
@@ -120,6 +134,21 @@ describe('Manage Listings Use Case (US2 - Garbage Collection TDD)', () => {
       mockResidentRepository.getListingById.mockResolvedValue(oldListing);
       
       await useCase.updateListing(listingId, updateData);
+      
+      expect(mockStorageService.deleteImage).not.toHaveBeenCalled();
+      expect(mockResidentRepository.updateListing).toHaveBeenCalledWith(listingId, updateData);
+    });
+
+    it('should not attempt to delete old image when image key changes but storageService is undefined', async () => {
+      const useCaseWithoutStorage = new ManageListingsUseCase(mockResidentRepository as unknown as ResidentRepository);
+      const listingId = 'listing-1';
+      const oldListing = { id: listingId, portfolioImageKey: 'old-123' };
+      const updateData = { portfolioImageKey: 'new-123', title: 'New Title' };
+      
+      mockResidentRepository.getListingById.mockResolvedValue(oldListing);
+      mockResidentRepository.updateListing.mockResolvedValue({ ...oldListing, ...updateData });
+      
+      await useCaseWithoutStorage.updateListing(listingId, updateData);
       
       expect(mockStorageService.deleteImage).not.toHaveBeenCalled();
       expect(mockResidentRepository.updateListing).toHaveBeenCalledWith(listingId, updateData);
