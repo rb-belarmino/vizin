@@ -1,6 +1,10 @@
 # Vizin
 
-Vizin is a modern, hyper-local marketplace platform connecting residents with reliable neighborhood service providers.
+![Vizin Banner](https://vizin-green.vercel.app/icon.jpg)
+
+**Vizin** is a modern, hyper-local marketplace platform connecting residents with reliable neighborhood service providers (gastronomy, tech, cleaning, pets, events, and more).
+
+**Live Demo / Production:** [https://vizin-green.vercel.app/](https://vizin-green.vercel.app/)
 
 ## Tech Stack
 
@@ -11,6 +15,7 @@ This project is built with a strictly typed, full-stack architecture optimized f
 - **ORM**: [Prisma](https://www.prisma.io/)
 - **Authentication**: [Auth.js v5](https://authjs.dev/) (Credentials Provider with Edge support)
 - **Storage**: [UploadThing](https://uploadthing.com/)
+- **Analytics**: [Vercel Web Analytics](https://vercel.com/analytics)
 - **UI & Styling**: [Tailwind CSS](https://tailwindcss.com/) + [Radix UI](https://www.radix-ui.com/) (inspired by shadcn/ui)
 
 ## Getting Started
@@ -23,7 +28,7 @@ npm install
 
 Ensure your `.env` is properly configured. You will need to set up the following environment variables:
 
-- `DATABASE_URL`: NeonDB connection string
+- `DATABASE_URL`: NeonDB connection string (Note: append `?sslmode=verify-full` for production)
 - `AUTH_SECRET`: Auth.js secret (can be generated via `npx auth secret`)
 - `UPLOADTHING_TOKEN`: UploadThing API token
 - `RESEND_API_KEY`: Resend API key for sending emails
