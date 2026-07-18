@@ -5,6 +5,10 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 
 const categories = [
+  { id: 'Tecnologia', emoji: '💻' },
+  { id: 'Limpeza', emoji: '🧹' },
+  { id: 'Pets', emoji: '🐾' },
+  { id: 'Eventos', emoji: '🎉' },
   { id: 'Gastronomia', emoji: '🍽️' },
   { id: 'Reformas', emoji: '🔨' },
   { id: 'Aulas', emoji: '📚' },

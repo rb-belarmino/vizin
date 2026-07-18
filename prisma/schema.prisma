@@ -28,8 +28,8 @@ model ServiceListing {
   title             String
   description       String
   categoryId        String
-  portfolioImageUrl String
-  portfolioImageKey String
+  portfolioImageUrl String?
+  portfolioImageKey String?
   priceBaseline     String?
   whatsappNumber    String?
   instagramHandle   String?

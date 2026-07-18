@@ -8,8 +8,8 @@ export const ListingSchema = z.object({
     .string()
     .min(10, { message: 'Description must be at least 10 characters long.' }),
   categoryId: z.string().min(1, { message: 'Category is required.' }),
-  portfolioImageUrl: z.string().url({ message: 'Invalid image URL.' }),
-  portfolioImageKey: z.string().min(1, { message: 'Image key is required.' }),
+  portfolioImageUrl: z.string().url({ message: 'Invalid image URL.' }).optional().or(z.literal('')),
+  portfolioImageKey: z.string().optional().or(z.literal('')),
   priceBaseline: z.string().optional(),
   whatsappNumber: z.string().optional(),
   instagramHandle: z.string().optional(),

@@ -1,4 +1,8 @@
 export type ListingCategory = 
+  | 'Tecnologia'
+  | 'Limpeza'
+  | 'Pets'
+  | 'Eventos'
   | 'Gastronomia'
   | 'Reformas'
   | 'Aulas'
@@ -13,8 +17,8 @@ export interface Listing {
   title: string;
   description: string;
   categoryId: string; // Storing as string to match Prisma, but we validate it against ListingCategory
-  portfolioImageUrl: string;
-  portfolioImageKey: string;
+  portfolioImageUrl: string | null;
+  portfolioImageKey: string | null;
   priceBaseline: string | null;
   whatsappNumber: string | null;
   instagramHandle: string | null;
