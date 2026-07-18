@@ -13,10 +13,19 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://vizin-green.vercel.app'),
   title: 'Vizin — Serviços do Condomínio',
   description:
     'Encontre e ofereça serviços entre moradores do seu condomínio. Gastronomia, reformas, aulas, beleza e muito mais.',
-  keywords: ['condomínio', 'serviços', 'moradores', 'marketplace', 'vizinhos']
+  keywords: ['condomínio', 'serviços', 'moradores', 'marketplace', 'vizinhos'],
+  openGraph: {
+    title: 'Vizin — Serviços do Condomínio',
+    description: 'Encontre e ofereça serviços entre moradores do seu condomínio.',
+    url: 'https://vizin-green.vercel.app',
+    siteName: 'Vizin',
+    locale: 'pt_BR',
+    type: 'website'
+  }
 }
 
 export default function RootLayout({

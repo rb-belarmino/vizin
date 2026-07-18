@@ -10,6 +10,44 @@ import { auth } from '@/infrastructure/auth/auth'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
+import type { Metadata } from 'next'
+
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ id: string }>
+}): Promise<Metadata> {
+  const { id } = await params
+  const listing = await getListingDetailsUseCase(id)
+
+  if (!listing) {
+    return {
+      title: 'Serviço não encontrado | Vizin'
+    }
+  }
+
+  const title = `${listing.title} | Vizin`
+  const description = listing.description.slice(0, 150) + (listing.description.length > 150 ? '...' : '')
+  const ogImage = listing.portfolioImageUrl || 'https://vizin-green.vercel.app/icon.jpg'
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title: listing.title,
+      description,
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: listing.title
+        }
+      ]
+    }
+  }
+}
+
 export default async function ListingDetailsPage({
   params
 }: {
