@@ -12,6 +12,10 @@ import {
 import { createListingAction } from '@/actions/listing-actions'
 
 const CATEGORIES = [
+  'Tecnologia',
+  'Limpeza',
+  'Pets',
+  'Eventos',
   'Gastronomia',
   'Reformas',
   'Aulas',

@@ -13,6 +13,10 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 const CATEGORY_EMOJI: Record<string, string> = {
+  Tecnologia: '💻',
+  Limpeza: '🧹',
+  Pets: '🐾',
+  Eventos: '🎉',
   Gastronomia: '🍽️',
   Reformas: '🔨',
   Aulas: '📚',
@@ -22,6 +26,10 @@ const CATEGORY_EMOJI: Record<string, string> = {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
+  Tecnologia: 'bg-blue-100 text-blue-700 border-blue-200 dark:bg-blue-900/30 dark:text-blue-400 dark:border-blue-800',
+  Limpeza: 'bg-teal-100 text-teal-700 border-teal-200 dark:bg-teal-900/30 dark:text-teal-400 dark:border-teal-800',
+  Pets: 'bg-amber-100 text-amber-700 border-amber-200 dark:bg-amber-900/30 dark:text-amber-400 dark:border-amber-800',
+  Eventos: 'bg-purple-100 text-purple-700 border-purple-200 dark:bg-purple-900/30 dark:text-purple-400 dark:border-purple-800',
   Gastronomia: 'bg-orange-100 text-orange-700 border-orange-200',
   Reformas: 'bg-stone-100 text-stone-700 border-stone-200',
   Aulas: 'bg-blue-100 text-blue-700 border-blue-200',

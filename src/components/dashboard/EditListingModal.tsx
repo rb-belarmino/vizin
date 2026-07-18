@@ -13,6 +13,10 @@ import { updateListingAction } from '@/actions/listing-actions'
 import { Listing } from '@/core/entities/listing'
 
 const CATEGORIES = [
+  'Tecnologia',
+  'Limpeza',
+  'Pets',
+  'Eventos',
   'Gastronomia',
   'Reformas',
   'Aulas',
