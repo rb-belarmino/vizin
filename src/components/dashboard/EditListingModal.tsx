@@ -61,8 +61,8 @@ export function EditListingModal({
       instagramHandle: listing.instagramHandle ?? '',
       visibilityStatus:
         (listing.visibilityStatus as 'Public' | 'Private') ?? 'Public',
-      portfolioImageUrl: listing.portfolioImageUrl,
-      portfolioImageKey: listing.portfolioImageKey
+      portfolioImageUrl: listing.portfolioImageUrl ?? '',
+      portfolioImageKey: listing.portfolioImageKey ?? ''
     }
   })
 
@@ -78,8 +78,8 @@ export function EditListingModal({
         instagramHandle: listing.instagramHandle ?? '',
         visibilityStatus:
           (listing.visibilityStatus as 'Public' | 'Private') ?? 'Public',
-        portfolioImageUrl: listing.portfolioImageUrl,
-        portfolioImageKey: listing.portfolioImageKey
+        portfolioImageUrl: listing.portfolioImageUrl ?? '',
+        portfolioImageKey: listing.portfolioImageKey ?? ''
       })
     }
   }, [open, listing, reset])
@@ -115,8 +115,8 @@ export function EditListingModal({
 
     const result = await updateListingAction(listing.id, {
       ...data,
-      portfolioImageUrl: currentImageUrl,
-      portfolioImageKey: currentImageKey
+      portfolioImageUrl: currentImageUrl ?? '',
+      portfolioImageKey: currentImageKey ?? ''
     })
 
     if (result.error) {
@@ -205,7 +205,7 @@ export function EditListingModal({
               Imagem do serviço
             </label>
             <ServiceImageDropzone
-              initialImageUrl={currentImageUrl}
+              initialImageUrl={currentImageUrl ?? undefined}
               onUploadComplete={(url, key) => {
                 setUploadState({ url, key })
                 setValue('portfolioImageUrl', url)
