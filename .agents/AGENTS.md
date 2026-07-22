@@ -1,29 +1,33 @@
-# Regras do Projeto Vizin
+# Regras do Projeto Vizin (AI Agents Rulebook)
 
-Este arquivo contém as diretrizes arquiteturais e de estilo para o projeto Vizin. Os agentes de IA devem seguir estas regras estritamente ao escrever código para este repositório.
+Este arquivo define as diretrizes absolutas e limites para os agentes de IA operando no projeto Vizin (Next.js 16+, React 19, Tailwind CSS 4, Prisma). Siga rigorosamente.
 
-## 1. Arquitetura Hexagonal (Clean Architecture)
+## 1. Arquitetura e Limites (Clean Architecture)
+- **Frontend Isolado**: `src/app` e `src/components` são estritamente para UI. NUNCA instancie Prisma, banco de dados ou NextAuth diretamente aqui.
+- **Camada de Acesso (Server Actions)**: Toda comunicação Client -> Server passa por `src/actions/`. As actions validam os dados (com Zod) e chamam a camada Core.
+- **Core (Regras de Negócio)**: Lógica complexa e casos de uso residem em `src/core/`. O Core não deve depender do framework Next.js.
+- **Infraestrutura**: Banco de dados (Prisma), e-mails (Resend), auth e uploads (UploadThing) ficam isolados em `src/infrastructure/`. O acesso ao Prisma deve ocorrer via repositórios ou adapters específicos, não espalhado pelas actions.
 
-- **Separação de Responsabilidades**: O projeto Next.js utiliza uma separação lógica rigorosa baseada em Ports & Adapters.
-- **Frontend Isolado**: Componentes de UI em `src/app` e `src/components` NUNCA devem importar ou instanciar o Prisma, bancos de dados, ou regras de negócio centrais.
-- **A Ponte (Server Actions)**: A comunicação entre a UI e a infraestrutura deve ocorrer EXCLUSIVAMENTE através de Server Actions localizadas em `src/actions`. Estas actions agem como os Controladores (Driving Adapters).
-- **Core e Infraestrutura**: Server actions devem delegar a lógica complexa de negócios para a camada `src/core/` (Entidades e Use Cases) e operações de banco de dados/serviços externos para `src/infrastructure/` (Driven Adapters).
+## 2. Tecnologias e Padrões Obrigatórios
+- **Next.js & React 19**: Utilize os padrões do App Router. Componentes por padrão são Server Components. Use `'use client'` apenas quando houver estado local (`useState`), efeitos (`useEffect`) ou eventos interativos.
+- **Tailwind CSS v4**: Utilizamos a nova sintaxe do v4 (via `@tailwindcss/postcss`). Sem `tailwind.config.js`. Utilize variáveis semânticas definidas em `globals.css` (ex: `bg-background`, `text-primary`). NUNCA use cores hardcoded (ex: `bg-blue-500`).
+- **Autenticação (Next-Auth v5)**: Importe a função `auth()` de `src/infrastructure/auth/auth.ts` em rotas no servidor ou Server Actions.
+- **Estado Funcional/Tratamento de Erros**: Utilize a biblioteca `effect` quando houver necessidade de lidar com fluxos complexos, retornos tipados de erros e side-effects de forma funcional.
 
-## 2. Formulários e Validação
+## 3. Formulários, Validação e Tipagem
+- **React Hook Form + Zod**: Obrigatório para todos os formulários.
+- **Single Source of Truth**: Os schemas do Zod devem ficar em `src/actions/schemas/` e ser reaproveitados tanto no `react-hook-form` (client) quanto na validação das `Server Actions` (server).
 
-- **React Hook Form + Zod**: Todos os formulários na interface devem usar `react-hook-form` acoplado ao `zodResolver`.
-- **Schemas Compartilhados**: Os schemas do Zod devem residir em `src/actions/schemas/` e ser utilizados tanto no Client-side (pelos forms) quanto no Server-side (pelas Server Actions) para garantir que a validação seja perfeitamente síncrona em ambas as pontas.
+## 4. UI/UX, Componentes e Design System
+- **Shadcn/Base UI**: Utilize os componentes em `src/components/ui/` sempre que possível antes de criar um novo do zero.
+- **Classes de Marca e Estética**:
+  - Aplique micro-interações: `.animate-fade-in`, hover effects (`hover:scale-[1.02]`, `transition-all`).
+  - Para áreas nobres/hero: Use `.hero-gradient`.
+  - Para destaque: Use `.brand-gradient`.
+  - Para overlays, modais e fundos premium: Use `.glass` (glassmorphism).
+- **Sem Placeholders Genéricos**: Use lucide-react para ícones. Para imagens, certifique-se de prever os estados de fallback se a imagem falhar.
 
-## 3. UI/UX e Design System
-
-- **Variáveis CSS OKLCH**: O projeto utiliza um sistema de cores dinâmico configurado no `src/app/globals.css`. Nunca utilize cores hexadecimais rígidas ou cores padrão do Tailwind (ex: `bg-blue-500`) para elementos primários da marca. Sempre utilize as variáveis CSS semânticas do Tailwind (ex: `bg-primary`, `text-muted-foreground`).
-- **Classes de Marca**:
-  - Para fundos premium/hero: Utilize a utilitária `.hero-gradient`.
-  - Para botões primários ou detalhes de destaque: Utilize a utilitária `.brand-gradient`.
-  - Para modais e cards flutuantes sobre fundos escuros: Utilize a utilitária `.glass` para aplicar glassmorphism moderno.
-- **Micro-interações**: Favoreça componentes vivos que respondem ao usuário. Exemplo: aplique animações suaves de entrada (como `.animate-slide-up` ou `.animate-fade-in`) e efeitos de elevação em hover (`hover:-translate-y-0.5`).
-
-## 4. Atualizações de Banco de Dados
-
-- **Prisma Schema**: Ao atualizar o `prisma/schema.prisma`, certifique-se de definir relações de exclusão adequadas (como `onDelete: Cascade`) caso haja dependências estritas.
-- Ao gerar mocks ou seeds, adicione-os no script principal `prisma/seed.ts`.
+## 5. Testes (Vitest & Playwright)
+- **Unit/Integration**: Testes para hooks, regras de negócio do Core e components utilitários devem usar Vitest em `/tests/`.
+- **E2E**: Fluxos críticos devem ser testados com Playwright em `/specs/`.
+- **Mocks & DB**: Qualquer alteração de esquema no `prisma/schema.prisma` deve contemplar remoção em cascata (`onDelete: Cascade`). Sempre atualize o `prisma/seed.ts` quando criar entidades novas.
